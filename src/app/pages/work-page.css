@@ -1,0 +1,77 @@
+/**
+ * Work index — sticky project stack (Spector Projects page).
+ */
+
+.oveliq-work-stack {
+  position: relative;
+  width: 100%;
+}
+
+.oveliq-work-stack__panel {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+}
+
+.oveliq-work-stack__index {
+  position: absolute;
+  right: var(--page-gutter, 24px);
+  bottom: var(--page-gutter, 24px);
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
+  pointer-events: none;
+}
+
+.oveliq-work-outro {
+  z-index: 10;
+}
+
+.oveliq-work-outro__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1025px) {
+  .oveliq-work-outro__row {
+    grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr);
+    align-items: baseline;
+  }
+}
+
+.oveliq-work-outro__text {
+  margin: 0;
+  max-width: 48rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+.work-library__filters { display: flex; flex-wrap: wrap; gap: .625rem; padding-bottom: 1.75rem; border-bottom: 1px solid #706a64; font-family: "Plus Jakarta Sans Variable", sans-serif; }
+.work-library__filters button { display: inline-flex; align-items: center; gap: 1.25rem; min-height: 44px; padding: .75rem 1.125rem; border: 1px solid #827b74; border-radius: 999px; color: #eee5da; background: transparent; font: inherit; font-size: .8125rem; cursor: pointer; }
+.work-library__filters button[aria-pressed="true"] { background: #f3eadd; border-color: #f3eadd; color: #262a2d; }
+.work-library__filters button span { opacity: .7; font-size: .6875rem; }
+.work-library__filters button:focus-visible, .work-library__card:focus-visible { outline: 2px solid #ff8279; outline-offset: 5px; }
+.work-library__count { margin: 1.25rem 0 2rem; color: #bcb6ae; font: 400 .75rem/1.5 "Plus Jakarta Sans Variable", sans-serif; }
+.work-library__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.5rem 2rem; }
+.work-library__card { min-width: 0; color: #fff4e7; text-decoration: none; font-family: "Plus Jakarta Sans Variable", sans-serif; }
+.work-library__media { position: relative; overflow: hidden; background: #292b29; border-radius: 12px; }
+.work-library__media img { display: block; width: 100%; height: auto; aspect-ratio: 1.5; object-fit: contain; object-position: center; transition: transform 350ms ease; }
+.work-library__type { display: inline-flex; margin-top: 1rem; border: 1px solid #5c625a; border-radius: 999px; color: #ddd8cf; padding: .4rem .7rem; font-size: .625rem; line-height: 1.5; }
+.work-library__copy { display: flex; justify-content: space-between; gap: 1rem; margin-top: .75rem; }
+.work-library__copy > div { min-width: 0; }
+.work-library__copy p { margin: 0 0 .5rem; color: #bcb6ae; font-size: .625rem; line-height: 1.6; text-transform: uppercase; letter-spacing: .07em; }
+.work-library__copy h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.2; font-weight: 500; letter-spacing: -.045em; }
+.work-library__copy svg { width: 24px; height: 24px; flex-shrink: 0; margin-top: .5rem; }
+.work-library__summary { margin: .75rem 0 0; color: #c9c1b8; font-size: .875rem; line-height: 1.6; }
+@media (hover: hover) { .work-library__card:hover img { transform: scale(1.025); } .work-library__card:hover h2 { color: #ff8279; } }
+@media (max-width: 640px) { .work-library__grid { grid-template-columns: 1fr; gap: 2.5rem; } .work-library__filters { gap: .5rem; } .work-library__filters button { gap: .75rem; padding: .65rem .875rem; font-size: .75rem; } }
+@media (prefers-reduced-motion: reduce) { .work-library__media img { transition: none; } }

@@ -1,0 +1,799 @@
+/*
+ * Oveliqt Services theater — SERVICES-FIDELITY-02
+ * Spector @1440×900 (measured):
+ *   list x=24, pitch ~38px, 18px
+ *   light field x=488 w=952 h=653 bg #f9f9f9
+ *   media image w=644 inside light field
+ *   title x=316 size 120/120 difference-blend
+ *   caps x=1148 w=268 fs=18
+ *   desc x=44 y≈bottom w=300 fs=12
+ *   index .NN 80px #616161 bottom-right
+ *   progress 200×2 under media
+ *
+ * Transform ownership:
+ *   .oveliq-svc-row__label     → hover translateX
+ *   .oveliq-svc-title__layer   → clipped title enter/exit
+ *   .oveliq-media-crossfade__layer → media opacity + scale
+ *   .oveliq-svc-copy           → description/capabilities opacity + ty
+ */
+
+.oveliq-services {
+  --svc-gutter: var(--page-gutter, 24px);
+  /* Spector theater geometry @1440, expressed relative to padded shell */
+  --svc-theater-h: 40.8125rem; /* 653px */
+  --svc-media-left: calc(488px - var(--svc-gutter)); /* 464px inside shell */
+  --svc-title-left: calc(316px - var(--svc-gutter)); /* 292px */
+  --svc-caps-w: 19.25rem; /* ~308px → media image ~644 @1440 */
+  --svc-media-field: #f9f9f9;
+  --svc-media-canvas: #f9f9f9;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--background);
+  color: var(--color-001);
+  overflow-x: visible;
+  overflow-y: visible;
+}
+
+.oveliq-services__inner {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  padding-inline: var(--svc-gutter);
+}
+
+.oveliq-services__inner .oveliq-section-manifesto {
+  margin-bottom: var(--space-support-to-content, 2.5rem);
+}
+
+.oveliq-services__bridge {
+  width: 100%;
+  padding: clamp(1.25rem, 2.5vh, 2rem) var(--svc-gutter) clamp(0.75rem, 2vh, 1.5rem);
+}
+
+.oveliq-services__bridge-rule {
+  height: 1px;
+  width: 100%;
+  background: var(--rule-color, rgba(5, 6, 9, 0.1));
+}
+
+/* Product previews remain readable, with the service title below the image. */
+.oveliq-services .oveliq-service-visual__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.oveliq-svc-detail-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--accent);
+  color: var(--color-001);
+  font-size: 0.8125rem;
+  text-decoration: none;
+}
+
+.oveliq-svc-detail-link svg { color: var(--accent); }
+.oveliq-svc-detail-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* —— Desktop theater (≥1100px) —— */
+.oveliq-svc-theater {
+  display: none;
+}
+
+.oveliq-svc-accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1100px) {
+  .oveliq-svc-theater {
+    position: relative;
+    display: block;
+    width: calc(100% + var(--svc-gutter));
+    height: var(--svc-theater-h);
+    min-height: var(--svc-theater-h);
+    margin-right: calc(-1 * var(--svc-gutter));
+    /* One shared editorial field — not a card grid */
+    background: transparent;
+  }
+
+  .oveliq-svc-accordion {
+    display: none;
+  }
+}
+
+@media (min-width: 1100px) and (max-height: 820px) {
+  .oveliq-svc-theater {
+    --svc-theater-h: min(72vh, 40.8125rem);
+  }
+}
+
+/* Left rail: selector + bottom description */
+.oveliq-svc-theater__rail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  width: min(28rem, calc(var(--svc-media-left) - 1.5rem));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  min-width: 0;
+  padding: 1rem 0 2.55rem;
+  pointer-events: none;
+}
+
+.oveliq-svc-theater__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  pointer-events: auto;
+}
+
+.oveliq-svc-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  min-height: 2.375rem; /* ~38px pitch */
+  padding: 0.4rem 0.25rem 0.4rem 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+}
+
+.oveliq-svc-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.oveliq-svc-row__marker {
+  display: none;
+}
+
+/* Numbers hidden in desktop theater — Spector list is name-only */
+.oveliq-svc-row__num {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.oveliq-svc-row__label {
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: var(--type-body-lg);
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+  text-transform: none;
+  font-weight: 400;
+  font-variation-settings: "wght" var(--type-wght-label);
+  font-feature-settings: "calt" 0;
+  color: var(--color-001);
+  transition:
+    color var(--motion-fast) var(--ease-ui),
+    transform var(--motion-ui) var(--ease-editorial);
+}
+
+.oveliq-svc-row--active .oveliq-svc-row__label {
+  color: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .oveliq-svc-row:hover .oveliq-svc-row__label {
+    transform: translateX(6px);
+  }
+
+  .oveliq-svc-row:not(.oveliq-svc-row--active):hover .oveliq-svc-row__label {
+    color: color-mix(in srgb, var(--accent) 78%, var(--color-001));
+  }
+}
+
+.oveliq-svc-theater__desc {
+  max-width: 18.75rem; /* 300px */
+  pointer-events: auto;
+}
+
+.oveliq-svc-theater__desc-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-variation-settings: "wght" var(--type-wght-caps);
+}
+
+.oveliq-svc-theater__desc-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+  background: var(--accent);
+  mask-image: url("data:image/svg+xml,<svg display='block' role='presentation' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'><path d='M 7 0 L 3.5 0 L 3.5 3.5 L 7 3.5 Z M 7 7 L 3.5 7 L 3.5 10.5 L 7 10.5 Z M 3.5 0 L 0 0 L 0 3.5 L 3.5 3.5 Z M 3.5 3.5 L 0 3.5 L 0 7 L 3.5 7 Z M 3.5 10.5 L 0 10.5 L 0 14 L 3.5 14 Z M 10.5 10.5 L 7 10.5 L 7 14 L 10.5 14 Z M 14 0 L 10.5 0 L 10.5 3.5 L 14 3.5 Z M 14 7 L 10.5 7 L 10.5 10.5 L 14 10.5 Z' fill='currentColor' transform='translate(1 1)'/></svg>");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.oveliq-svc-theater__desc p {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: rgb(97, 97, 97);
+}
+
+.oveliq-svc-copy {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 280ms var(--ease-editorial),
+    transform 280ms var(--ease-editorial);
+}
+
+.oveliq-svc-copy.is-settled,
+.oveliq-svc-copy[data-reduced="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stage = light editorial field (media + caps + index + progress) */
+.oveliq-svc-theater__stage {
+  position: absolute;
+  left: var(--svc-media-left);
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--svc-caps-w);
+  grid-template-rows: 1fr auto;
+  gap: 0;
+  min-width: 0;
+  background: var(--svc-media-field);
+  border-radius: 0;
+  overflow: visible;
+}
+
+.oveliq-svc-theater__media {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1 / -1;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--svc-media-canvas);
+  border-radius: 0;
+}
+
+.oveliq-svc-theater__media .oveliq-media-crossfade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.oveliq-svc-theater__media .oveliq-media-crossfade__layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Caps + index — right light field, no chrome */
+.oveliq-svc-theater__side {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem 1.25rem 1rem;
+  min-width: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.oveliq-svc-theater__side > * {
+  pointer-events: auto;
+}
+
+.oveliq-svc-theater__caps {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0.25rem 0 0;
+  list-style: none;
+}
+
+.oveliq-svc-theater__caps li {
+  padding: 0.45rem 0;
+  border: 0;
+  border-top: 1px solid rgba(5, 6, 9, 0.1);
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: var(--type-body-lg);
+  font-weight: 400;
+  font-variation-settings: "wght" var(--type-wght-label);
+  line-height: 1.7;
+  letter-spacing: -0.04em;
+  color: var(--color-001);
+}
+
+.oveliq-svc-theater__caps li:first-child {
+  border-top: 0;
+}
+
+.oveliq-svc-theater__index-num {
+  margin: 0;
+  align-self: flex-end;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: 5rem; /* 80px — Spector index mass */
+  line-height: 1.1;
+  letter-spacing: -0.06em;
+  color: rgb(97, 97, 97);
+  font-feature-settings: "calt" 0, "case";
+}
+
+/* Clipped vertical index reel (.01 → .06) */
+.oveliq-svc-index-reel {
+  position: relative;
+  align-self: flex-end;
+  display: grid;
+  overflow: hidden;
+  height: 5.5rem;
+  min-width: 7rem;
+  pointer-events: none;
+}
+
+.oveliq-svc-index-reel__layer {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: 5rem;
+  line-height: 1.1;
+  letter-spacing: -0.06em;
+  color: rgb(97, 97, 97);
+  font-feature-settings: "calt" 0, "case";
+  text-align: right;
+  opacity: 0;
+  transform: translate3d(0, 70%, 0);
+  transition:
+    opacity 320ms var(--ease-editorial),
+    transform 360ms var(--ease-editorial);
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+
+.oveliq-svc-index-reel__layer.is-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  z-index: 1;
+}
+
+.oveliq-svc-index-reel__layer.is-exit {
+  opacity: 0;
+  transform: translate3d(0, -55%, 0);
+  z-index: 0;
+}
+
+.oveliq-svc-index-reel[data-reduced="true"] .oveliq-svc-index-reel__layer {
+  transition: none;
+}
+
+.oveliq-svc-index-reel[data-reduced="true"] .oveliq-svc-index-reel__layer.is-exit {
+  display: none;
+}
+
+/* Progress sits under media image zone, not a UI widget under the index */
+.oveliq-svc-progress {
+  position: absolute;
+  left: 23%;
+  bottom: 2rem;
+  z-index: 3;
+  width: 12.5rem; /* 200px */
+  height: 2px;
+  border-radius: 0;
+  overflow: hidden;
+  background: rgba(38, 42, 45, 0.12);
+  pointer-events: none;
+}
+
+.oveliq-svc-progress__fill {
+  height: 100%;
+  border-radius: 0;
+  background: var(--accent);
+  transition: width 300ms var(--ease-ui);
+  width: var(--svc-progress, 16.666%);
+}
+
+/* Oversized title — theater-level, clipped per-line enter/exit.
+   Live Spector: mix-blend-mode difference + white ink over media/field.
+   Keep overflow visible on the title stack so blend is not isolated away. */
+.oveliq-svc-theater__title {
+  position: absolute;
+  left: var(--svc-title-left);
+  width: min(52rem, 72vw);
+  top: 50%;
+  z-index: 6;
+  pointer-events: none;
+  transform: translateY(-50%);
+  overflow: visible;
+  isolation: auto;
+  /* z-index + transform make this node a stacking context, so the blend must live
+     here — an inner blend only sees this node's transparent backdrop (white on white). */
+  mix-blend-mode: difference;
+}
+
+.oveliq-svc-title {
+  position: relative;
+  display: grid;
+}
+
+.oveliq-svc-title__layer {
+  grid-area: 1 / 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.oveliq-svc-title__layer.is-active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.oveliq-svc-title__layer.is-exit {
+  opacity: 1;
+  z-index: 0;
+}
+
+.oveliq-svc-title__difference {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.oveliq-svc-title__line-mask {
+  display: block;
+  overflow: hidden;
+  line-height: 1;
+}
+
+.oveliq-svc-title__line {
+  display: block;
+  white-space: nowrap;
+  transform: translate3d(0, 110%, 0);
+  opacity: 0;
+}
+
+.oveliq-svc-title__layer.is-active .oveliq-svc-title__line {
+  animation: oveliq-svc-title-line-in 460ms var(--ease-editorial) both;
+  animation-delay: calc(var(--svc-line-i, 0) * 40ms);
+}
+
+.oveliq-svc-title__layer.is-exit .oveliq-svc-title__line {
+  animation: oveliq-svc-title-line-out 320ms var(--ease-editorial) both;
+  animation-delay: calc(var(--svc-line-i, 0) * 30ms);
+}
+
+.oveliq-svc-title__layer.is-active[data-reduced="true"] .oveliq-svc-title__line,
+.oveliq-svc-title__layer[data-reduced="true"] .oveliq-svc-title__line {
+  animation: none;
+  transform: none;
+  opacity: 1;
+}
+
+@keyframes oveliq-svc-title-line-in {
+  from {
+    transform: translate3d(0, 108%, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes oveliq-svc-title-line-out {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(0, -70%, 0);
+    opacity: 0;
+  }
+}
+
+.oveliq-svc-theater__title .oveliq-difference-title,
+.oveliq-svc-theater__title .oveliq-svc-title__difference {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: var(--type-display-md); /* 120px @1440 */
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: var(--type-tracking-md);
+  text-transform: uppercase;
+  font-feature-settings: "calt" 0, "case";
+  color: #fff;
+  mix-blend-mode: normal; /* blended at .oveliq-svc-theater__title */
+}
+
+.oveliq-svc-theater__title .oveliq-svc-title__line {
+  white-space: nowrap;
+}
+
+.oveliq-svc-theater__progress-mobile {
+  display: none;
+}
+
+@media (min-width: 1100px) and (max-width: 1279px) {
+  .oveliq-svc-theater {
+    --svc-media-left: clamp(18rem, 30vw, 24rem);
+    --svc-title-left: clamp(10rem, 16vw, 14rem);
+    --svc-caps-w: 13rem;
+  }
+
+  .oveliq-svc-theater__stage {
+    grid-template-columns: minmax(0, 1fr) var(--svc-caps-w);
+  }
+
+  .oveliq-svc-theater__title {
+    width: min(36rem, 62vw);
+  }
+
+  .oveliq-svc-theater__title .oveliq-svc-title__line {
+    font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+  }
+
+  .oveliq-svc-theater__side {
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .oveliq-svc-theater {
+    --svc-media-left: calc(34vw - var(--svc-gutter));
+    --svc-title-left: calc(22vw - var(--svc-gutter));
+  }
+}
+
+/* —— Accordion (<1100px) —— */
+.oveliq-svc-accordion {
+  padding-bottom: clamp(2.5rem, 6vh, 4rem);
+}
+
+.oveliq-svc-acc {
+  border-top: 1px solid var(--rule-color, rgba(38, 42, 45, 0.1));
+}
+
+.oveliq-svc-acc:last-child {
+  border-bottom: 1px solid var(--rule-color, rgba(38, 42, 45, 0.1));
+}
+
+.oveliq-svc-acc__trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+}
+
+.oveliq-svc-acc__trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.oveliq-svc-acc__trigger-main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.oveliq-svc-acc__num {
+  flex-shrink: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: -0.02em;
+  color: var(--muted, #6b7280);
+}
+
+.oveliq-svc-acc__title {
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: clamp(1rem, 2.8vw, 1.125rem);
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--color-001);
+  transition: color var(--motion-fast) var(--ease-ui);
+  font-variation-settings: "wght" var(--type-wght-label);
+}
+
+.oveliq-svc-acc--open .oveliq-svc-acc__title {
+  color: var(--accent);
+}
+
+.oveliq-svc-acc__icon {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--muted, #6b7280);
+}
+
+.oveliq-svc-acc__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 360ms var(--ease-editorial);
+}
+
+.oveliq-svc-acc--open .oveliq-svc-acc__panel {
+  grid-template-rows: 1fr;
+}
+
+.oveliq-svc-acc__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.oveliq-svc-acc__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 0 1.5rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 280ms var(--ease-editorial) 40ms,
+    transform 280ms var(--ease-editorial) 40ms;
+}
+
+.oveliq-svc-acc--open .oveliq-svc-acc__body {
+  opacity: 1;
+  transform: none;
+}
+
+.oveliq-svc-acc__visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--svc-media-canvas, #f2f2f0);
+  border-radius: 0;
+  opacity: 0;
+  transform: translate3d(0, 12px, 0) scale(1.02);
+  transition:
+    opacity 420ms var(--ease-editorial),
+    transform 480ms var(--ease-editorial);
+}
+
+.oveliq-svc-acc--open .oveliq-svc-acc__visual {
+  opacity: 1;
+  transform: none;
+}
+
+.oveliq-svc-acc__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: color-mix(in srgb, var(--color-001) 12%, transparent);
+}
+
+.oveliq-svc-acc__progress span {
+  display: block;
+  height: 100%;
+  width: var(--svc-progress, 16.666%);
+  background: var(--accent);
+}
+
+.oveliq-svc-acc__display {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder", sans-serif;
+  font-size: clamp(1.75rem, 8vw, 2.75rem);
+  font-weight: 400;
+  font-variation-settings: "wght" var(--type-wght-title);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--color-001);
+}
+
+.oveliq-svc-acc__display span {
+  display: block;
+}
+
+.oveliq-svc-acc__desc {
+  margin: 0;
+  max-width: 36rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--muted, #6b7280);
+}
+
+.oveliq-svc-acc__caps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+}
+
+.oveliq-svc-acc__caps li {
+  font-size: 0.8125rem;
+  letter-spacing: -0.02em;
+  color: var(--color-001);
+}
+
+.oveliq-svc-acc__index {
+  margin: 0;
+  font-size: clamp(2.5rem, 10vw, 3.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: rgb(97, 97, 97);
+  opacity: 0.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-svc-row__label,
+  .oveliq-svc-copy,
+  .oveliq-svc-progress__fill,
+  .oveliq-svc-index-reel__layer,
+  .oveliq-svc-acc__panel,
+  .oveliq-svc-acc__body,
+  .oveliq-svc-acc__visual {
+    transition: none !important;
+  }
+
+  .oveliq-svc-acc__visual {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .oveliq-svc-title__layer.is-active .oveliq-svc-title__line,
+  .oveliq-svc-title__layer.is-exit .oveliq-svc-title__line,
+  .oveliq-svc-title__layer.is-active[data-reduced="true"] .oveliq-svc-title__line,
+  .oveliq-svc-title__layer[data-reduced="true"] .oveliq-svc-title__line {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .oveliq-svc-index-reel__layer {
+    transform: none !important;
+  }
+
+  .oveliq-svc-index-reel__layer:not(.is-active) {
+    display: none !important;
+  }
+}

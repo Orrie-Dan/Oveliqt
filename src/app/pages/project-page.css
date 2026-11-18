@@ -1,0 +1,343 @@
+/* Text and screenshot media each own a normal document-flow section. */
+.oveliq-project-hero { position: relative; z-index: 2; background: var(--background); color: var(--color-001); }
+.oveliq-project-hero__inner { max-width: 1440px; margin-inline: auto; padding: clamp(8rem, 12vw, 11rem) var(--page-gutter, 24px) clamp(2.5rem, 5vw, 5rem); }
+.oveliq-project-hero__status { display: block; margin: 0 0 1.75rem; color: #7a4034; font: 500 .6875rem/1.6 "Plus Jakarta Sans Variable", sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.oveliq-project-hero__title { margin: 0; font-family: "Plus Jakarta Sans Variable", sans-serif; font-size: clamp(2.75rem, 7.5vw, 7.5rem); line-height: 1.02; letter-spacing: -.06em; font-weight: 500; overflow-wrap: anywhere; }
+.oveliq-project-hero__foot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem 5rem; margin-top: 2.5rem; }
+.oveliq-project-hero__tagline { max-width: 28ch; margin: 0; font: 400 clamp(1.25rem, 2vw, 1.75rem)/1.4 "Plus Jakarta Sans Variable", sans-serif; letter-spacing: -.035em; }
+.oveliq-project-hero__intro { max-width: 60ch; margin: 0; color: #53585a; font: 400 .9375rem/1.8 "Plus Jakarta Sans Variable", sans-serif; }
+@media (max-width: 700px) { .oveliq-project-hero__foot { grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1.75rem; } }
+
+/* —— Meta list —— */
+.oveliq-project-meta {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(3rem, 8vh, 5rem) var(--page-gutter, 24px) 0;
+}
+
+.oveliq-project-meta__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.oveliq-project-meta__date,
+.oveliq-project-meta__client {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-project-meta__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+.oveliq-project-meta__title {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+
+.oveliq-project-meta__client {
+  font-size: 1rem;
+  text-transform: none;
+  color: var(--color-001);
+}
+
+.oveliq-project-meta__list {
+  margin: 0;
+}
+
+.oveliq-project-meta__row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) minmax(0, 2fr);
+  gap: 1rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--rule-color, rgba(38, 42, 45, 0.1));
+}
+
+.oveliq-project-meta__row dt,
+.oveliq-project-meta__row dd {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+}
+
+.oveliq-project-meta__row dt {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-caps);
+}
+
+.oveliq-project-meta__row dd {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  text-align: right;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: rgba(38, 42, 45, 0.72);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+.oveliq-project-meta__view {
+  display: flex;
+  justify-content: center;
+  padding: clamp(2.5rem, 7vh, 4rem) var(--page-gutter, 24px);
+  border-top: 1px solid var(--rule-color, rgba(38, 42, 45, 0.1));
+}
+
+.oveliq-project-meta:last-child {
+  padding-bottom: clamp(3rem, 8vh, 5rem);
+}
+
+/* —— Outcome —— */
+.oveliq-project-outcome {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vh, 3rem);
+}
+
+@media (min-width: 1025px) {
+  .oveliq-project-outcome {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(3rem, 8vw, 9rem);
+  }
+}
+
+.oveliq-project-outcome__label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1.25rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-label, 1.25rem);
+  letter-spacing: -0.03em;
+  font-variation-settings: "wght" var(--type-wght-label);
+}
+
+.oveliq-project-outcome__mark {
+  width: 0.65rem;
+  height: 0.65rem;
+  background: var(--accent);
+}
+
+.oveliq-project-outcome__lead {
+  margin: 0;
+  max-width: 34rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(1.75rem, 3.2vw, 2.875rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  color: var(--color-002);
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+
+.oveliq-project-outcome__points {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.oveliq-project-outcome__point {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(232, 217, 200, 0.14);
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-body-lg, 1.125rem);
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  color: rgba(232, 217, 200, 0.86);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+.oveliq-project-outcome__num {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  line-height: 1.9;
+  color: var(--accent);
+}
+
+/* —— Previous / next —— */
+.oveliq-project-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: clamp(3rem, 8vh, 5rem) var(--page-gutter, 24px) clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.oveliq-project-pager__link {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--color-001);
+  text-decoration: none;
+}
+
+.oveliq-project-pager__link--next {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.oveliq-project-pager__word {
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(2.25rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  font-variation-settings: "wght" var(--type-wght-display);
+}
+
+.oveliq-project-pager__name,
+.oveliq-project-pager__client {
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+}
+
+.oveliq-project-pager__client {
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.oveliq-project-pager__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* —— Related grid + all projects —— */
+.oveliq-project-related {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  padding: 0 4px;
+}
+
+@media (min-width: 768px) {
+  .oveliq-project-related {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.oveliq-project-all {
+  display: flex;
+  justify-content: center;
+  padding: clamp(3rem, 9vh, 5.5rem) var(--page-gutter, 24px);
+}
+
+/* —— Title over media (Spector second title scene, letter reveal) —— */
+.oveliq-project-title-scene {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  height: clamp(28rem, 100svh, 64rem);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-004);
+  color: var(--background);
+}
+
+.oveliq-project-title-scene__media {
+  position: absolute;
+  inset: -12% 0;
+}
+
+.oveliq-project-title-scene__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.oveliq-project-title-scene__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 6, 9, 0.38);
+}
+
+.oveliq-project-title-scene__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 var(--page-gutter, 24px);
+  text-align: center;
+}
+
+.oveliq-project-title-scene__client {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.375rem);
+  letter-spacing: -0.02em;
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-project-title-scene__title {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(3.25rem, 10vw, 9.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  font-variation-settings: "wght" var(--type-wght-heading);
+}
+
+/* —— Late media pop (scale 1.6 → 1) —— */
+.oveliq-project-pop-media__reveal {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.oveliq-project-pop-media__reveal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* —— Pager dual-layer words —— */
+.oveliq-project-pager__word {
+  position: relative;
+  display: inline-grid;
+}
+
+.oveliq-project-pager__word > span {
+  grid-area: 1 / 1;
+}
+
+.oveliq-project-pager__word-accent {
+  z-index: 2;
+  color: var(--accent);
+}

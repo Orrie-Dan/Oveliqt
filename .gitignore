@@ -1,0 +1,8 @@
+node_modules
+.next
+.next-build
+out
+dist
+# local-only captures, backups and paid-template reference material
+references/
+*.tsbuildinfo

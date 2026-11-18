@@ -1,0 +1,41 @@
+﻿.oveliq-business { position: relative; z-index: 2; width: 100%; background: #fff; color: var(--color-001); overflow: clip; }
+.oveliq-business__inner { padding: 0 var(--page-gutter, 24px) clamp(4rem, 9vh, 7rem); }
+.business-conversations { border-bottom: 1px solid #cdd2ce; }
+.business-conversation { border-top: 1px solid #cdd2ce; }
+.business-conversation summary { display: flex; align-items: flex-start; gap: clamp(1rem, 3vw, 3.5rem); padding: clamp(2rem, 4vw, 4rem) 0; list-style: none; cursor: pointer; }
+.business-conversation summary::-webkit-details-marker { display: none; }
+.business-conversation summary:focus-visible { outline: 2px solid #a2352d; outline-offset: -3px; }
+.business-conversation__number { color: #a2352d; flex: 0 0 clamp(2rem, 5vw, 5rem); padding-top: .7rem; font-size: .75rem; font-variant-numeric: tabular-nums; }
+.business-conversation__copy { flex: 1; min-width: 0; }
+.business-conversation h3 { margin: 0; max-width: 23ch; font-size: clamp(1.65rem, 3.7vw, 4rem); font-weight: 500; line-height: 1.13; letter-spacing: -.055em; text-wrap: balance; transition: color .2s; }
+.business-conversation__copy > p { max-width: 54ch; margin: 1.1rem 0 0; color: #555d59; font-size: clamp(.9375rem, 1.2vw, 1.125rem); line-height: 1.6; }
+.business-conversation__prompt { display: block; margin-top: 1.5rem; font-size: .75rem; color: #a2352d; }
+.business-conversation__toggle { display: flex; justify-content: center; align-items: center; flex: 0 0 2.75rem; width: 2.75rem; height: 2.75rem; border: 1px solid #cdd2ce; border-radius: 50%; color: #a2352d; font-size: 1.5rem; font-weight: 400; margin-top: .35rem; transition: transform .2s, background .2s, color .2s; }
+.business-conversation summary:hover h3, .business-conversation[open] h3 { color: #a2352d; }
+.business-conversation summary:hover .business-conversation__toggle { background: #a2352d; color: #fff; border-color: #a2352d; }
+.business-conversation[open] .business-conversation__toggle { transform: rotate(45deg); background: #a2352d; color: #fff; border-color: #a2352d; }
+.business-conversation__opened { display: none; }
+.business-conversation[open] .business-conversation__opened { display: inline; }
+.business-conversation[open] .business-conversation__closed { display: none; }
+.business-conversation__detail { margin-left: calc(clamp(2rem, 5vw, 5rem) + clamp(1rem, 3vw, 3.5rem)); max-width: 46rem; padding: 0 0 clamp(2rem, 4vw, 4rem); font-size: 1rem; line-height: 1.7; color: #555d59; }
+.business-conversation__detail p { margin: 0 0 1.25rem; }
+.business-conversation__detail .business-conversation__eyebrow { border-top: 1px solid #e3e6e3; padding-top: 1.5rem; color: #a2352d; font-size: .65rem; letter-spacing: .1em; margin-bottom: .75rem; }
+.business-conversation__scenario { color: #273e35; font-size: 1.125rem; }
+.business-conversation__cta { display: inline-flex; align-items: center; gap: 2rem; padding: .8rem 0 .5rem; color: #a2352d; border-bottom: 1px solid #a2352d; text-decoration: none; font-size: 1rem; }
+.business-conversation__project { display: block; width: fit-content; margin-top: 1.5rem; font-size: .75rem; text-underline-offset: 4px; color: #555d59; }
+.business-conversation a:focus-visible, .business-conversations__outro a:focus-visible { outline: 2px solid #a2352d; outline-offset: 5px; }
+.business-conversations__outro { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 2rem; font-size: .9375rem; }
+.business-conversations__outro p { margin: 0; color: #555d59; }
+.business-conversations__outro a { color: #a2352d; text-decoration: none; }
+.business-conversations__outro a span { margin-left: 1rem; }
+@media (max-width: 600px) {
+  .business-conversation summary { gap: .75rem; flex-wrap: wrap; position: relative; padding-block: 1.75rem; }
+  .business-conversation__number { flex-basis: 100%; padding: 0; }
+  .business-conversation__copy { padding-right: 2.5rem; }
+  .business-conversation h3 { font-size: clamp(1.65rem, 7.2vw, 2.5rem); }
+  .business-conversation__toggle { position: absolute; right: 0; top: 1.4rem; width: 2rem; height: 2rem; font-size: 1.25rem; }
+  .business-conversation__detail { margin-left: 0; padding-right: .5rem; font-size: .9375rem; }
+  .business-conversation__scenario { font-size: 1rem; }
+  .business-conversation__prompt { font-size: .7rem; line-height: 1.5; }
+}
+@media (prefers-reduced-motion: reduce) { .business-conversation h3, .business-conversation__toggle { transition: none; } }

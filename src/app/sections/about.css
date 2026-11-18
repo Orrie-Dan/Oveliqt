@@ -1,0 +1,238 @@
+/**
+ * About — human / rest section.
+ * Transform ownership: Reveal wrappers only (entrance).
+ */
+
+.oveliq-about {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow: clip;
+  background: #fff;
+  color: var(--color-001);
+}
+
+.oveliq-about__inner {
+  display: flex;
+  width: 100%;
+  max-width: none;
+  flex-direction: column;
+  padding: 0 var(--page-gutter, 24px) clamp(4.5rem, 10vh, 7.5rem);
+  gap: clamp(2rem, 4vh, 3.5rem);
+}
+
+.oveliq-about__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (min-width: 1025px) {
+  .oveliq-about__layout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(2.75rem, 4.5vw, 5rem);
+  }
+}
+
+.oveliq-about__paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 36rem;
+  padding-top: 0.35rem;
+}
+
+.oveliq-about__paragraph {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-body-lg, 1.125rem);
+  line-height: 1.5;
+  letter-spacing: -0.03em;
+  color: rgba(38, 42, 45, 0.78);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+.oveliq-about__founders {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 572px) {
+  .oveliq-about__founders {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+}
+
+.oveliq-founder-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.oveliq-founder-card__media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  max-height: 28rem;
+  min-height: 14rem;
+  overflow: hidden;
+  background: #050609;
+  color: var(--color-002);
+}
+
+.oveliq-founder-card__placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 55% at 18% 12%, rgba(249, 65, 55, 0.22), transparent 58%),
+    linear-gradient(168deg, #141820 0%, #050609 62%);
+}
+
+.oveliq-founder-card--b .oveliq-founder-card__placeholder {
+  background:
+    radial-gradient(75% 60% at 82% 88%, rgba(232, 217, 200, 0.16), transparent 55%),
+    radial-gradient(50% 40% at 10% 20%, rgba(249, 65, 55, 0.1), transparent 60%),
+    linear-gradient(200deg, #1a1612 0%, #050609 70%);
+}
+
+.oveliq-founder-card__placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid rgba(232, 217, 200, 0.14);
+  pointer-events: none;
+}
+
+.oveliq-founder-card__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(232, 217, 200, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232, 217, 200, 0.16) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse at 50% 45%, #000 10%, transparent 72%);
+}
+
+.oveliq-founder-card__index {
+  position: absolute;
+  top: 8%;
+  left: 8%;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  color: rgba(232, 217, 200, 0.18);
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+
+.oveliq-founder-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.oveliq-founder-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-inline: 0.15rem;
+}
+
+.oveliq-founder-card__meta-rule {
+  width: 1.75rem;
+  height: 1px;
+  margin-bottom: 0.35rem;
+  background: var(--accent);
+}
+
+.oveliq-founder-card__placeholder-label {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.oveliq-founder-card__name {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-founder-card__role {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+}
+
+.oveliq-founder-card__bio {
+  margin: 0.35rem 0 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: rgba(38, 42, 45, 0.72);
+}
+
+.oveliq-founder-card__links {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.oveliq-founder-card__link {
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-001);
+}
+
+.oveliq-founder-card__link:hover {
+  color: var(--accent);
+}
+
+.oveliq-founder-card__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1024px) {
+  .oveliq-about__inner {
+    padding-block: clamp(3rem, 6vh, 4.75rem);
+  }
+
+  .oveliq-founder-card__media {
+    max-height: 22rem;
+  }
+}

@@ -1,0 +1,109 @@
+/* Shared UI rules. Motion transform ownership remains in the existing primitives. */
+:root {
+  --page-gutter: clamp(1.25rem, 3.3vw, 4rem);
+  --type-body: 1rem;
+  --type-body-lg: 1.125rem;
+  --type-label: .8125rem;
+  --rule-color: rgba(38, 42, 45, .18);
+  --motion-reveal: 360ms;
+  --motion-media: 500ms;
+}
+
+/* Keep wheel input and long anchor jumps immediate. */
+html, body { scroll-behavior: auto; }
+::selection { background: #f94137; color: #fff; }
+:where(a, button, input, textarea, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+:where(button, a, input, select, textarea) { -webkit-tap-highlight-color: transparent; }
+:where(section[id], footer[id], #project-brief) { scroll-margin-top: 5rem; }
+.oveliq-skip-link { position: fixed; top: -6rem; left: 1rem; z-index: 200; padding: 1rem; background: #fff; color: #111215; font-size: 1rem; }
+.oveliq-skip-link:focus { top: 1rem; }
+
+.oveliq-section-manifesto .oveliq-section-manifesto__label { font-size: .8125rem; line-height: 1.5; letter-spacing: .08em; text-transform: uppercase; }
+.oveliq-section-manifesto .oveliq-section-manifesto__tagline-en { font-size: .875rem; line-height: 1.5; font-variation-settings: "wght" 460; letter-spacing: -.01em; }
+.oveliq-section-manifesto .oveliq-section-manifesto__supporting { max-width: 42ch; font-size: 1.0625rem; line-height: 1.65; color: #53585a; letter-spacing: -.015em; }
+.oveliq-section-manifesto .oveliq-section-manifesto__headline { --type-display-lg: clamp(2.125rem, 5.5vw, 5rem); }
+.oveliq-section-manifesto .oveliq-manifesto { --manifesto-appear-duration: 360ms; }
+.oveliq-section-manifesto { padding-block: clamp(3.5rem, 6vw, 6rem) 2rem; }
+
+.oveliq-ip-section .oveliq-ip-intro { line-height: 1.65; color: #53585a; letter-spacing: -.015em; }
+.oveliq-ip-section .oveliq-ip-story__body p { font-size: 1rem; line-height: 1.7; }
+.oveliq-ip-section .oveliq-ip-title { font-size: clamp(2.75rem, 8.5vw, 8rem); line-height: 1; overflow-wrap: anywhere; }
+.oveliq-ip-section .oveliq-ip-inner { max-width: 1600px; margin-inline: auto; }
+.oveliq-ip-section .oveliq-ip-arrow-link { min-height: 44px; font-size: 1rem; }
+.oveliq-ip-section .oveliq-ip-arrow-link__text { font-size: clamp(1.125rem, 2vw, 1.75rem); line-height: 1.25; }
+
+.oveliq-pill.oveliq-pill { min-height: 48px; padding: .875rem 1.25rem; gap: 1.5rem; border-radius: 999px; }
+.oveliq-pill .oveliq-pill__text { font-size: .9375rem; line-height: 1.3; letter-spacing: -.015em; }
+.oveliq-pill .oveliq-pill__arrow { width: 1.25rem; height: 1.25rem; }
+.oveliq-cta-band.oveliq-cta-band { padding-block: clamp(2rem, 5vw, 4rem); }
+.oveliq-cta-band .oveliq-cta-band__statement { max-width: 30ch; font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.2; }
+.oveliq-footer .oveliq-footer__cta { min-height: 48px; padding: 1rem 1.5rem; border: 1px solid #f4eee6; border-radius: 999px; gap: 1.5rem; }
+.oveliq-footer .oveliq-footer__cta-text { font-size: 1rem; line-height: 1.3; letter-spacing: .01em; }
+.oveliq-footer .oveliq-footer__supporting { color: #c1bbb4; line-height: 1.6; }
+.oveliq-footer .oveliq-footer__nav-link { display: inline-block; padding-block: .6rem; }
+.oveliq-footer .oveliq-footer__top { min-height: 44px; }
+
+.oveliq-about .oveliq-about__paragraph { line-height: 1.7; color: #53585a; letter-spacing: -.015em; }
+.oveliq-studio-note { display: flex; flex-direction: column; align-items: start; padding: clamp(1.5rem, 3vw, 3rem); border: 1px solid #d6d9d8; background: #fff; }
+.oveliq-studio-note__mark { font-family: "Plus Jakarta Sans Variable", sans-serif; font-size: clamp(4rem, 8vw, 7rem); line-height: 1; color: #f94137; letter-spacing: -.1em; font-variation-settings: "wght" 730; }
+.oveliq-studio-note__label { margin: 2rem 0 .75rem; font: 500 .75rem/1.5 "Plus Jakarta Sans Variable", sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.oveliq-studio-note__text { max-width: 30ch; margin: 0 0 2rem; font: 400 clamp(1.25rem, 2vw, 1.75rem)/1.4 "Plus Jakarta Sans Variable", sans-serif; letter-spacing: -.035em; color: #262a2d; }
+.oveliq-business__more { display: inline-flex; align-items: center; gap: 2rem; align-self: start; margin-top: 2rem; min-height: 44px; border-bottom: 1px solid #929795; font: 400 1rem/1.5 "Plus Jakarta Sans Variable", sans-serif; color: #262a2d; text-decoration: none; }
+.oveliq-business__more:hover { color: #be2d26; }
+.oveliq-work-index .oveliq-projects__inner { padding-top: clamp(8rem, 12vw, 12rem); }
+.oveliq-work-index .oveliq-projects__heading { margin-bottom: 3.5rem; }
+.oveliq-hero__action { margin-top: 1.5rem; pointer-events: auto; }
+.oveliq-hero__service-btn { text-decoration: none; }
+.oveliq-how-we-work .oveliq-how-we-work__inner { padding: 0 var(--page-gutter) clamp(3.5rem, 6vw, 6rem); max-width: 1600px; }
+.oveliq-process-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem 2rem; margin: 1rem 0 0; padding: 0; list-style: none; font-family: "Plus Jakarta Sans Variable", sans-serif; }
+.oveliq-process-grid li { padding-top: 1.5rem; border-top: 1px solid #b6bbb9; }
+.oveliq-process-grid__number { display: block; color: #c52e26; font-size: .875rem; line-height: 1.5; }
+.oveliq-process-grid h3 { margin: 1rem 0 .5rem; color: #262a2d; font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.2; letter-spacing: -.04em; font-variation-settings: "wght" 640; }
+.oveliq-process-grid__short { margin: 0; color: #262a2d; font-size: 1rem; line-height: 1.5; }
+.oveliq-process-grid__description { max-width: 34ch; margin: 1rem 0 0; color: #53585a; font-size: .9375rem; line-height: 1.7; }
+@media (max-width: 900px) { .oveliq-process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .oveliq-process-grid { grid-template-columns: 1fr; gap: 1.75rem; } }
+.oveliq-section-manifesto .oveliq-manifesto__row--muted { --manifesto-base: #6c7172; }
+
+/* Give service artwork and explanation room, without changing the selection behavior. */
+.oveliq-services .oveliq-svc-theater__desc p { font-size: .9375rem; line-height: 1.6; text-transform: none; color: #53585a; }
+.oveliq-services .oveliq-svc-theater__caps li { font-size: 1rem; line-height: 1.5; letter-spacing: -.02em; }
+@media (min-width: 1100px) {
+  .oveliq-services { --svc-theater-h: 37rem; --svc-media-left: 30%; --svc-title-left: 24%; --svc-caps-w: 16rem; }
+  .oveliq-services .oveliq-svc-theater { width: 100%; margin-right: 0; }
+  .oveliq-services .oveliq-svc-theater__rail { width: 27%; }
+  .oveliq-services .oveliq-svc-theater__title { width: 72%; top: 55%; }
+  .oveliq-services .oveliq-svc-theater__title .oveliq-svc-title__difference { font-size: clamp(3.25rem, 6vw, 6.25rem); line-height: 1.05; letter-spacing: -.055em; }
+  .oveliq-services .oveliq-svc-theater__title .oveliq-svc-title__line { font-size: inherit; }
+}
+
+.oveliq-contact .oveliq-contact__inner { max-width: 80rem; }
+.oveliq-contact__notice { padding: 1.25rem 1.5rem; border-left: 3px solid #f94137; background: #f1ede7; color: #262a2d; scroll-margin-top: 6rem; }
+.oveliq-contact__notice-label { font: 500 .75rem/1.5 "Plus Jakarta Sans Variable", sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+.oveliq-contact__notice p { max-width: 70ch; margin: .5rem 0 0; font: 400 .9375rem/1.65 "Plus Jakarta Sans Variable", sans-serif; color: #53585a; }
+.oveliq-contact .oveliq-contact__col { gap: 1.5rem; }
+.oveliq-contact__field-label { display: block; margin-bottom: .35rem; font: 500 .8125rem/1.5 "Plus Jakarta Sans Variable", sans-serif; color: #262a2d; }
+.oveliq-contact__field-label span { color: #616668; font-size: .75rem; }
+.oveliq-contact .oveliq-contact__control { min-height: 48px; font-size: 1rem; line-height: 1.6; border-color: #929795; }
+.oveliq-contact .oveliq-contact__control--area { min-height: 12rem; }
+.oveliq-contact .oveliq-contact__control:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.oveliq-contact .oveliq-contact__submit { min-height: 48px; padding: .875rem 1.25rem; border-radius: 999px; background: #262a2d; color: #fff; font-size: .9375rem; letter-spacing: -.015em; }
+.oveliq-contact .oveliq-contact__submit:hover { background: #414747; color: #fff; }
+.oveliq-contact .oveliq-contact__consent { font-size: .8125rem; line-height: 1.6; text-transform: none; letter-spacing: 0; color: #53585a; }
+.oveliq-contact .oveliq-contact__status { color: #365b48; line-height: 1.6; }
+
+@media (max-width: 767px) {
+  :root { --page-gutter: 1.25rem; }
+  .oveliq-section-manifesto .oveliq-section-manifesto__headline { --type-display-lg: clamp(1.85rem, 7.3vw, 3.5rem); }
+  .oveliq-section-manifesto .oveliq-section-manifesto__supporting { max-width: 100%; font-size: 1rem; }
+  .oveliq-section-manifesto .oveliq-section-manifesto__meta { gap: .65rem; }
+  .oveliq-section-manifesto .oveliq-section-manifesto__tagline { align-items: start; text-align: left; }
+  .oveliq-contact .oveliq-contact__inner { padding-top: 7rem; }
+  .oveliq-contact .oveliq-contact__title { font-size: clamp(2.5rem, 10vw, 4.5rem); }
+  .oveliq-contact .oveliq-contact__submit-row { flex-direction: column; align-items: start; }
+  .oveliq-contact .oveliq-contact__submit { justify-content: space-between; width: 100%; }
+  .oveliq-contact__notice { padding: 1rem; }
+  .oveliq-footer .oveliq-footer__headline { font-size: clamp(2.1rem, 9vw, 4.5rem); }
+  .oveliq-project-hero .oveliq-project-hero__title { font-size: clamp(2.75rem, 12vw, 5rem); line-height: 1; overflow-wrap: anywhere; }
+  .oveliq-project-hero .oveliq-project-hero__intro { font-size: 1rem; line-height: 1.6; }
+}

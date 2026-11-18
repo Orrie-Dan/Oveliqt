@@ -1,0 +1,136 @@
+/**
+ * Inner-page hero — dark field so the fixed (light-text) nav stays legible.
+ * Transform ownership: Reveal / RevealLines wrappers only.
+ */
+
+.oveliq-page-hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  min-height: clamp(30rem, 72vh, 46rem);
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    radial-gradient(60% 70% at 88% 0%, rgba(249, 65, 55, 0.12), transparent 60%),
+    var(--color-004);
+  color: var(--color-002);
+}
+
+.oveliq-page-hero__inner {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: calc(3.75rem + clamp(3rem, 10vh, 6rem)) var(--page-gutter, 24px)
+    clamp(3rem, 8vh, 5rem);
+}
+
+.oveliq-page-hero__meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.oveliq-page-hero__label,
+.oveliq-page-hero__tagline {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.oveliq-page-hero__label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: var(--type-label, 1.25rem);
+  line-height: 1.4;
+  font-variation-settings: "wght" var(--type-wght-label);
+}
+
+/* Same glyph as the section manifesto mark. */
+.oveliq-page-hero__mark {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  background: var(--accent);
+  mask-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'><path d='M 10.814 8.313 L 13.811 8.313 C 13.893 8.313 13.973 8.346 14.032 8.404 L 15.908 10.28 C 16.104 10.477 15.965 10.814 15.686 10.814 L 10.876 10.814 C 10.842 10.814 10.814 10.842 10.814 10.876 L 10.814 15.687 C 10.814 15.965 10.477 16.105 10.28 15.908 L 8.405 14.032 C 8.346 13.973 8.313 13.893 8.313 13.811 L 8.313 10.814 C 8.313 9.432 9.433 8.313 10.814 8.313 M 8.313 5.186 L 8.313 2.189 C 8.313 2.106 8.346 2.027 8.404 1.968 L 10.28 0.092 C 10.477 -0.104 10.814 0.035 10.814 0.314 L 10.814 5.124 C 10.814 5.158 10.842 5.186 10.876 5.186 L 15.687 5.186 C 15.965 5.186 16.105 5.523 15.908 5.72 L 14.032 7.596 C 13.973 7.654 13.894 7.687 13.811 7.687 L 10.814 7.687 C 9.432 7.687 8.313 6.567 8.313 5.186 M 5.186 7.687 L 2.189 7.687 C 2.106 7.687 2.027 7.654 1.968 7.596 L 0.092 5.72 C -0.104 5.523 0.035 5.186 0.314 5.186 L 5.124 5.186 C 5.158 5.186 5.186 5.158 5.186 5.124 L 5.186 0.313 C 5.186 0.035 5.523 -0.105 5.72 0.092 L 7.596 1.968 C 7.654 2.027 7.687 2.106 7.687 2.189 L 7.687 5.186 C 7.687 6.567 6.567 7.687 5.186 7.687 M 7.687 10.814 L 7.687 13.811 C 7.687 13.893 7.654 13.973 7.596 14.032 L 5.72 15.908 C 5.523 16.104 5.186 15.965 5.186 15.686 L 5.186 10.876 C 5.186 10.842 5.158 10.814 5.124 10.814 L 0.313 10.814 C 0.035 10.814 -0.105 10.477 0.092 10.28 L 1.968 8.405 C 2.027 8.346 2.107 8.313 2.189 8.313 L 5.186 8.313 C 6.568 8.313 7.687 9.433 7.687 10.814' fill='currentColor'/></svg>");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.oveliq-page-hero__tagline {
+  font-size: var(--type-body-lg, 1.125rem);
+  line-height: 1.2;
+  text-align: right;
+  color: rgba(232, 217, 200, 0.62);
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+
+.oveliq-page-hero__rule {
+  width: 100%;
+  height: 1px;
+  margin: clamp(1rem, 2vh, 1.5rem) 0 var(--space-label-to-display, 1.5rem);
+  background: rgba(232, 217, 200, 0.16);
+}
+
+.oveliq-page-hero__headline {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: 0;
+  font-variation-settings: "wght" var(--type-wght-display);
+}
+
+.oveliq-page-hero__line {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-display-md, clamp(3rem, 8.33vw, 7.5rem));
+  line-height: var(--type-leading-display, 0.97);
+  letter-spacing: var(--type-tracking-md, -0.06em);
+  text-transform: uppercase;
+  font-feature-settings: "calt" 0, "case";
+  color: var(--color-002);
+}
+
+.oveliq-page-hero__line--accent {
+  color: var(--accent);
+}
+
+.oveliq-page-hero__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  margin-top: var(--space-support-to-content, 3rem);
+}
+
+.oveliq-page-hero__supporting {
+  margin: 0;
+  max-width: 34rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-body-lg, 1.125rem);
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  color: rgba(232, 217, 200, 0.72);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+@media (max-width: 767px) {
+  .oveliq-page-hero {
+    min-height: clamp(26rem, 64vh, 36rem);
+  }
+
+  .oveliq-page-hero__line {
+    font-size: clamp(2.5rem, 12.5vw, 3.5rem);
+  }
+
+  .oveliq-page-hero__tagline {
+    display: none;
+  }
+}

@@ -1,0 +1,1230 @@
+/*
+ * Oveliqt homepage hero — "system" direction.
+ * Light base, dot grid, brand-red glow, glass product cards wired to the O* core.
+ * Tokens are scoped here so the rest of the site keeps its palette.
+ *
+ * Replaces editorial-hero.css on the homepage. That file carried the nav
+ * entrance animation, so it is re-declared at the bottom.
+ */
+
+.oveliq-shero {
+  --sh-bg: #fbfbfa;
+  --sh-ink: #0d0e11;
+  --sh-ink-soft: #2a2c31;
+  --sh-muted: #63666d;
+  --sh-line: rgba(13, 14, 17, 0.09);
+  --sh-red: #ec4036;
+  --sh-green: #17b26a;
+  --sh-gradient: linear-gradient(100deg, #e8322a 0%, #ff5a3c 38%, #ff8a5b 64%, #ff4f8b 100%);
+  --sh-glass: rgba(255, 255, 255, 0.74);
+  --sh-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 2px 6px rgba(16, 18, 24, 0.04),
+    0 24px 48px -22px rgba(16, 18, 24, 0.28);
+  --sh-gutter: var(--page-gutter, clamp(1.25rem, 3.5vw, 3.75rem));
+  --sh-nav-h: 4.75rem;
+  --sh-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sh-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", sans-serif;
+  --sh-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: var(--sh-bg);
+  color: var(--sh-ink);
+  font-family: var(--sh-sans);
+  overflow: clip;
+  isolation: isolate;
+}
+
+/* —— Background: dot grid + glows —— */
+.oveliq-shero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.oveliq-shero__grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(13, 14, 17, 0.13) 1px, transparent 1.3px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 62% 70% at 70% 46%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 62% 70% at 70% 46%, #000 25%, transparent 78%);
+}
+
+.oveliq-shero__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+.oveliq-shero__glow--a {
+  width: min(52vw, 900px);
+  aspect-ratio: 1;
+  top: -14%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(255, 90, 60, 0.42), rgba(236, 64, 54, 0.12) 50%, transparent 70%);
+  animation: oveliq-sh-float 18s ease-in-out infinite alternate;
+}
+
+.oveliq-shero__glow--b {
+  width: min(38vw, 620px);
+  aspect-ratio: 1;
+  bottom: -18%;
+  left: 18%;
+  background: radial-gradient(circle, rgba(255, 79, 139, 0.2), rgba(140, 110, 255, 0.08) 55%, transparent 70%);
+  animation: oveliq-sh-float 22s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes oveliq-sh-float {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-4%, 6%, 0) scale(1.08); }
+}
+
+/* —— Layout —— */
+.oveliq-shero__inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1600px;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin-inline: auto;
+  padding: calc(var(--sh-nav-h) + clamp(1.5rem, 4vh, 3rem)) var(--sh-gutter) 0;
+}
+
+.oveliq-shero__main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  column-gap: clamp(2rem, 4vw, 5rem);
+  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+}
+
+.oveliq-shero__copy {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+/* —— Copy —— */
+.oveliq-shero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 0 clamp(1.25rem, 3vh, 2rem);
+  padding: 0.45rem 0.95rem 0.45rem 0.75rem;
+  border: 1px solid var(--sh-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--sh-ink-soft);
+  font-family: var(--sh-mono);
+  font-size: clamp(0.6875rem, 0.85vw, 0.8125rem);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.oveliq-shero__status-dot,
+.oveliq-shero__build-dot,
+.oveliq-shero__live b,
+.oveliq-shero__agent b {
+  position: relative;
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--sh-green);
+}
+
+.oveliq-shero__status-dot::after,
+.oveliq-shero__build-dot::after,
+.oveliq-shero__agent b::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: oveliq-sh-ping 2.2s var(--sh-ease) infinite;
+}
+
+@keyframes oveliq-sh-ping {
+  0% { transform: scale(1); opacity: 0.55; }
+  80%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
+.oveliq-shero__headline {
+  margin: 0;
+  color: var(--sh-ink);
+  font-size: clamp(3rem, 6.4vw, 7rem);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  font-variation-settings: "wght" 780;
+}
+
+/* Room for ascenders/descenders inside the clipped line masks. */
+.oveliq-shero__headline .oveliq-reveal-line {
+  padding: 0.1em 0.08em 0.14em 0;
+  margin: -0.1em -0.08em -0.14em 0;
+}
+
+.oveliq-shero__line--accent .oveliq-reveal-line__inner {
+  /* The text-clipped gradient only paints inside the box: extend it under descenders. */
+  display: inline-block;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+  background: var(--sh-gradient);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: oveliq-sh-shimmer 9s ease-in-out infinite alternate;
+}
+
+@keyframes oveliq-sh-shimmer {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+.oveliq-shero__description {
+  max-width: 31rem;
+  margin: clamp(1.25rem, 3vh, 2rem) 0 0;
+  color: var(--sh-muted);
+  font-size: clamp(1.0625rem, 1.25vw, 1.3125rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  font-variation-settings: "wght" 450;
+}
+
+.oveliq-shero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.oveliq-shero__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0 1.5rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variation-settings: "wght" 600;
+  text-decoration: none;
+  transition:
+    background-color 260ms var(--ease-ui, ease),
+    border-color 260ms var(--ease-ui, ease),
+    box-shadow 260ms var(--ease-ui, ease),
+    transform 260ms var(--ease-ui, ease);
+}
+
+.oveliq-shero__cta:focus-visible {
+  outline: 2px solid var(--sh-red);
+  outline-offset: 3px;
+}
+
+.oveliq-shero__cta .oveliq-cta-arrow {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.oveliq-shero__cta--primary {
+  background: var(--sh-ink);
+  color: #fff;
+  box-shadow: 0 12px 28px -12px rgba(236, 64, 54, 0.6);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.oveliq-shero__cta--primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--sh-gradient);
+  opacity: 0;
+  transition: opacity 320ms var(--ease-ui, ease);
+}
+
+.oveliq-shero__cta--primary:hover {
+  box-shadow: 0 16px 34px -12px rgba(236, 64, 54, 0.75);
+  transform: translateY(-1px);
+}
+
+.oveliq-shero__cta--primary:hover::before {
+  opacity: 1;
+}
+
+.oveliq-shero__cta--secondary {
+  border: 1px solid var(--sh-line);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--sh-ink);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.oveliq-shero__cta--secondary:hover {
+  border-color: rgba(13, 14, 17, 0.22);
+  background: #fff;
+}
+
+.oveliq-shero__stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: clamp(1.75rem, 5vh, 3rem);
+}
+
+.oveliq-shero__stack-label {
+  color: var(--sh-muted);
+  font-family: var(--sh-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.oveliq-shero__stack ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.oveliq-shero__stack li {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--sh-line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--sh-ink-soft);
+  font-family: var(--sh-mono);
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+/* —— System visual —— */
+.oveliq-shero__visual {
+  --sh-mx: 0;
+  --sh-my: 0;
+  position: relative;
+  justify-self: end;
+  width: 100%;
+  max-width: 780px;
+  aspect-ratio: 100 / 92;
+  container-type: inline-size;
+}
+
+.oveliq-shero__spot {
+  position: absolute;
+  inset: -8%;
+  background: radial-gradient(circle at var(--sh-sx) var(--sh-sy), rgba(255, 90, 60, 0.14), transparent 42%);
+  pointer-events: none;
+}
+
+.oveliq-shero__depth {
+  translate:
+    calc(var(--sh-mx) * var(--depth, 1) * -12px)
+    calc(var(--sh-my) * var(--depth, 1) * -9px);
+  transition: translate 700ms var(--sh-ease);
+}
+
+.oveliq-shero__card,
+.oveliq-shero__chip,
+.oveliq-shero__node {
+  position: absolute;
+  font-size: clamp(7px, 1.95cqw, 13.5px);
+}
+
+/* Wires */
+.oveliq-shero__wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+}
+
+.oveliq-shero__wire-base {
+  stroke: rgba(13, 14, 17, 0.28);
+  stroke-width: 1.25;
+  stroke-dasharray: 0.5 1.5;
+  stroke-linecap: round;
+}
+
+.oveliq-shero__wire--faint .oveliq-shero__wire-base {
+  stroke: rgba(13, 14, 17, 0.16);
+}
+
+.oveliq-shero__wire-signal {
+  stroke: var(--sh-red);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-dasharray: 7 93;
+  stroke-dashoffset: 7;
+  opacity: 0;
+  filter: drop-shadow(0 0 3px rgba(236, 64, 54, 0.7));
+  animation: oveliq-sh-signal 2.8s cubic-bezier(0.55, 0.1, 0.3, 1) infinite;
+}
+
+.oveliq-shero__wire-signal--systems { animation-duration: 2.4s; animation-delay: 0.7s; }
+.oveliq-shero__wire-signal--ai { animation-duration: 3.1s; animation-delay: 1.4s; }
+
+@keyframes oveliq-sh-signal {
+  0% { stroke-dashoffset: 7; opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { stroke-dashoffset: -93; opacity: 0; }
+}
+
+/* Core node */
+.oveliq-shero__node {
+  left: 39%;
+  top: 38.04%;
+  width: 22%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+}
+
+.oveliq-shero__orbit {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.oveliq-shero__orbit--outer {
+  inset: 0;
+  border: 1px dashed rgba(13, 14, 17, 0.2);
+  animation: oveliq-sh-spin 48s linear infinite;
+}
+
+.oveliq-shero__orbit--inner {
+  inset: 10%;
+  border: 1px solid rgba(13, 14, 17, 0.1);
+  animation: oveliq-sh-spin 11s linear infinite;
+}
+
+.oveliq-shero__orbit--inner::after {
+  content: "";
+  position: absolute;
+  top: -0.3em;
+  left: 50%;
+  width: 0.6em;
+  height: 0.6em;
+  margin-left: -0.3em;
+  border-radius: 50%;
+  background: var(--sh-red);
+  box-shadow: 0 0 10px rgba(236, 64, 54, 0.8);
+}
+
+@keyframes oveliq-sh-spin {
+  to { transform: rotate(360deg); }
+}
+
+.oveliq-shero__pulse {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  border: 1px solid rgba(236, 64, 54, 0.45);
+  animation: oveliq-sh-pulse 3.2s var(--sh-ease) infinite;
+}
+
+@keyframes oveliq-sh-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+.oveliq-shero__core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 62%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 25%, #fff, rgba(255, 255, 255, 0.82) 60%, rgba(245, 245, 244, 0.9));
+  color: var(--sh-ink);
+  box-shadow:
+    0 0 0 1px rgba(13, 14, 17, 0.06),
+    0 18px 40px -12px rgba(236, 64, 54, 0.45),
+    0 0 60px rgba(255, 90, 60, 0.18);
+}
+
+.oveliq-shero__core-logo {
+  width: 62%;
+  height: auto;
+  margin-left: 6%;
+}
+
+/* Cards */
+.oveliq-shero__card {
+  z-index: 2;
+  border: 1px solid rgba(13, 14, 17, 0.08);
+  border-radius: 1.1em;
+  background: var(--sh-glass);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  box-shadow: var(--sh-shadow);
+  color: var(--sh-ink);
+  line-height: 1.35;
+}
+
+.oveliq-shero__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75em;
+}
+
+.oveliq-shero__card-title {
+  font-size: 1.05em;
+  font-variation-settings: "wght" 680;
+  letter-spacing: -0.02em;
+}
+
+.oveliq-shero__tag {
+  position: absolute;
+  top: -0.95em;
+  left: 1.1em;
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  background: var(--sh-ink);
+  color: #fff;
+  font-family: var(--sh-mono);
+  font-size: 0.72em;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.oveliq-shero__tag--inline {
+  position: static;
+  background: rgba(236, 64, 54, 0.1);
+  color: #c8291f;
+}
+
+/* Web card */
+.oveliq-shero__card--web {
+  left: 0;
+  top: 3%;
+  width: 47%;
+  overflow: visible;
+}
+
+.oveliq-shero__chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.7em 0.85em;
+  border-bottom: 1px solid var(--sh-line);
+}
+
+.oveliq-shero__dots {
+  display: flex;
+  gap: 0.32em;
+}
+
+.oveliq-shero__dots i {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: rgba(13, 14, 17, 0.14);
+}
+
+.oveliq-shero__url {
+  flex: 1;
+  min-width: 0;
+  padding: 0.3em 0.7em;
+  border-radius: 999px;
+  background: rgba(13, 14, 17, 0.05);
+  color: var(--sh-muted);
+  font-family: var(--sh-mono);
+  font-size: 0.74em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.oveliq-shero__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: #0e8a52;
+  font-family: var(--sh-mono);
+  font-size: 0.72em;
+}
+
+.oveliq-shero__live b {
+  width: 0.55em;
+  height: 0.55em;
+}
+
+.oveliq-shero__site {
+  padding: 0.9em 1em 1.1em;
+}
+
+.oveliq-shero__site i {
+  display: block;
+  border-radius: 0.3em;
+  background: rgba(13, 14, 17, 0.1);
+}
+
+.oveliq-shero__site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.1em;
+}
+
+.oveliq-shero__site-nav > i {
+  width: 3.2em;
+  height: 0.6em;
+  background: var(--sh-ink);
+}
+
+.oveliq-shero__site-nav span {
+  display: flex;
+  gap: 0.5em;
+}
+
+.oveliq-shero__site-nav span i {
+  width: 1.8em;
+  height: 0.4em;
+}
+
+.oveliq-shero__site-body {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0.9em;
+  align-items: center;
+}
+
+.oveliq-shero__site-copy {
+  display: grid;
+  gap: 0.45em;
+}
+
+.oveliq-shero__site-copy i { height: 0.85em; background: rgba(13, 14, 17, 0.82); }
+.oveliq-shero__site-copy i.w-90 { width: 92%; }
+.oveliq-shero__site-copy i.w-70 { width: 70%; }
+.oveliq-shero__site-copy i.w-50 { width: 84%; }
+.oveliq-shero__site-copy i.thin { height: 0.4em; margin-top: 0.35em; background: rgba(13, 14, 17, 0.12); }
+
+.oveliq-shero__site-btn {
+  display: block;
+  width: 5em;
+  height: 1.5em;
+  margin-top: 0.55em;
+  border-radius: 999px;
+  background: var(--sh-gradient);
+}
+
+.oveliq-shero__site-media {
+  aspect-ratio: 1;
+  border-radius: 0.7em;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.55), transparent 40%),
+    conic-gradient(from 210deg at 40% 60%, #ec4036, #ff8a5b, #ff4f8b, #8c6eff, #ec4036);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Systems card */
+.oveliq-shero__card--systems {
+  right: 0;
+  top: 32%;
+  width: 37%;
+  padding: 1em 1.1em 0.9em;
+}
+
+.oveliq-shero__caption {
+  display: block;
+  margin-top: 0.2em;
+  color: var(--sh-muted);
+  font-family: var(--sh-mono);
+  font-size: 0.7em;
+}
+
+.oveliq-shero__chart {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.45em;
+  height: 8em;
+  margin-top: 0.9em;
+}
+
+.oveliq-shero__bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.oveliq-shero__bar i {
+  display: block;
+  height: var(--h);
+  border-radius: 0.35em 0.35em 0.12em 0.12em;
+  background: linear-gradient(to top, rgba(236, 64, 54, 0.14), rgba(236, 64, 54, 0.42));
+  transform-origin: bottom;
+}
+
+.oveliq-shero__bar:nth-child(6) i {
+  background: var(--sh-gradient);
+  box-shadow: 0 6px 16px -6px rgba(236, 64, 54, 0.7);
+}
+
+.oveliq-shero__bar em {
+  margin-top: 0.4em;
+  color: var(--sh-muted);
+  font-family: var(--sh-mono);
+  font-size: 0.62em;
+  font-style: normal;
+  text-align: center;
+}
+
+.oveliq-shero__spark {
+  position: absolute;
+  inset: 0 0 1.5em;
+  width: 100%;
+  height: calc(100% - 1.5em);
+  overflow: visible;
+  fill: none;
+  pointer-events: none;
+}
+
+.oveliq-shero__spark path {
+  stroke: var(--sh-ink);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+}
+
+/* AI card */
+.oveliq-shero__card--ai {
+  left: 3%;
+  top: 63%;
+  width: 53%;
+  padding: 0.95em 1.05em 1.05em;
+}
+
+.oveliq-shero__agent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--sh-ink-soft);
+  font-family: var(--sh-mono);
+  font-size: 0.72em;
+}
+
+.oveliq-shero__agent b {
+  width: 0.55em;
+  height: 0.55em;
+  background: var(--sh-red);
+}
+
+.oveliq-shero__prompt {
+  width: fit-content;
+  max-width: 88%;
+  margin: 0.8em 0 0 auto;
+  padding: 0.55em 0.85em;
+  border-radius: 1em 1em 0.3em 1em;
+  background: var(--sh-ink);
+  color: #fff;
+  font-size: 0.84em;
+  line-height: 1.35;
+  animation: oveliq-sh-bubble 420ms var(--sh-ease) both;
+}
+
+@keyframes oveliq-sh-bubble {
+  from { opacity: 0; transform: translate3d(0, 6px, 0) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.oveliq-shero__reply {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  margin: 0.7em 0 0;
+}
+
+.oveliq-shero__reply-mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  background: var(--sh-gradient);
+  box-shadow: 0 4px 12px -4px rgba(236, 64, 54, 0.7);
+}
+
+.oveliq-shero__reply-mark svg {
+  width: 58%;
+  height: 58%;
+  fill: #fff;
+}
+
+.oveliq-shero__reply-text {
+  min-height: 4.35em;
+  padding-top: 0.15em;
+  color: var(--sh-ink-soft);
+  font-size: 0.84em;
+  line-height: 1.45;
+}
+
+.oveliq-shero__caret {
+  display: inline-block;
+  width: 0.45em;
+  height: 1em;
+  margin-left: 0.12em;
+  vertical-align: -0.15em;
+  border-radius: 1px;
+  background: var(--sh-red);
+  animation: oveliq-sh-blink 1s steps(1) infinite;
+}
+
+.oveliq-shero__caret.is-typing {
+  animation: none;
+}
+
+@keyframes oveliq-sh-blink {
+  50% { opacity: 0; }
+}
+
+/* Status chips */
+.oveliq-shero__chip {
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.6em 0.9em;
+  border-radius: 0.7em;
+  font-family: var(--sh-mono);
+  font-size: clamp(6.5px, 1.6cqw, 12px);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.oveliq-shero__chip--terminal {
+  right: 1%;
+  top: 6%;
+  background: #121317;
+  color: #e9e9ea;
+  box-shadow: 0 16px 32px -16px rgba(16, 18, 24, 0.6);
+}
+
+.oveliq-shero__prompt-sign { color: #ff8a5b; }
+.oveliq-shero__check { color: #3ddc97; }
+
+.oveliq-shero__chip--build {
+  right: 4%;
+  top: 87%;
+  border: 1px solid rgba(13, 14, 17, 0.08);
+  background: var(--sh-glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--sh-ink-soft);
+  box-shadow: var(--sh-shadow);
+}
+
+.oveliq-shero__build-dot {
+  width: 0.65em;
+  height: 0.65em;
+}
+
+/* Pause continuous motion while the visual is off screen. */
+.oveliq-shero__visual.is-paused *,
+.oveliq-shero__visual.is-paused *::after {
+  animation-play-state: paused !important;
+}
+
+/* —— Entrance (skipped when the intro is settled) —— */
+@media (prefers-reduced-motion: no-preference) {
+  .oveliq-shero:not(.is-settled) .oveliq-shero__node {
+    animation: oveliq-sh-node-in 900ms var(--sh-ease) 500ms both;
+  }
+
+  .oveliq-shero:not(.is-settled) .oveliq-shero__wires {
+    animation: oveliq-sh-fade 900ms ease 800ms both;
+  }
+
+  .oveliq-shero:not(.is-settled) .oveliq-shero__card,
+  .oveliq-shero:not(.is-settled) .oveliq-shero__chip {
+    animation: oveliq-sh-card-in 800ms var(--sh-ease) calc(900ms + var(--enter, 0ms)) both;
+  }
+
+  .oveliq-shero:not(.is-settled) .oveliq-shero__bar i {
+    animation: oveliq-sh-bar-in 700ms var(--sh-ease) calc(1300ms + var(--i) * 60ms) both;
+  }
+
+  .oveliq-shero:not(.is-settled) .oveliq-shero__spark path {
+    animation: oveliq-sh-draw 1100ms var(--sh-ease) 1800ms both;
+  }
+}
+
+@keyframes oveliq-sh-node-in {
+  from { opacity: 0; transform: scale(0.6) rotate(-40deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes oveliq-sh-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes oveliq-sh-card-in {
+  from { opacity: 0; transform: translate3d(0, 18px, 0) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes oveliq-sh-bar-in {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes oveliq-sh-draw {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* —— Capabilities strip —— */
+.oveliq-shero__strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--sh-line);
+}
+
+.oveliq-shero__capability + .oveliq-shero__capability {
+  border-left: 1px solid var(--sh-line);
+}
+
+.oveliq-shero__capability a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: clamp(1.1rem, 2.6vh, 1.6rem) clamp(1rem, 1.6vw, 1.75rem);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 260ms var(--ease-ui, ease);
+}
+
+.oveliq-shero__capability:first-child a {
+  padding-left: 0;
+}
+
+.oveliq-shero__capability a:hover {
+  background: linear-gradient(to top, rgba(236, 64, 54, 0.05), transparent);
+}
+
+.oveliq-shero__capability a:focus-visible {
+  outline: 2px solid var(--sh-red);
+  outline-offset: -2px;
+}
+
+.oveliq-shero__cap-index {
+  color: var(--sh-red);
+  font-family: var(--sh-mono);
+  font-size: 0.75rem;
+}
+
+.oveliq-shero__cap-body {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.oveliq-shero__cap-title {
+  font-size: 1.0625rem;
+  letter-spacing: -0.02em;
+  font-variation-settings: "wght" 650;
+}
+
+.oveliq-shero__cap-text {
+  color: var(--sh-muted);
+  font-size: 0.9375rem;
+}
+
+.oveliq-shero__cap-arrow {
+  margin-left: auto;
+  width: 0.9rem;
+  height: 0.9rem;
+  color: var(--sh-muted);
+}
+
+.oveliq-shero__capability a:hover .oveliq-shero__cap-arrow {
+  color: var(--sh-red);
+}
+
+/* —— Nav entrance (moved from editorial-hero.css with the hero swap) —— */
+@media (prefers-reduced-motion: no-preference) {
+  .oveliq-nav-enter:not(.is-settled) {
+    animation: oveliq-nav-in 700ms var(--ease-editorial, ease) 140ms both;
+  }
+}
+
+@keyframes oveliq-nav-in {
+  from { opacity: 0; transform: translate3d(0, -8px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* —— Tablet —— */
+@media (max-width: 1100px) {
+  .oveliq-shero__main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 2rem;
+  }
+
+  .oveliq-shero__headline {
+    font-size: clamp(2.75rem, 6.6vw, 4.75rem);
+  }
+}
+
+/* —— Stacked: copy first, system beneath —— */
+@media (max-width: 900px) {
+  .oveliq-shero {
+    --sh-nav-h: 3.75rem;
+  }
+
+  .oveliq-shero__inner {
+    min-height: 0;
+    padding-top: calc(var(--sh-nav-h) + 2.25rem);
+  }
+
+  .oveliq-shero__main {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(3rem, 9vw, 4rem);
+  }
+
+  .oveliq-shero__headline {
+    font-size: clamp(2.75rem, 12vw, 5.5rem);
+  }
+
+  .oveliq-shero__visual {
+    justify-self: center;
+    max-width: 640px;
+  }
+
+  .oveliq-shero__grid {
+    -webkit-mask-image: radial-gradient(ellipse 90% 50% at 50% 72%, #000 25%, transparent 78%);
+    mask-image: radial-gradient(ellipse 90% 50% at 50% 72%, #000 25%, transparent 78%);
+  }
+
+  .oveliq-shero__glow--a {
+    width: 110vw;
+    top: 30%;
+    right: -40%;
+  }
+
+  .oveliq-shero__strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .oveliq-shero__capability + .oveliq-shero__capability {
+    border-left: 0;
+    border-top: 1px solid var(--sh-line);
+  }
+
+  .oveliq-shero__capability a {
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .oveliq-shero__status {
+    font-size: 0.6875rem;
+  }
+
+  .oveliq-shero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .oveliq-shero__cta {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 420px) {
+  .oveliq-shero__status {
+    gap: 0.5rem;
+    padding-inline: 0.65rem 0.75rem;
+    font-size: 0.625rem;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-nav-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .oveliq-shero *,
+  .oveliq-shero *::before,
+  .oveliq-shero *::after {
+    animation: none !important;
+  }
+
+  .oveliq-shero__depth {
+    translate: none !important;
+    transition: none !important;
+  }
+
+  .oveliq-shero__spark path {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Current Oveliqt hero direction: calm editorial copy paired with one bold,
+   contained product canvas. Keep the existing illustrative UI, but give it a
+   coherent stage instead of letting the cards float over the page. */
+.oveliq-shero {
+  --sh-bg: #f5f3ef;
+  background:
+    radial-gradient(ellipse at 78% 42%, rgba(255, 214, 194, 0.46), transparent 33%),
+    var(--sh-bg);
+}
+
+.oveliq-shero__inner {
+  max-width: 1680px;
+  min-height: min(900px, 100svh);
+  padding-top: calc(var(--sh-nav-h) + clamp(2.5rem, 6vh, 5rem));
+}
+
+.oveliq-shero__main {
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  column-gap: clamp(2.5rem, 6vw, 7rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4.5rem);
+}
+
+.oveliq-shero__status {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 0;
+  color: #55565b;
+  font-family: var(--sh-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.oveliq-shero__status-dot { background: #e64d37; }
+
+.oveliq-shero__headline {
+  max-width: 8ch;
+  font-size: clamp(3.8rem, 7.4vw, 7.6rem);
+  line-height: 0.91;
+  letter-spacing: -0.075em;
+  font-variation-settings: "wght" 720;
+}
+
+.oveliq-shero__line--accent .oveliq-reveal-line__inner {
+  background: none;
+  color: #e64d37;
+  animation: none;
+}
+
+.oveliq-shero__description {
+  max-width: 28rem;
+  margin-top: 1.65rem;
+  color: #5a5b60;
+  font-size: clamp(1.05rem, 1.28vw, 1.22rem);
+  line-height: 1.62;
+}
+
+.oveliq-shero__actions { margin-top: 2rem; }
+.oveliq-shero__cta--primary {
+  border-radius: 8px;
+  background: #e64d37;
+  box-shadow: 0 12px 26px -16px rgba(177, 51, 34, 0.7);
+}
+.oveliq-shero__cta--primary::before { display: none; }
+.oveliq-shero__cta--primary:hover { background: #c93c2a; }
+.oveliq-shero__cta--secondary {
+  border-color: rgba(13, 14, 17, 0.16);
+  border-radius: 8px;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.oveliq-shero__stack { margin-top: 2.25rem; }
+.oveliq-shero__stack-label { font-family: var(--sh-sans); font-size: 0.72rem; font-weight: 650; }
+.oveliq-shero__stack li {
+  border: 0;
+  border-radius: 3px;
+  background: rgba(13, 14, 17, 0.055);
+  font-family: var(--sh-sans);
+  font-size: 0.7rem;
+}
+
+.oveliq-shero__visual {
+  justify-self: stretch;
+  max-width: none;
+  aspect-ratio: 1.12 / 1;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at 54% 43%, rgba(239, 92, 67, 0.2), transparent 34%),
+    linear-gradient(145deg, #222329, #111216 72%);
+  box-shadow: 0 32px 80px -42px rgba(28, 23, 21, 0.65), 0 1px 0 rgba(255,255,255,.35) inset;
+}
+
+.oveliq-shero__spot { opacity: 0.3; }
+.oveliq-shero__grid {
+  background-image: radial-gradient(rgba(255,255,255,.15) .8px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 75% 78% at 50% 50%, #000 20%, transparent 100%);
+}
+.oveliq-shero__glow--a { width: min(44vw, 650px); opacity: .72; }
+.oveliq-shero__glow--b { opacity: .35; }
+.oveliq-shero__wire-base { stroke: rgba(255,255,255,.22); }
+.oveliq-shero__wire--faint .oveliq-shero__wire-base { stroke: rgba(255,255,255,.1); }
+.oveliq-shero__node { filter: drop-shadow(0 10px 30px rgba(230,77,55,.25)); }
+.oveliq-shero__orbit { border-color: rgba(255,255,255,.18); }
+.oveliq-shero__card { box-shadow: 0 18px 38px -22px rgba(0,0,0,.65); }
+
+.oveliq-shero__strip {
+  border-top-color: rgba(13,14,17,.13);
+  padding-block: 1.2rem;
+}
+.oveliq-shero__capability a { min-height: 5.2rem; }
+
+@media (max-width: 1024px) {
+  .oveliq-shero__inner { min-height: 0; }
+  .oveliq-shero__main { grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
+  .oveliq-shero__copy { max-width: 48rem; }
+  .oveliq-shero__headline { max-width: 10ch; }
+  .oveliq-shero__visual { width: min(100%, 760px); justify-self: center; }
+}
+
+@media (max-width: 640px) {
+  .oveliq-shero__inner { padding-top: calc(var(--sh-nav-h) + 2rem); }
+  .oveliq-shero__headline { font-size: clamp(3.55rem, 16vw, 5.1rem); }
+  .oveliq-shero__visual { aspect-ratio: 0.94 / 1; border-radius: 16px; }
+  .oveliq-shero__actions { flex-direction: row; align-items: center; }
+  .oveliq-shero__cta { justify-content: center; padding-inline: 1rem; }
+}

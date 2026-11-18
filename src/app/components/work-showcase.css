@@ -1,0 +1,55 @@
+.oveliq-work-showcase { display: grid; grid-template-columns: minmax(15rem, .7fr) minmax(0, 1.6fr); gap: clamp(2rem, 4vw, 5rem); align-items: start; }
+.oveliq-work-showcase__index-label { display: flex; justify-content: space-between; gap: 1rem; margin: 0 0 1.25rem; font-size: .6875rem; line-height: 1.5; text-transform: uppercase; letter-spacing: .08em; color: #c4bdb4; }
+.oveliq-work-showcase__index-label span { color: #9f9a93; }
+.oveliq-work-showcase__tabs { border-top: 1px solid #44423f; }
+.oveliq-work-showcase__tab { display: flex; width: 100%; align-items: center; gap: 1rem; padding: 1.15rem .25rem; border: 0; border-bottom: 1px solid #44423f; background: transparent; color: #bcb6ae; cursor: pointer; text-align: left; font: inherit; }
+.oveliq-work-showcase__number { font-size: .6875rem; font-variant-numeric: tabular-nums; align-self: start; padding-top: .35rem; }
+.oveliq-work-showcase__tab-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .4rem; }
+.oveliq-work-showcase__tab-copy > span { font-size: clamp(1rem, 1.35vw, 1.25rem); line-height: 1.3; letter-spacing: -.035em; font-variation-settings: "wght" 600; }
+.oveliq-work-showcase__tab-copy small { color: #a49f98; font-size: .6875rem; line-height: 1.5; }
+.oveliq-work-showcase__tab > svg { width: 1.15rem; height: 1.15rem; opacity: .4; }
+.oveliq-work-showcase__tab[aria-selected="true"] { color: #fff4e7; box-shadow: inset 3px 0 #f94137; padding-left: 1rem; background: #ffffff06; }
+.oveliq-work-showcase__tab[aria-selected="true"] .oveliq-work-showcase__number, .oveliq-work-showcase__tab[aria-selected="true"] > svg { color: #ff776b; opacity: 1; }
+.oveliq-work-showcase__tab:hover { color: #fff4e7; background: #ffffff08; }
+.oveliq-work-showcase__index-note { margin: 1.5rem 0 0; color: #aaa49c; font-size: .875rem; line-height: 1.6; }
+.oveliq-work-showcase__panel { --work-paper: #dce7df; --work-ink: #214c45; min-width: 0; }
+.oveliq-work-showcase__panel--p2p-escrow { --work-paper: #e8e0f0; --work-ink: #51426e; }
+.oveliq-work-showcase__panel--computer-vision { --work-paper: #cdd9eb; --work-ink: #2b415c; }
+.oveliq-work-showcase__panel--ecobe { --work-paper: #e7ddce; --work-ink: #514638; }
+.oveliq-work-showcase__panel--cira { --work-paper: #d6e5ea; --work-ink: #264f5c; }
+.oveliq-work-showcase__panel--ecosort-ai { --work-paper: #d1e6db; --work-ink: #245b44; }
+.oveliq-work-showcase__preview { display: flex; flex-direction: column; padding: 0; overflow: hidden; background: var(--work-paper); color: var(--work-ink); text-decoration: none; }
+.oveliq-work-showcase__preview-meta, .oveliq-work-showcase__preview-footer { display: flex; align-items: center; justify-content: space-between; gap: .75rem; font-size: .625rem; line-height: 1.5; text-transform: uppercase; letter-spacing: .08em; }
+.oveliq-work-showcase__browser { margin-block: clamp(1.5rem, 3vw, 3rem); border-radius: 5px; overflow: hidden; background: #fff; box-shadow: 0 14px 28px #16221d22; }
+.oveliq-work-showcase__browser-bar { display: flex; align-items: center; gap: 5px; padding: .6rem .75rem; background: #f9f9f5; color: #5c635f; font-size: .6rem; }
+.oveliq-work-showcase__browser-bar i { display: block; width: 5px; height: 5px; border-radius: 50%; background: #c4c8c3; }
+.oveliq-work-showcase__browser-bar i:first-child { background: #f26a60; }
+.oveliq-work-showcase__browser-bar span { margin-left: .75rem; }
+.oveliq-work-showcase__image { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: contain; object-position: center; background: #f5f6f3; }
+.oveliq-work-showcase__preview-footer svg { width: 1.5rem; height: 1.5rem; }
+.oveliq-work-showcase__details { display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; padding-top: 1.5rem; }
+.oveliq-work-showcase__category { margin: 0 0 .6rem; color: #bcb6ae; text-transform: uppercase; letter-spacing: .08em; font-size: .625rem; line-height: 1.5; }
+.oveliq-work-showcase__details h3 { margin: 0; color: #fff4e7; font-size: clamp(1.5rem, 2.8vw, 2.75rem); line-height: 1.15; letter-spacing: -.05em; font-variation-settings: "wght" 640; }
+.oveliq-work-showcase__summary { max-width: 44ch; margin: .75rem 0 0; color: #bcb6ae; font-size: .875rem; line-height: 1.6; }
+.oveliq-work-showcase__case { display: inline-flex; align-items: center; flex-shrink: 0; gap: 1rem; min-height: 44px; border-bottom: 1px solid #9a938b; color: #fff4e7; text-decoration: none; font-size: .8125rem; }
+.oveliq-work-showcase__case:hover { color: #ff8279; }
+@media (max-width: 1000px) {
+  .oveliq-work-showcase { grid-template-columns: minmax(13rem, .8fr) minmax(0, 1.4fr); gap: 1.5rem; }
+  .oveliq-work-showcase__details { flex-direction: column; align-items: start; gap: 1rem; }
+  .oveliq-work-showcase__tab { padding-block: 1rem; gap: .6rem; }
+}
+@media (max-width: 640px) {
+  .oveliq-work-showcase { display: flex; flex-direction: column; gap: 1.5rem; }
+  .oveliq-work-showcase__index, .oveliq-work-showcase__panel { width: 100%; }
+  .oveliq-work-showcase__index-label { margin-bottom: .75rem; }
+  .oveliq-work-showcase__tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1rem; }
+  .oveliq-work-showcase__tab { align-items: start; min-height: 58px; gap: .45rem; padding-block: .75rem; }
+  .oveliq-work-showcase__tab-copy > span { font-size: .8125rem; line-height: 1.5; letter-spacing: -.025em; }
+  .oveliq-work-showcase__tab-copy small, .oveliq-work-showcase__tab > svg, .oveliq-work-showcase__index-note { display: none; }
+  .oveliq-work-showcase__tab[aria-selected="true"] { padding-left: .6rem; }
+  .oveliq-work-showcase__number { padding-top: .15rem; }
+  .oveliq-work-showcase__preview-meta { font-size: .55rem; letter-spacing: .04em; }
+  .oveliq-work-showcase__preview { padding: 0; }
+  .oveliq-work-showcase__browser { margin-block: 1.5rem; }
+}
+

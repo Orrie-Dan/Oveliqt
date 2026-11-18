@@ -1,0 +1,279 @@
+/**
+ * Testimonials — dark field, featured quote + client index.
+ * Transform ownership: Reveal wrappers only; quote swap uses opacity keyframes.
+ */
+
+.oveliq-testimonials {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow: clip;
+  background: var(--color-004);
+  color: var(--color-002);
+  --rule-color: rgba(232, 217, 200, 0.12);
+}
+
+.oveliq-testimonials__inner {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0 var(--page-gutter, 24px) clamp(4.5rem, 10vh, 7.5rem);
+  gap: clamp(2rem, 4vh, 3rem);
+}
+
+/* Manifesto on dark */
+.oveliq-testimonials .oveliq-section-manifesto__label,
+.oveliq-testimonials .oveliq-section-manifesto__tagline-en {
+  color: var(--color-002);
+}
+
+.oveliq-testimonials .oveliq-manifesto__row {
+  border-color: var(--rule-color);
+}
+
+.oveliq-testimonials .oveliq-manifesto__row--muted {
+  --manifesto-base: rgba(232, 217, 200, 0.32);
+}
+
+.oveliq-testimonials .oveliq-manifesto__row--solid {
+  --manifesto-base: var(--color-002);
+}
+
+/* —— Stage —— */
+.oveliq-testimonials__stage {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 2vw, 1.5rem);
+}
+
+@media (min-width: 1025px) {
+  .oveliq-testimonials__stage {
+    grid-template-columns: minmax(0, 1.6fr) minmax(16rem, 1fr);
+  }
+}
+
+.oveliq-testimonials__featured {
+  position: relative;
+  display: flex;
+  min-height: clamp(20rem, 42vh, 26rem);
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 3.5vw, 2.75rem);
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(249, 65, 55, 0.12) 0%, transparent 55%),
+    rgba(232, 217, 200, 0.04);
+  border: 1px solid var(--rule-color);
+}
+
+.oveliq-testimonials__featured:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.oveliq-testimonials__mark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 4.5rem;
+  line-height: 0.6;
+  color: var(--accent);
+}
+
+.oveliq-testimonials__quote {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: 0;
+  animation: oveliq-testimonial-in 420ms var(--ease-ui, ease) both;
+}
+
+@keyframes oveliq-testimonial-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.oveliq-testimonials__quote-text {
+  margin: 0;
+  max-width: 38ch;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(1.4rem, 2.6vw, 2.125rem);
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+  color: var(--color-002);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-testimonials__author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.oveliq-testimonials__avatar {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  background: var(--color-002);
+  color: var(--color-004);
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+}
+
+.oveliq-testimonials__name,
+.oveliq-testimonials__role {
+  display: block;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+}
+
+.oveliq-testimonials__name {
+  font-size: 1rem;
+  letter-spacing: -0.03em;
+  color: var(--color-002);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-testimonials__role {
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(232, 217, 200, 0.55);
+}
+
+.oveliq-testimonials__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule-color);
+}
+
+.oveliq-testimonials__index {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  color: rgba(232, 217, 200, 0.6);
+}
+
+.oveliq-testimonials__buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.oveliq-testimonials__btn {
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(232, 217, 200, 0.22);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-002);
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--ease-ui),
+    color var(--motion-fast) var(--ease-ui);
+}
+
+.oveliq-testimonials__btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.oveliq-testimonials__btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.oveliq-testimonials__btn-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* —— Client index —— */
+.oveliq-testimonials__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule-color);
+}
+
+.oveliq-testimonials__tab {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 0.75rem;
+  row-gap: 0.2rem;
+  padding: 1.15rem 0.25rem;
+  border: 0;
+  border-bottom: 1px solid var(--rule-color);
+  background: transparent;
+  color: rgba(232, 217, 200, 0.45);
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease-ui);
+}
+
+.oveliq-testimonials__tab:hover,
+.oveliq-testimonials__tab[aria-pressed="true"] {
+  color: var(--color-002);
+}
+
+.oveliq-testimonials__tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.oveliq-testimonials__tab-index {
+  grid-row: 1 / span 2;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  padding-top: 0.2rem;
+}
+
+.oveliq-testimonials__tab[aria-pressed="true"] .oveliq-testimonials__tab-index {
+  color: var(--accent);
+}
+
+.oveliq-testimonials__tab-company {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-testimonials__tab-name {
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-testimonials__quote {
+    animation: none;
+  }
+}

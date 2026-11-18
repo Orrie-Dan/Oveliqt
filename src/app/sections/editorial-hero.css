@@ -1,0 +1,629 @@
+/*
+ * Oveliqt homepage hero — Swiss editorial × creative technology.
+ * White dominates; charcoal type; signal red as a single accent.
+ * Brand tokens are scoped here so the rest of the site keeps its palette.
+ *
+ * Note: this file replaces `hero.css` on the homepage. That file also held the
+ * nav entrance animation, so it is re-declared at the bottom.
+ */
+
+.oveliq-ehero {
+  --eh-white: #ffffff;
+  --eh-ink: #26272a;
+  --eh-red: #ec4036;
+  --eh-red-deep: #b22821;
+  --eh-red-over: #be2d25;
+  --eh-black: #050607;
+  --eh-line: #e4e4e4;
+  --eh-gutter: var(--page-gutter, clamp(1.25rem, 3.5vw, 3.75rem));
+  --eh-nav-h: 4.75rem;
+  --eh-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --eh-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", sans-serif;
+
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: var(--eh-white);
+  color: var(--eh-ink);
+  font-family: var(--eh-sans);
+  overflow: clip;
+}
+
+.oveliq-ehero__inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1720px;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin-inline: auto;
+  padding: calc(var(--eh-nav-h) + clamp(0.5rem, 1.2vh, 1rem)) var(--eh-gutter) 0;
+}
+
+/* —— Main composition: copy | art | side note —— */
+.oveliq-ehero__main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 676fr) minmax(0, 731fr) minmax(5.25rem, 92fr);
+  align-items: end;
+  column-gap: clamp(1.25rem, 2vw, 2.25rem);
+  padding-bottom: clamp(1.75rem, 5.5vh, 3.25rem);
+}
+
+.oveliq-ehero__copy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding-bottom: 0.25rem;
+}
+
+.oveliq-ehero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0 0 clamp(1rem, 2.4vh, 1.75rem);
+  color: var(--eh-ink);
+  font-family: var(--eh-mono);
+  font-size: clamp(0.75rem, 0.95vw, 0.9375rem);
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.oveliq-ehero__eyebrow::after {
+  content: "";
+  flex: 0 1 15rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.oveliq-ehero__headline {
+  margin: 0;
+  color: var(--eh-black);
+  font-size: clamp(3rem, 7.4vw, 8.25rem);
+  line-height: 0.86;
+  letter-spacing: -0.052em;
+  font-variation-settings: "wght" 800;
+}
+
+/* Room for ascenders/descenders inside the clipped line masks. */
+.oveliq-ehero__headline .oveliq-reveal-line {
+  padding: 0.1em 0.08em 0.14em 0;
+  margin: -0.1em -0.08em -0.14em 0;
+}
+
+.oveliq-ehero__line--last .oveliq-reveal-line__inner::after {
+  content: "";
+  display: inline-block;
+  width: 0.2em;
+  height: 0.2em;
+  margin-left: 0.06em;
+  border-radius: 50%;
+  background: var(--eh-red);
+}
+
+.oveliq-ehero__description {
+  max-width: 30rem;
+  margin: clamp(1.25rem, 3vh, 2.25rem) 0 0;
+  font-size: clamp(1.0625rem, 1.3vw, 1.375rem);
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  font-variation-settings: "wght" 450;
+}
+
+.oveliq-ehero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 3rem;
+  margin-top: clamp(1.5rem, 4vh, 2.75rem);
+}
+
+.oveliq-ehero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 3.625rem;
+  color: var(--eh-ink);
+  font-size: 1.125rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variation-settings: "wght" 600;
+  text-decoration: none;
+  transition:
+    background-color 260ms var(--ease-ui, ease),
+    color 260ms var(--ease-ui, ease);
+}
+
+.oveliq-ehero__cta:focus-visible {
+  outline: 2px solid var(--eh-red);
+  outline-offset: 3px;
+}
+
+.oveliq-ehero__cta .oveliq-cta-arrow {
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.oveliq-ehero__cta--primary {
+  padding: 0 1.875rem;
+  border-radius: 2px;
+  background: var(--eh-ink);
+  color: var(--eh-white);
+}
+
+.oveliq-ehero__cta--primary:hover {
+  background: var(--eh-black);
+}
+
+.oveliq-ehero__cta--primary:hover .oveliq-cta-arrow {
+  color: var(--eh-red);
+}
+
+.oveliq-ehero__cta--secondary {
+  position: relative;
+  min-height: 2.75rem;
+}
+
+.oveliq-ehero__cta--secondary::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.3rem;
+  height: 1px;
+  background: currentColor;
+  transform-origin: right center;
+  transition:
+    transform 420ms var(--ease-editorial, ease),
+    background-color 260ms var(--ease-ui, ease);
+}
+
+.oveliq-ehero__cta--secondary:hover::after {
+  background: var(--eh-red);
+  animation: oveliq-eh-underline 620ms var(--ease-editorial, ease);
+}
+
+@keyframes oveliq-eh-underline {
+  0% { transform: scaleX(1); transform-origin: right center; }
+  45% { transform: scaleX(0); transform-origin: right center; }
+  46% { transform: scaleX(0); transform-origin: left center; }
+  100% { transform: scaleX(1); transform-origin: left center; }
+}
+
+/* —— Visual composition —— */
+.oveliq-ehero__visual {
+  --eh-mx: 0;
+  --eh-my: 0;
+  position: relative;
+  justify-self: end;
+  width: min(100%, calc((100svh - var(--eh-nav-h) - 13rem) * 1.1458));
+  min-width: min(100%, 24rem);
+  aspect-ratio: 731 / 638;
+  color: var(--eh-ink);
+}
+
+.oveliq-ehero__art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.oveliq-ehero__layer {
+  transition: transform 900ms var(--ease-editorial, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.oveliq-ehero__layer--back { transform: translate(calc(var(--eh-mx) * 4px), calc(var(--eh-my) * 3px)); }
+.oveliq-ehero__layer--ring { transform: translate(calc(var(--eh-mx) * 8px), calc(var(--eh-my) * 6px)); }
+.oveliq-ehero__layer--building { transform: translate(calc(var(--eh-mx) * 12px), calc(var(--eh-my) * 8px)); }
+.oveliq-ehero__layer--star { transform: translate(calc(var(--eh-mx) * 18px), calc(var(--eh-my) * 14px)); }
+
+.oveliq-ehero__construct {
+  fill: none;
+  stroke: var(--eh-line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.oveliq-ehero__ring {
+  fill: none;
+  stroke: var(--eh-ink);
+  stroke-width: 115;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.oveliq-ehero__ring--over {
+  stroke: var(--eh-red-over);
+  stroke-dasharray: none;
+}
+
+.oveliq-ehero__photo {
+  filter: grayscale(1);
+}
+
+.oveliq-ehero__star {
+  fill: var(--eh-red);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.oveliq-ehero__note {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--eh-ink);
+  font-family: var(--eh-mono);
+  font-size: clamp(0.625rem, 0.75vw, 0.75rem);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.oveliq-ehero__note strong {
+  font-weight: 600;
+}
+
+.oveliq-ehero__note span {
+  opacity: 0.75;
+}
+
+.oveliq-ehero__note--code { left: 0.2%; top: 11.8%; }
+
+/* Side note column, aligned with the asterisk's lower arm. */
+.oveliq-ehero__aside {
+  align-self: start;
+  min-width: 0;
+  margin-top: clamp(9rem, 22vh, 13.5rem);
+}
+
+.oveliq-ehero__statement {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+  font-family: var(--eh-mono);
+  font-size: clamp(0.625rem, 0.75vw, 0.75rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.oveliq-ehero__statement::after {
+  content: "";
+  width: 3.25rem;
+  height: 1px;
+  margin-top: 1.75rem;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* —— Capabilities strip —— */
+.oveliq-ehero__strip {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--eh-white);
+  border-top: 1px solid var(--eh-line);
+}
+
+/* Cover construction lines that run down from the art. */
+.oveliq-ehero__strip::after {
+  content: "";
+  position: absolute;
+  inset: 100% calc(var(--eh-gutter) * -1) auto;
+  height: 100vh;
+  background: var(--eh-white);
+}
+
+.oveliq-ehero__capability,
+.oveliq-ehero__strip-end {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.25rem, 3vh, 2rem) clamp(1rem, 2.4vw, 2.5rem);
+}
+
+.oveliq-ehero__capability:first-child {
+  padding-left: 0;
+}
+
+.oveliq-ehero__capability + .oveliq-ehero__capability::before,
+.oveliq-ehero__strip-end::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: clamp(1.25rem, 3vh, 2rem);
+  bottom: clamp(0.75rem, 2vh, 1.25rem);
+  width: 1px;
+  background: var(--eh-line);
+}
+
+.oveliq-ehero__capability a {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1rem, 1.6vw, 1.75rem);
+  color: inherit;
+  text-decoration: none;
+}
+
+.oveliq-ehero__capability a:focus-visible {
+  outline: 2px solid var(--eh-red);
+  outline-offset: 4px;
+}
+
+.oveliq-ehero__cap-icon {
+  flex: none;
+  width: clamp(2.25rem, 2.7vw, 2.75rem);
+  height: auto;
+  margin-top: -0.125rem;
+  fill: none;
+  stroke: var(--eh-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.oveliq-ehero__cap-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.oveliq-ehero__cap-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45em;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-variation-settings: "wght" 600;
+}
+
+.oveliq-ehero__cap-index,
+.oveliq-ehero__cap-slash {
+  color: var(--eh-red);
+  font-variation-settings: "wght" 500;
+}
+
+.oveliq-ehero__cap-text {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  font-variation-settings: "wght" 450;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  width: fit-content;
+  transition: background-size 420ms var(--ease-editorial, ease);
+}
+
+.oveliq-ehero__capability a:hover .oveliq-ehero__cap-text,
+.oveliq-ehero__capability a:focus-visible .oveliq-ehero__cap-text {
+  background-size: 100% 1px;
+}
+
+.oveliq-ehero__strip-end {
+  padding-right: 0;
+}
+
+.oveliq-ehero__strip-end-inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(1rem, 1.6vw, 1.75rem);
+  height: 100%;
+}
+
+.oveliq-ehero__strip-rule {
+  flex: 0 1 13rem;
+  height: 1px;
+  background: var(--eh-ink);
+  opacity: 0.7;
+}
+
+.oveliq-ehero__strip-star {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: var(--eh-red);
+  flex: none;
+}
+
+/* —— Entrance motion (only when the intro plays) —— */
+@media (prefers-reduced-motion: no-preference) {
+  .oveliq-ehero:not(.is-settled) .oveliq-ehero__lines {
+    animation: oveliq-eh-fade 1400ms var(--ease-editorial, ease) 200ms both;
+  }
+
+  .oveliq-ehero:not(.is-settled) .oveliq-ehero__ring:not(.oveliq-ehero__ring--over) {
+    animation: oveliq-eh-draw 1300ms cubic-bezier(0.65, 0, 0.2, 1) 220ms both;
+  }
+
+  .oveliq-ehero:not(.is-settled) .oveliq-ehero__enter--back {
+    animation: oveliq-eh-fade 1000ms var(--ease-editorial, ease) 520ms both;
+  }
+
+  .oveliq-ehero:not(.is-settled) .oveliq-ehero__enter--red {
+    animation: oveliq-eh-slide 1000ms var(--ease-editorial, ease) 640ms both;
+  }
+
+  .oveliq-ehero:not(.is-settled) .oveliq-ehero__enter--building {
+    animation: oveliq-eh-rise 1100ms var(--ease-editorial, ease) 560ms both;
+  }
+
+  .oveliq-ehero:not(.is-settled) .oveliq-ehero__star {
+    animation:
+      oveliq-eh-star-in 1100ms cubic-bezier(0.34, 1.4, 0.64, 1) 820ms both,
+      oveliq-eh-star-sway 10s ease-in-out 1920ms infinite alternate;
+  }
+
+  .oveliq-ehero.is-settled .oveliq-ehero__star {
+    animation: oveliq-eh-star-sway 10s ease-in-out infinite alternate;
+  }
+
+  .oveliq-ehero:not(.is-settled) .oveliq-ehero__note {
+    animation: oveliq-eh-fade 900ms var(--ease-editorial, ease) 1100ms both;
+  }
+}
+
+@keyframes oveliq-eh-fade {
+  from { opacity: 0; }
+}
+
+@keyframes oveliq-eh-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes oveliq-eh-rise {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes oveliq-eh-slide {
+  from { opacity: 0; transform: translateX(-28px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes oveliq-eh-star-in {
+  from { opacity: 0; transform: rotate(-120deg) scale(0.5); }
+  to { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+
+@keyframes oveliq-eh-star-sway {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(30deg); }
+}
+
+/* —— Nav entrance (moved from hero.css with the hero swap) —— */
+@media (prefers-reduced-motion: no-preference) {
+  .oveliq-nav-enter:not(.is-settled) {
+    animation: oveliq-nav-in 700ms var(--ease-editorial, ease) 140ms both;
+  }
+}
+
+@keyframes oveliq-nav-in {
+  from { opacity: 0; transform: translate3d(0, -8px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* —— Tablet: drop the side note, keep the pairing —— */
+@media (max-width: 1100px) {
+  .oveliq-ehero__main {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    column-gap: 2rem;
+  }
+
+  .oveliq-ehero__aside {
+    display: none;
+  }
+
+  .oveliq-ehero__headline {
+    font-size: clamp(2.75rem, 7.4vw, 5.5rem);
+  }
+
+  .oveliq-ehero__strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .oveliq-ehero__strip-end {
+    display: none;
+  }
+}
+
+/* —— Stacked: headline first, composition beneath —— */
+@media (max-width: 860px) {
+  .oveliq-ehero {
+    --eh-nav-h: 3.75rem;
+  }
+
+  .oveliq-ehero__inner {
+    min-height: 0;
+    padding-top: calc(var(--eh-nav-h) + 2.5rem);
+  }
+
+  .oveliq-ehero__main {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(2.5rem, 7vw, 3.5rem);
+  }
+
+  .oveliq-ehero__headline {
+    font-size: clamp(3rem, 15vw, 6.5rem);
+  }
+
+  .oveliq-ehero__visual {
+    justify-self: center;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Contain the construction lines to the art box once it sits under the copy. */
+  .oveliq-ehero__art {
+    overflow: hidden;
+  }
+
+  .oveliq-ehero__strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .oveliq-ehero__capability,
+  .oveliq-ehero__capability:first-child {
+    padding: 1.125rem 0;
+  }
+
+  .oveliq-ehero__capability + .oveliq-ehero__capability {
+    border-top: 1px solid var(--eh-line);
+  }
+
+  .oveliq-ehero__capability + .oveliq-ehero__capability::before {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .oveliq-ehero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .oveliq-ehero__cta--primary {
+    justify-content: space-between;
+  }
+
+  .oveliq-ehero__cta--secondary {
+    align-self: flex-start;
+  }
+
+  .oveliq-ehero__eyebrow::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-nav-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .oveliq-ehero__layer {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .oveliq-ehero__cta--secondary:hover::after {
+    animation: none;
+  }
+}

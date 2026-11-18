@@ -1,0 +1,273 @@
+/**
+ * Shared inner-page primitives (Spector page grammar).
+ * Transform ownership: Reveal / RevealLines / ManifestoLines wrappers only.
+ */
+
+.oveliq-ip-section {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--background);
+  color: var(--color-001);
+}
+
+.oveliq-ip-section--surface {
+  background: var(--surface);
+}
+
+.oveliq-ip-section--dark {
+  background: var(--color-004);
+  color: var(--color-002);
+}
+
+.oveliq-ip-inner {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: clamp(4rem, 10vh, 7.5rem) var(--page-gutter, 24px);
+}
+
+.oveliq-ip-inner--flush-top {
+  padding-top: 0;
+}
+
+/* —— Giant page title (Spector "LET'S CONNECT") —— */
+.oveliq-ip-title {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(3.25rem, 10.4vw, 9.5rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  font-feature-settings: "calt" 0, "case";
+  font-variation-settings: "wght" var(--type-wght-display);
+  color: var(--color-001);
+}
+
+.oveliq-ip-title .oveliq-reveal-line__inner {
+  padding-bottom: 0.04em;
+}
+
+.oveliq-ip-title__accent {
+  color: var(--accent);
+}
+
+.oveliq-ip-intro {
+  margin: 0;
+  max-width: 40rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-body-lg, 1.125rem);
+  line-height: 1.45;
+  letter-spacing: -0.03em;
+  color: rgba(38, 42, 45, 0.72);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+.oveliq-ip-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--rule-color, rgba(38, 42, 45, 0.1));
+}
+
+/* —— Centred section heading (Spector "OUR CLIENTS" / "CLIENT STORY") —— */
+.oveliq-ip-center-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.oveliq-ip-center-heading__title {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  font-variation-settings: "wght" var(--type-wght-display);
+}
+
+.oveliq-ip-center-heading__subtitle {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+/* —— Lead + body two-column story block —— */
+.oveliq-ip-story {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding-top: clamp(2.5rem, 7vh, 5rem);
+}
+
+@media (min-width: 1025px) {
+  .oveliq-ip-story {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(3rem, 8vw, 9rem);
+  }
+}
+
+.oveliq-ip-story__lead {
+  margin: 0;
+  max-width: 34rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(1.375rem, 2.1vw, 1.875rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+
+.oveliq-ip-story__body {
+  display: flex;
+  max-width: 36rem;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.oveliq-ip-story__body p {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-body, 1rem);
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+  color: rgba(38, 42, 45, 0.74);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+/* —— Full-bleed media —— */
+.oveliq-ip-media {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: clamp(22rem, 88vh, 60rem);
+  margin: 0;
+  overflow: hidden;
+  background: var(--color-004);
+}
+
+.oveliq-ip-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.oveliq-ip-media figcaption {
+  position: absolute;
+  bottom: var(--page-gutter, 24px);
+  left: var(--page-gutter, 24px);
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* —— Section manifesto inside inner pages: shells own the gutter —— */
+.oveliq-ip-section .oveliq-section-manifesto {
+  padding-top: 0;
+}
+
+/* —— Small caps label (Spector "NOT SURE WHERE TO START?") —— */
+.oveliq-ip-eyebrow {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+/* —— Big arrow link (Spector "VIEW PROJECT →" / "ALL PROJECTS →") —— */
+.oveliq-ip-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: 1rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(2rem, 4.4vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-display);
+}
+
+.oveliq-ip-arrow-link svg {
+  width: 0.9em;
+  height: 0.9em;
+  color: var(--accent);
+}
+
+.oveliq-ip-arrow-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+/* Spector: text + arrow squash to ~0.94 and spring back on hover; no colour change. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .oveliq-ip-arrow-link:hover .oveliq-ip-arrow-link__text,
+  .oveliq-ip-arrow-link:hover svg {
+    animation: oveliq-arrow-squash 420ms var(--ease-pop, ease-out);
+  }
+
+  .oveliq-ip-arrow-link:hover svg {
+    animation-name: oveliq-arrow-squash-nudge;
+  }
+}
+
+@keyframes oveliq-arrow-squash {
+  0% { transform: scale(1); }
+  25% { transform: scale(0.94); }
+  100% { transform: scale(1); }
+}
+
+@keyframes oveliq-arrow-squash-nudge {
+  0% { transform: scale(1); }
+  25% { transform: translateX(-0.12em) scale(0.94); }
+  100% { transform: scale(1); }
+}
+
+.oveliq-ip-arrow-link__text {
+  display: inline-block;
+}
+
+/* —— Full-bleed media drifting inside its clip —— */
+.oveliq-ip-media__layer {
+  position: absolute;
+  inset: -12% 0;
+}
+
+.oveliq-ip-media__layer img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* CtaBand sits inside inner-page shells without its own gutter. */
+.oveliq-ip-cta {
+  padding: 0 var(--page-gutter, 24px);
+}

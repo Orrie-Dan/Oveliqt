@@ -1,0 +1,27 @@
+# Oveliqt — Software, AI & Digital Products
+
+Oveliqt builds websites, custom platforms and applied AI.
+
+Site: https://oveliqt.com · Contact: info@oveliqt.com
+
+## Routes
+
+- / — Six featured projects
+- /work — All seven projects, filterable by Websites, Platforms and AI & Research
+- /services — Overview of the six services
+- /services/web-development, /services/software-development, /services/mobile-applications, /services/ai-machine-learning, /services/data-analytics, /services/automation-integrations — One page per service: capabilities, delivery approach, case studies and FAQs
+- /pricing — Ways to work together: discovery sprint, fixed-scope projects and ongoing partnership; starting scopes, process and pricing FAQ
+- /about — Studio and approach
+- /contact — Guided enquiry; send the prepared message by WhatsApp or email (info@oveliqt.com)
+
+## Projects
+
+- /work/ecobe — ECOBE: Client website. From a printed catalogue to a browsable collection.
+- /work/soliaris — Soliaris Africa: Client website. A regional energy story, brought online.
+- /work/energex — Energex: Client website. A complex energy offer, made easier to explore.
+- /work/crosswalk-intelligence — Crosswalk Intelligence: Independent prototype. From traffic footage to reviewable crossing events.
+- /work/axeora — Axeora: Client website. A clear digital presence for a complex technology business.
+- /work/education-operations — Education Operations Platform: Partner contribution. Register a learner. Record the day. See what needs attention.
+- /work/cira — CIRA: Independent prototype. Citizens report it. Officers resolve it. Everyone sees the status.
+
+Education and Crosswalk covers are conceptual product visualisations, not actual screenshots. Contribution and evaluation limits are stated in their case studies.

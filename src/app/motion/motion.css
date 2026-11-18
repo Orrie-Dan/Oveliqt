@@ -1,0 +1,709 @@
+/**
+ * Oveliqt motion foundation — tokens + primitive styles.
+ * Ownership: Oveliqt (not ditto.css). Values from OVELIQ-MOTION-01.
+ *
+ * Transform composition strategy:
+ *   .oveliq-parallax   → outer translate (scroll-linked)
+ *   .oveliq-reveal*    → inner opacity + translate (entrance)
+ *   .oveliq-media-reveal__media → scale on clipped media only
+ * Never mutate the same element's transform from two systems.
+ */
+
+:root {
+  /* Durations */
+  --motion-fast: 200ms;
+  --motion-ui: 300ms;
+  --motion-reveal: 750ms;
+  --motion-media: 1000ms;
+  --motion-section: 900ms;
+  --motion-track: 550ms;
+  --motion-stagger: 90ms;
+
+  /* Easings — editorial / ease-out, not springy */
+  --ease-ui: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-media: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Spector inner pages (references/spector/INNER-PAGES-MOTION.md) */
+  --ease-rise: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-pop: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Distances */
+  --reveal-distance-sm: 14px;
+  --reveal-distance-md: 28px;
+  --reveal-distance-lg: 60px;
+
+  /* Media entrance default (Spector hero ~1.4 → 1; tune per use) */
+  --media-scale-enter: 1.28;
+
+  /*
+   * Fidelity-01 — measured from live Spector @1440×900
+   * Display LG: 90px / lh 87.3 / ls -4.5px; mobile ~34px @375
+   * Gutter: 24px desktop, 16px mobile
+   */
+  --page-gutter: 24px;
+  --page-gutter-sm: 16px;
+  --type-display-lg: clamp(2.125rem, 9.07vw, 5.625rem);
+  --type-display-md: clamp(3rem, 8.33vw, 7.5rem);
+  --type-body-lg: 1.125rem;
+  --type-body: 1rem;
+  --type-label: 1.25rem;
+  --type-micro: 0.75rem;
+  --type-tracking-display: -0.05em;
+  --type-tracking-md: -0.06em;
+  --type-leading-display: 0.97;
+  /*
+   * Weight axis for "Plus Jakarta Sans Variable" — measured from live Spector.
+   * The face is declared at 400 only (as Framer ships it), so weight is driven via
+   * font-variation-settings, never font-weight (that would synthesize faux bold).
+   */
+  --type-wght-display: 730;
+  --type-wght-title: 700;
+  --type-wght-heading: 670;
+  --type-wght-caps: 640;
+  --type-wght-ui: 600;
+  --type-wght-label: 530;
+  --type-wght-body: 460;
+  --rule-color: rgba(38, 42, 45, 0.1);
+  --space-label-to-display: clamp(1.25rem, 2.5vh, 2rem);
+  --space-display-to-support: clamp(0.85rem, 1.8vh, 1.35rem);
+  --space-support-to-content: clamp(2.5rem, 6vh, 4.5rem);
+
+  /* Runtime (written by JS; safe defaults) */
+  --scroll-progress: 0;
+  --parallax-y: 0px;
+  --parallax-x: 0px;
+  --motion-delay: 0ms;
+  --motion-stagger-index: 0;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --page-gutter: var(--page-gutter-sm);
+  }
+}
+
+/* —— Generic reveal —— */
+.oveliq-reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, var(--reveal-distance-sm))) scale(var(--reveal-scale, 1));
+  transition:
+    opacity var(--reveal-duration, var(--motion-reveal)) var(--reveal-ease, var(--ease-editorial)),
+    transform var(--reveal-duration, var(--motion-reveal)) var(--reveal-ease, var(--ease-editorial));
+  transition-delay: calc(
+    var(--motion-delay) + (var(--motion-stagger-index) * var(--motion-stagger))
+  );
+  will-change: opacity, transform;
+}
+
+.oveliq-reveal--from-above {
+  transform: translateY(calc(var(--reveal-distance-sm) * -1));
+}
+
+.oveliq-reveal.is-visible,
+.oveliq-reveal[data-reduced="true"] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* —— Clipped line reveal —— */
+.oveliq-reveal-lines {
+  display: flex;
+  flex-direction: column;
+}
+
+.oveliq-reveal-line {
+  overflow: hidden;
+  display: block;
+}
+
+.oveliq-reveal-line__inner {
+  display: block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    opacity var(--motion-reveal) var(--ease-editorial),
+    transform var(--motion-reveal) var(--ease-editorial);
+  transition-delay: calc(
+    var(--motion-delay) + (var(--motion-stagger-index) * var(--motion-stagger))
+  );
+  will-change: opacity, transform;
+}
+
+.oveliq-reveal-lines.is-visible .oveliq-reveal-line__inner,
+.oveliq-reveal-lines[data-reduced="true"] .oveliq-reveal-line__inner {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+/* —— Media scale entrance —— */
+.oveliq-media-reveal {
+  overflow: hidden;
+  display: block;
+  isolation: isolate;
+}
+
+.oveliq-media-reveal__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  --media-y-enter: 0px;
+  transform: translate3d(0, var(--media-y-enter), 0) scale(var(--media-scale-enter));
+  transform-origin: center center;
+  transition:
+    opacity var(--motion-media) var(--ease-media),
+    transform var(--motion-media) var(--ease-media);
+  transition-delay: var(--motion-delay);
+  will-change: opacity, transform;
+}
+
+.oveliq-media-reveal.is-visible .oveliq-media-reveal__media,
+.oveliq-media-reveal[data-reduced="true"] .oveliq-media-reveal__media {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  will-change: auto;
+}
+
+/* —— Scroll parallax outer wrapper —— */
+.oveliq-parallax {
+  transform: translate3d(var(--parallax-x), var(--parallax-y), 0);
+  will-change: transform;
+}
+
+.oveliq-parallax[data-reduced="true"] {
+  transform: none;
+  will-change: auto;
+}
+
+/* —— Sticky scene —— */
+.oveliq-sticky-scene {
+  position: relative;
+  width: 100%;
+}
+
+.oveliq-sticky-scene__pin {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  min-height: 36rem;
+  overflow: clip;
+}
+
+.oveliq-sticky-scene[data-reduced="true"] .oveliq-sticky-scene__pin,
+.oveliq-sticky-scene[data-collapsed="true"] .oveliq-sticky-scene__pin {
+  position: relative;
+  height: auto;
+  min-height: 0;
+}
+
+/* —— Media crossfade ——
+ * Spector Services: incoming opacity + slight overscale settle;
+ * outgoing remains underneath then fades. ~400–500ms editorial. */
+.oveliq-media-crossfade {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.oveliq-media-crossfade__layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 420ms var(--ease-media),
+    transform 480ms var(--ease-editorial);
+  pointer-events: none;
+  will-change: opacity, transform;
+  z-index: 0;
+}
+
+.oveliq-media-crossfade__layer.is-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.oveliq-media-crossfade[data-reduced="true"] .oveliq-media-crossfade__layer {
+  transition: none;
+  transform: none;
+}
+
+.oveliq-media-crossfade[data-reduced="true"] .oveliq-media-crossfade__layer:not(.is-active) {
+  display: none;
+}
+
+/* —— Spector manifesto lines (exact appear + type) —— */
+.oveliq-manifesto {
+  /* Spector @1440: 90px / 87.3 lh / -4.5px tracking / 100px indent */
+  --manifesto-indent-step: clamp(2.5rem, 6.94vw, 6.25rem);
+  --manifesto-size: var(--type-display-lg);
+  --manifesto-leading: var(--type-leading-display);
+  --manifesto-appear-duration: 650ms;
+  --manifesto-appear-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --manifesto-appear-x: 40px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.oveliq-manifesto__row {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-flow: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 0 4px;
+}
+
+.oveliq-manifesto__row:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid var(--surface-2, #d9d9d9);
+  pointer-events: none;
+}
+
+/* Shrinkable: a long line on a narrow screen eats into its indent instead of clipping. */
+.oveliq-manifesto__spacer {
+  flex: 0 1 calc(var(--manifesto-indent-step) * var(--manifesto-indent, 0));
+  min-width: 0;
+  width: calc(var(--manifesto-indent-step) * var(--manifesto-indent, 0));
+  height: 1px;
+  align-self: stretch;
+}
+
+/* Spector animates the line wrapper: opacity + translateX(40px) */
+.oveliq-manifesto__line {
+  position: relative;
+  z-index: 2;
+  display: block;
+  flex: 0 0 auto;
+  user-select: none;
+  white-space: pre;
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: translate3d(var(--manifesto-appear-x), 0, 0);
+  transition:
+    opacity var(--manifesto-appear-duration) var(--manifesto-appear-ease),
+    transform var(--manifesto-appear-duration) var(--manifesto-appear-ease);
+  transition-delay: calc(
+    var(--motion-delay) + (var(--motion-stagger-index) * var(--motion-stagger))
+  );
+}
+
+.oveliq-manifesto__text {
+  display: block;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--manifesto-size);
+  font-weight: 400;
+  font-variation-settings: "wght" var(--type-wght-display);
+  line-height: var(--manifesto-leading);
+  letter-spacing: var(--type-tracking-display);
+  text-transform: uppercase;
+  font-feature-settings: "calt" 0, "case";
+  color: var(--manifesto-base, var(--color-001));
+}
+
+.oveliq-manifesto__row--muted {
+  --manifesto-base: var(--color-003, #adadad);
+}
+
+.oveliq-manifesto__row--solid {
+  --manifesto-base: var(--color-001, #262a2d);
+}
+
+.oveliq-manifesto.is-visible .oveliq-manifesto__line,
+.oveliq-manifesto[data-reduced="true"] .oveliq-manifesto__line {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* —— Section manifesto shell —— */
+.oveliq-section-manifesto {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  /* padding-block only — keep inline free for section shells to apply --page-gutter */
+  padding-block: clamp(3.5rem, 8vh, 6.5rem) clamp(1.5rem, 3vh, 2.5rem);
+  padding-inline: 0;
+}
+
+.oveliq-section-manifesto__meta {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.oveliq-section-manifesto__meta-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  min-width: 0;
+}
+
+.oveliq-section-manifesto__title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.oveliq-section-manifesto__number {
+  margin: 0;
+  font-size: 0.8125rem !important;
+  line-height: 1 !important;
+  letter-spacing: 0.06em !important;
+}
+
+.oveliq-section-manifesto__mark {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  background: var(--accent);
+  mask-image: url("data:image/svg+xml,<svg display='block' role='presentation' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'><path d='M 10.814 8.313 L 13.811 8.313 C 13.893 8.313 13.973 8.346 14.032 8.404 L 15.908 10.28 C 16.104 10.477 15.965 10.814 15.686 10.814 L 10.876 10.814 C 10.842 10.814 10.814 10.842 10.814 10.876 L 10.814 15.687 C 10.814 15.965 10.477 16.105 10.28 15.908 L 8.405 14.032 C 8.346 13.973 8.313 13.893 8.313 13.811 L 8.313 10.814 C 8.313 9.432 9.433 8.313 10.814 8.313 M 8.313 5.186 L 8.313 2.189 C 8.313 2.106 8.346 2.027 8.404 1.968 L 10.28 0.092 C 10.477 -0.104 10.814 0.035 10.814 0.314 L 10.814 5.124 C 10.814 5.158 10.842 5.186 10.876 5.186 L 15.687 5.186 C 15.965 5.186 16.105 5.523 15.908 5.72 L 14.032 7.596 C 13.973 7.654 13.894 7.687 13.811 7.687 L 10.814 7.687 C 9.432 7.687 8.313 6.567 8.313 5.186 M 5.186 7.687 L 2.189 7.687 C 2.106 7.687 2.027 7.654 1.968 7.596 L 0.092 5.72 C -0.104 5.523 0.035 5.186 0.314 5.186 L 5.124 5.186 C 5.158 5.186 5.186 5.158 5.186 5.124 L 5.186 0.313 C 5.186 0.035 5.523 -0.105 5.72 0.092 L 7.596 1.968 C 7.654 2.027 7.687 2.106 7.687 2.189 L 7.687 5.186 C 7.687 6.567 6.567 7.687 5.186 7.687 M 7.687 10.814 L 7.687 13.811 C 7.687 13.893 7.654 13.973 7.596 14.032 L 5.72 15.908 C 5.523 16.104 5.186 15.965 5.186 15.686 L 5.186 10.876 C 5.186 10.842 5.158 10.814 5.124 10.814 L 0.313 10.814 C 0.035 10.814 -0.105 10.477 0.092 10.28 L 1.968 8.405 C 2.027 8.346 2.107 8.313 2.189 8.313 L 5.186 8.313 C 6.568 8.313 7.687 9.433 7.687 10.814' fill='currentColor'/></svg>");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.oveliq-section-manifesto__label {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-label);
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-label);
+}
+
+.oveliq-section-manifesto__tagline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  text-align: right;
+  flex-shrink: 0;
+  max-width: 14rem;
+  padding-top: 0.15rem;
+}
+
+.oveliq-section-manifesto__tagline-jp {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--muted, #7a7a7a);
+}
+
+.oveliq-section-manifesto__tagline-mark {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex-shrink: 0;
+  background: var(--accent);
+  mask-image: url("data:image/svg+xml,<svg display='block' role='presentation' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'><path d='M 7 0 L 3.5 0 L 3.5 3.5 L 7 3.5 Z M 7 7 L 3.5 7 L 3.5 10.5 L 7 10.5 Z M 3.5 0 L 0 0 L 0 3.5 L 3.5 3.5 Z M 3.5 3.5 L 0 3.5 L 0 7 L 3.5 7 Z M 3.5 10.5 L 0 10.5 L 0 14 L 3.5 14 Z M 10.5 10.5 L 7 10.5 L 7 14 L 10.5 14 Z M 14 0 L 10.5 0 L 10.5 3.5 L 14 3.5 Z M 14 7 L 10.5 7 L 10.5 10.5 L 14 10.5 Z' fill='currentColor' transform='translate(1 1)'/></svg>");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.oveliq-section-manifesto__tagline-en {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-body-lg);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+
+.oveliq-section-manifesto__headline {
+  margin: var(--space-label-to-display) 0 0;
+}
+
+.oveliq-section-manifesto__supporting {
+  margin: var(--space-display-to-support) 0 0;
+  max-width: min(34rem, 42vw);
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: var(--type-body-lg);
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  color: var(--muted, #6b7280);
+  font-variation-settings: "wght" var(--type-wght-label);
+}
+
+@media (max-width: 767px) {
+  .oveliq-section-manifesto {
+    padding-block: clamp(2.25rem, 7vh, 3.5rem) clamp(1rem, 3vh, 1.5rem);
+  }
+
+  .oveliq-section-manifesto__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .oveliq-section-manifesto__tagline {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .oveliq-section-manifesto__tagline-jp {
+    justify-content: flex-start;
+  }
+
+  .oveliq-section-manifesto__headline {
+    margin-top: 0.55rem;
+  }
+
+  .oveliq-manifesto {
+    --manifesto-indent-step: clamp(1rem, 8vw, 2.5rem);
+    --manifesto-size: clamp(2.125rem, 9.07vw, 3.25rem);
+    --manifesto-appear-x: 24px;
+  }
+
+  .oveliq-section-manifesto__supporting {
+    max-width: none;
+  }
+
+  .oveliq-section-manifesto__tagline-en {
+    font-size: 1rem;
+  }
+}
+
+/* —— Difference title —— */
+.oveliq-difference-title {
+  margin: 0;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  color: #fff;
+  font-weight: 400;
+  font-variation-settings: "wght" var(--type-wght-title);
+  letter-spacing: var(--type-tracking-md);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+@supports not (mix-blend-mode: difference) {
+  .oveliq-difference-title {
+    mix-blend-mode: normal;
+    color: inherit;
+  }
+}
+
+/* —— Shared mask-hover tokens (nav keeps its own Framer-tuned masks) —— */
+.oveliq-mask-hover {
+  --oveliq-mask-rest: linear-gradient(
+    270deg,
+    var(--clr-1) 100%,
+    var(--foreground) 102%,
+    var(--foreground) 108%
+  );
+  --oveliq-mask-hover: linear-gradient(
+    270deg,
+    var(--clr-1) 0.6%,
+    var(--foreground) 4.4%,
+    var(--foreground) 108%
+  );
+}
+
+/* —— CTA arrow dual-layer (replaces missing Spector sprite) —— */
+.oveliq-cta-arrow {
+  position: relative;
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.oveliq-cta-arrow__layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--motion-fast) var(--ease-ui);
+}
+
+.oveliq-cta-arrow__layer--rest {
+  transform: translate3d(0, 0, 0);
+}
+
+.oveliq-cta-arrow__layer--hover {
+  transform: translate3d(-110%, 110%, 0);
+}
+
+.oveliq-cta-arrow__icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .oveliq-cta-arrow__layer--rest,
+  .group:focus-visible .oveliq-cta-arrow__layer--rest {
+    transform: translate3d(110%, -110%, 0);
+  }
+
+  .group:hover .oveliq-cta-arrow__layer--hover,
+  .group:focus-visible .oveliq-cta-arrow__layer--hover {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-cta-arrow__layer {
+    transition: none;
+  }
+
+  .oveliq-cta-arrow__layer--hover {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+
+  .group:hover .oveliq-cta-arrow__layer--rest,
+  .group:focus-visible .oveliq-cta-arrow__layer--rest {
+    transform: none;
+  }
+}
+
+/* —— Debug (opt-in: html[data-oveliq-motion-debug]) —— */
+html[data-oveliq-motion-debug] [data-oveliq-motion] {
+  outline: 1px dashed rgba(249, 65, 55, 0.45);
+}
+html[data-oveliq-motion-debug] [data-oveliq-motion]::after {
+  content: attr(data-oveliq-motion) " p:" attr(data-scroll-progress);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  font: 10px/1.2 monospace;
+  color: #f94137;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 2px 4px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-reveal,
+  .oveliq-reveal-line__inner,
+  .oveliq-media-reveal__media,
+  .oveliq-media-crossfade__layer,
+  .oveliq-manifesto__line {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .oveliq-reveal,
+  .oveliq-reveal-lines .oveliq-reveal-line__inner,
+  .oveliq-media-reveal__media,
+  .oveliq-manifesto__line {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .oveliq-parallax {
+    transform: none !important;
+  }
+}
+
+
+/* —— Spector inner-page primitives (INNER-PAGES-MOTION.md) —— */
+
+.oveliq-parallax-ratio {
+  will-change: transform;
+}
+
+/* RevealSplit — words / letters rise in sequence */
+.oveliq-split__word {
+  display: inline-block;
+  white-space: pre;
+}
+
+.oveliq-split__unit {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 0.6em, 0);
+  transition:
+    opacity 600ms var(--ease-rise),
+    transform 600ms var(--ease-rise);
+  transition-delay: calc(var(--motion-delay) + var(--i) * var(--split-stagger));
+}
+
+.oveliq-split--letters .oveliq-split__unit {
+  transform: translate3d(0, 0.35em, 0) scale(0.8);
+  transform-origin: 50% 100%;
+  transition-duration: 700ms;
+  transition-timing-function: var(--ease-pop);
+}
+
+.oveliq-split.is-visible .oveliq-split__unit,
+.oveliq-split[data-reduced="true"] .oveliq-split__unit {
+  opacity: 1;
+  transform: none;
+}
+
+/* RollingNumber — odometer digit columns */
+.oveliq-rolling__digits {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.oveliq-rolling__window {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  line-height: 1;
+}
+
+.oveliq-rolling__column {
+  display: flex;
+  flex-direction: column;
+  transform: translate3d(0, 0, 0);
+  transition: transform 1400ms var(--ease-pop);
+  transition-delay: var(--motion-delay);
+}
+
+.oveliq-rolling__column > span {
+  display: block;
+  height: 1em;
+}
+
+.oveliq-rolling.is-rolled .oveliq-rolling__column {
+  transform: translate3d(0, calc(var(--digit) * -1em), 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-split__unit,
+  .oveliq-rolling__column {
+    transition: none !important;
+  }
+
+  .oveliq-parallax-ratio {
+    transform: none !important;
+  }
+}

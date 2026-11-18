@@ -1,0 +1,265 @@
+/**
+ * Brand Philosophy — sticky scroll typography scene.
+ *
+ * Transform ownership:
+ *   StickyScene outer → height + sticky pin only
+ *   .oveliq-philosophy__stmt-a / __stmt-b → scroll opacity + translate + scale
+ *   .oveliq-philosophy__support → late opacity + translateY
+ *   .oveliq-philosophy__glow → subtle rotate / translate
+ *   .oveliq-philosophy__grid → opacity only
+ * Never compose two transform systems on one node.
+ */
+
+.oveliq-philosophy-scene {
+  --phil-scene-height: 210vh;
+  --phil-a-opacity: 1;
+  --phil-a-y: 3%;
+  --phil-a-scale: 1;
+  --phil-b-opacity: 0;
+  --phil-b-y: 18%;
+  --phil-b-scale: 1.02;
+  --phil-support-opacity: 0;
+  --phil-support-y: 1.25rem;
+  --phil-geo-rot: -8deg;
+  --phil-geo-y: 0%;
+  --phil-grid-opacity: 0.16;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+@media (min-width: 768px) and (max-width: 1099px) {
+  .oveliq-philosophy-scene {
+    --phil-scene-height: 175vh;
+  }
+}
+
+.oveliq-philosophy-scene .oveliq-sticky-scene__pin {
+  min-height: 32rem;
+}
+
+@media (min-height: 900px) {
+  .oveliq-philosophy-scene .oveliq-sticky-scene__pin {
+    min-height: 36rem;
+  }
+}
+
+.oveliq-philosophy {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  background: #050609;
+  color: var(--color-002);
+}
+
+.oveliq-philosophy__field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(90% 70% at 15% 20%, rgba(249, 65, 55, 0.1), transparent 55%),
+    radial-gradient(70% 60% at 90% 80%, rgba(232, 217, 200, 0.05), transparent 50%),
+    linear-gradient(165deg, #07090e 0%, #050609 45%, #0a0c12 100%);
+}
+
+.oveliq-philosophy__grid {
+  position: absolute;
+  inset: 0;
+  opacity: var(--phil-grid-opacity);
+  background-image:
+    linear-gradient(rgba(232, 217, 200, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232, 217, 200, 0.12) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 30% 40%, #000 20%, transparent 70%);
+}
+
+.oveliq-philosophy__glow {
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  top: 28%;
+  right: 8%;
+  border: 1px solid rgba(232, 217, 200, 0.08);
+  border-radius: 0.5rem;
+  background: rgba(232, 217, 200, 0.02);
+  transform: translate3d(0, var(--phil-geo-y), 0) rotate(var(--phil-geo-rot));
+}
+
+.oveliq-philosophy__rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(249, 65, 55, 0.45),
+    transparent
+  );
+}
+
+.oveliq-philosophy__stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  max-width: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 5rem var(--page-gutter, 24px);
+}
+
+.oveliq-philosophy__stmt {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(2.5rem, 8vw, 7.5rem);
+  font-weight: 400;
+  font-variation-settings: "wght" var(--type-wght-display);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.oveliq-philosophy__stack {
+  position: relative;
+  width: 100%;
+  min-height: clamp(12rem, 42vh, 28rem);
+  display: flex;
+  align-items: center;
+}
+
+.oveliq-philosophy__stmt-a {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  margin: 0;
+  opacity: var(--phil-a-opacity);
+  transform: translate3d(0, calc(-50% + var(--phil-a-y)), 0) scale(var(--phil-a-scale));
+  transform-origin: left center;
+  color: color-mix(in srgb, var(--color-002) 55%, transparent);
+}
+
+.oveliq-philosophy__stmt-b {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  margin: 0;
+  opacity: var(--phil-b-opacity);
+  transform: translate3d(0, calc(-50% + var(--phil-b-y)), 0) scale(var(--phil-b-scale));
+  transform-origin: left center;
+  color: var(--color-002);
+}
+
+.oveliq-philosophy__line {
+  display: block;
+  margin: 0;
+}
+
+.oveliq-philosophy__line--accent {
+  color: var(--accent);
+}
+
+.oveliq-philosophy__support {
+  display: flex;
+  width: 100%;
+  max-width: 28rem;
+  flex-direction: column;
+  gap: 1rem;
+  opacity: var(--phil-support-opacity);
+  transform: translate3d(0, var(--phil-support-y), 0);
+}
+
+.oveliq-philosophy__support-rule {
+  width: 2.5rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 80%, transparent);
+}
+
+.oveliq-philosophy__support-copy {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 1rem;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--color-002) 65%, transparent);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+@media (max-width: 1023px) {
+  .oveliq-philosophy__support-copy {
+    font-size: 0.875rem;
+  }
+}
+
+/* Collapsed / reduced / mobile: readable stacked composition */
+.oveliq-philosophy-scene[data-collapsed="true"],
+.oveliq-philosophy-scene[data-reduced="true"] {
+  --phil-a-opacity: 1;
+  --phil-a-y: 0%;
+  --phil-a-scale: 1;
+  --phil-b-opacity: 1;
+  --phil-b-y: 0%;
+  --phil-b-scale: 1;
+  --phil-support-opacity: 1;
+  --phil-support-y: 0px;
+  --phil-geo-rot: -8deg;
+  --phil-geo-y: 0%;
+  --phil-grid-opacity: 0.16;
+}
+
+.oveliq-sticky-scene[data-collapsed="true"] .oveliq-philosophy,
+.oveliq-sticky-scene[data-reduced="true"] .oveliq-philosophy {
+  height: auto;
+  min-height: 0;
+  padding-block: clamp(4rem, 12vh, 7rem);
+}
+
+.oveliq-sticky-scene[data-collapsed="true"] .oveliq-philosophy__stack,
+.oveliq-sticky-scene[data-reduced="true"] .oveliq-philosophy__stack {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.oveliq-sticky-scene[data-collapsed="true"] .oveliq-philosophy__stmt-a,
+.oveliq-sticky-scene[data-collapsed="true"] .oveliq-philosophy__stmt-b,
+.oveliq-sticky-scene[data-reduced="true"] .oveliq-philosophy__stmt-a,
+.oveliq-sticky-scene[data-reduced="true"] .oveliq-philosophy__stmt-b {
+  position: relative;
+  top: auto;
+  inset: auto;
+  transform: none;
+}
+
+.oveliq-sticky-scene[data-collapsed="true"] .oveliq-philosophy__stmt-a,
+.oveliq-sticky-scene[data-reduced="true"] .oveliq-philosophy__stmt-a {
+  color: color-mix(in srgb, var(--color-002) 55%, transparent);
+}
+
+.oveliq-sticky-scene[data-collapsed="true"] .oveliq-philosophy__support,
+.oveliq-sticky-scene[data-reduced="true"] .oveliq-philosophy__support {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-philosophy__stmt-a,
+  .oveliq-philosophy__stmt-b,
+  .oveliq-philosophy__support,
+  .oveliq-philosophy__glow {
+    transition: none;
+  }
+}

@@ -1,0 +1,243 @@
+/**
+ * Pricing — horizontal tier rows on a quiet surface.
+ * Transform ownership: Reveal wrappers only (entrance).
+ */
+
+.oveliq-pricing {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow: clip;
+  background: var(--surface);
+  color: var(--color-001);
+}
+
+.oveliq-pricing__inner {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0 var(--page-gutter, 24px) clamp(2rem, 4vh, 3rem);
+  gap: clamp(2rem, 4vh, 3rem);
+}
+
+.oveliq-pricing__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* —— Tier row —— */
+.oveliq-tier {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-radius: 0.75rem;
+  background: var(--background);
+  border: 1px solid transparent;
+}
+
+.oveliq-tier[data-featured="true"] {
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+@media (min-width: 768px) {
+  .oveliq-tier {
+    grid-template-columns: 5.5rem minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .oveliq-tier__cta {
+    grid-column: 2 / -1;
+  }
+}
+
+@media (min-width: 1025px) {
+  .oveliq-tier {
+    grid-template-columns: 6.5rem minmax(0, 1.1fr) minmax(0, 1fr) minmax(12rem, 0.7fr);
+    gap: 2rem;
+  }
+
+  .oveliq-tier__cta {
+    grid-column: auto;
+  }
+}
+
+.oveliq-tier__cover {
+  position: relative;
+  display: none;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  background: linear-gradient(160deg, var(--color-004) 0%, #1a1c20 100%);
+}
+
+@media (min-width: 768px) {
+  .oveliq-tier__cover {
+    display: block;
+  }
+}
+
+.oveliq-tier[data-featured="true"] .oveliq-tier__cover {
+  background: linear-gradient(160deg, var(--accent) 0%, #b8231b 100%);
+}
+
+.oveliq-tier__cover-name {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: -0.02em;
+  color: var(--color-002);
+}
+
+.oveliq-tier__cover-bars {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  height: 0.9rem;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(232, 217, 200, 0.7) 0 1px,
+    transparent 1px 3px,
+    rgba(232, 217, 200, 0.7) 3px 5px,
+    transparent 5px 6px
+  );
+}
+
+.oveliq-tier__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.oveliq-tier__name {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-variation-settings: "wght" var(--type-wght-heading);
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  color: var(--color-001);
+}
+
+.oveliq-tier__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-tier__price-prefix {
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+  color: var(--muted, #7a7a7a);
+}
+
+.oveliq-tier__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.25rem 0 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: -0.01em;
+  color: var(--muted, #7a7a7a);
+  font-variation-settings: "wght" var(--type-wght-caps);
+}
+
+.oveliq-tier__badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: var(--color-004);
+  color: var(--color-002);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+}
+
+.oveliq-tier__summary {
+  margin: 0.25rem 0 0;
+  max-width: 34ch;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  color: var(--muted-foreground, #616161);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+.oveliq-tier__features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.oveliq-tier__feature {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+.oveliq-tier__check {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.oveliq-tier__cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 1025px) {
+  .oveliq-tier__cta {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .oveliq-tier__cta .oveliq-pill {
+    align-self: flex-end;
+  }
+}
+
+.oveliq-tier__cta-note {
+  margin: 0;
+  max-width: 16rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--muted, #7a7a7a);
+}

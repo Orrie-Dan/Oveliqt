@@ -1,0 +1,466 @@
+/**
+ * How We Work — process track + vertical sequence.
+ *
+ * Transform ownership:
+ *   .oveliq-process__rail → translateX only (controlled activeIndex)
+ *   .oveliq-process__stage → no transform (layout + opacity hierarchy)
+ *   controls → hover color only
+ *   Reveal wrappers → entrance only (separate nodes)
+ */
+
+.oveliq-how-we-work .oveliq-process-grid {
+  gap: 1px;
+  border: 1px solid #d6d9d8;
+  background: #d6d9d8;
+}
+
+.oveliq-how-we-work .oveliq-process-grid > li {
+  position: relative;
+  min-width: 0;
+  padding: clamp(1.25rem, 2.3vw, 2.5rem);
+  border: 0;
+  background: #fff;
+}
+
+.oveliq-process-grid__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #656a69;
+}
+
+.oveliq-how-we-work .oveliq-process-grid__number {
+  font-size: 1rem;
+  color: #c52e26;
+}
+
+.oveliq-process-diagram {
+  display: block;
+  width: 100%;
+  height: clamp(8rem, 12vw, 11rem);
+  margin: 1rem 0 1.75rem;
+  color: #747b79;
+}
+
+.oveliq-how-we-work .oveliq-process-grid h3 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-variation-settings: "wght" 500;
+}
+
+.oveliq-how-we-work .oveliq-process-grid__description {
+  margin-top: 0.75rem;
+  max-width: 38ch;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.oveliq-how-we-work .oveliq-process-grid > li::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 3rem;
+  height: 2px;
+  background: var(--accent);
+}
+
+.oveliq-how-we-work {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow: clip;
+  background: #fff;
+  color: var(--color-001);
+}
+
+.oveliq-how-we-work__inner {
+  display: flex;
+  width: 100%;
+  max-width: none;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.oveliq-section-manifesto.oveliq-how-we-work__manifesto {
+  padding-inline: var(--page-gutter, 24px);
+}
+
+/* —— Desktop controlled track —— */
+.oveliq-process {
+  display: none;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding: 0 0 5rem;
+  /* Flush track toward right edge like Spector */
+  padding-left: var(--page-gutter, 24px);
+}
+
+@media (min-width: 1024px) {
+  .oveliq-process {
+    display: flex;
+  }
+}
+
+.oveliq-process__viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  outline: none;
+}
+
+.oveliq-process__viewport:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.oveliq-process__rail {
+  /* Spector stage ~420–512 wide with adjacent peek */
+  --process-stage-width: min(32rem, 36vw);
+  --process-gap: 0;
+  display: flex;
+  width: max-content;
+  transform: translate3d(
+    calc(var(--process-index, 0) * -1 * var(--process-stage-width)),
+    0,
+    0
+  );
+  transition: transform var(--motion-track) var(--ease-editorial);
+}
+
+.oveliq-process__rail[data-reduced="true"] {
+  transition: none;
+}
+
+@media (min-width: 1280px) {
+  .oveliq-process__rail {
+    --process-stage-width: min(34rem, 34vw);
+  }
+}
+
+@media (min-width: 1536px) {
+  .oveliq-process__rail {
+    --process-stage-width: min(36rem, 32vw);
+  }
+}
+
+@media (min-width: 1920px) {
+  .oveliq-process__rail {
+    --process-stage-width: min(34rem, 42%);
+  }
+}
+
+.oveliq-process__stage {
+  position: relative;
+  display: flex;
+  width: var(--process-stage-width);
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.5rem;
+  min-height: min(70vh, 38.75rem);
+  padding: 2.5rem 2.75rem 2.5rem 0;
+  border-right: 1px solid var(--rule-color, rgba(38, 42, 45, 0.1));
+}
+
+.oveliq-process__stage:last-child {
+  border-right: none;
+}
+
+.oveliq-process__stage-top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.oveliq-process__number {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: color-mix(in srgb, var(--accent) 88%, transparent);
+  font-variation-settings: "wght" var(--type-wght-title);
+}
+
+.oveliq-process__title {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-heading);
+}
+
+.oveliq-process__short {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", "Plus Jakarta Sans Placeholder", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+  letter-spacing: -0.0375rem;
+  color: var(--color-001);
+}
+
+.oveliq-process__desc {
+  margin: 0;
+  max-width: 22rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted);
+  font-variation-settings: "wght" var(--type-wght-body);
+}
+
+.oveliq-process__stage[data-active="false"] .oveliq-process__title,
+.oveliq-process__stage[data-active="false"] .oveliq-process__short,
+.oveliq-process__stage[data-active="false"] .oveliq-process__desc {
+  opacity: 0.45;
+}
+
+.oveliq-process__stage[data-active="true"] .oveliq-process__title {
+  opacity: 1;
+}
+
+.oveliq-process__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-right: var(--page-gutter, 24px);
+}
+
+.oveliq-process__progress-row {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 1rem;
+}
+
+.oveliq-process__index {
+  margin: 0;
+  flex-shrink: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.oveliq-process__bar {
+  height: 2px;
+  flex: 1;
+  max-width: 12.5rem;
+  overflow: hidden;
+  border-radius: 1px;
+  background: var(--clr-2);
+}
+
+.oveliq-process__bar-fill {
+  height: 100%;
+  width: var(--process-progress, 16.666%);
+  background: var(--accent);
+  transition: width var(--motion-track) var(--ease-editorial);
+}
+
+.oveliq-process__bar-fill[data-reduced="true"] {
+  transition: none;
+}
+
+.oveliq-process__buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.oveliq-process__btn {
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--surface-2);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-001);
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--ease-ui),
+    color var(--motion-fast) var(--ease-ui),
+    opacity var(--motion-fast) var(--ease-ui);
+}
+
+.oveliq-process__btn:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  color: var(--accent);
+}
+
+.oveliq-process__btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.oveliq-process__btn:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.oveliq-process__btn-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* —— Mobile vertical sequence —— */
+.oveliq-process-mobile {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--page-gutter, 24px) 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .oveliq-process-mobile {
+    display: none;
+  }
+}
+
+.oveliq-process-mobile__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 2rem 0 2rem 1.5rem;
+  border-left: 1px solid var(--surface-2);
+}
+
+.oveliq-process-mobile__stage:last-child {
+  border-left-color: transparent;
+}
+
+.oveliq-process-mobile__dot {
+  position: absolute;
+  top: 2.35rem;
+  left: -0.28rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.oveliq-process-mobile__number {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.oveliq-process-mobile__title {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(1.75rem, 6vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-heading);
+}
+
+.oveliq-process-mobile__short {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", "Plus Jakarta Sans Placeholder", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.75rem;
+  letter-spacing: -0.0375rem;
+  color: var(--color-001);
+}
+
+.oveliq-process-mobile__desc {
+  margin: 0;
+  max-width: 36rem;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted);
+}
+
+/* —— CTA —— */
+.oveliq-how-we-work__cta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem var(--page-gutter, 24px) 5rem;
+}
+
+.oveliq-how-we-work__cta-eyebrow {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  font-feature-settings: "calt" 0, "case";
+  color: var(--color-001);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-how-we-work__cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.375rem;
+  letter-spacing: -0.05625rem;
+  text-transform: uppercase;
+  color: var(--color-001);
+  text-decoration: none;
+}
+
+.oveliq-how-we-work__cta-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.oveliq-how-we-work__cta-text {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-001) 35%, transparent);
+  padding-bottom: 0.125rem;
+  transition:
+    color var(--motion-fast) var(--ease-ui),
+    border-color var(--motion-fast) var(--ease-ui);
+  font-variation-settings: "wght" var(--type-wght-ui);
+}
+
+.oveliq-how-we-work__cta-link:hover .oveliq-how-we-work__cta-text,
+.oveliq-how-we-work__cta-link:focus-visible .oveliq-how-we-work__cta-text {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-process__rail,
+  .oveliq-process__bar-fill {
+    transition: none !important;
+  }
+}
