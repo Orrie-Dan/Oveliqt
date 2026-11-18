@@ -343,7 +343,6 @@ export const oveliqBusinessNeeds = [
     scenario: "Your team switches between spreadsheets and messages to find records, check progress and prepare reports.",
     build: "We could build a shared dashboard with connected records, role-specific views and clear next actions.",
     result: "Give your team a consistent view of the work.",
-    project: "education-operations", projectLabel: "See an education platform / partner contribution",
   },
   {
     id: "idea", need: "We have an idea. We need someone to build it.", solution: "We turn it into a working app or platform.", cta: "Help me build my idea",
@@ -351,7 +350,6 @@ export const oveliqBusinessNeeds = [
     scenario: "You know the problem you want to solve, but need help deciding what to build first.",
     build: "We could shape the core user journey, design the experience and build a focused web or mobile product to try with real users.",
     result: "Learn from a working product and decide what comes next.",
-    project: "cira", projectLabel: "Explore CIRA / independent prototype",
   },
 ] as const;
 
@@ -759,9 +757,9 @@ export const oveliqAbout = {
     "A SHARED STANDARD.",
   ] as const,
   paragraphs: [
-    "We design and build websites, business platforms and applied AI. Our work ranges from a workshop catalogue to connected education records and computer-vision analysis.",
+    "We design and build websites, business platforms and applied AI. Our published work so far ranges from a workshop catalogue to corporate websites for energy, investment and technology companies.",
     "Oveliqt started from a shared interest in technology and a habit of asking the same question whenever we saw a problem: could we build something better?",
-    "You can explore the work before starting a conversation: client websites, partner contributions and independent prototypes each show a different part of our practice.",
+    "You can explore the work before starting a conversation: each case study explains the brief, the approach and what we delivered.",
   ] as const,
   /** Add verified founder profiles and portraits when available. */
   founders: [] as readonly OveliqFounder[],
@@ -1103,7 +1101,7 @@ export const oveliqPageMeta = {
   work: {
     title: "Work — Oveliqt",
     description:
-      "Selected Oveliqt projects across client websites, education operations, civic reporting and computer vision.",
+      "Selected Oveliqt client websites across manufacturing, energy, investment and technology.",
   },
   pricing: {
     title: "Ways to work together - Oveliqt",
@@ -1296,7 +1294,7 @@ export const oveliqServicesPage = {
       ],
       deliverables: ["Design system & components", "Responsive front-end", "CMS or content model", "SEO & performance setup", "Analytics"],
       goodFor: ["Launching or relaunching a brand", "Turning a manual process into a web tool", "Selling online"],
-      relatedProjects: ["energex", "ecobe", "soliaris", "axeora"],
+      relatedProjects: ["energex", "ecobe", "soliaris", "axeora", "everis"],
       overviewHeadline: "Performance, accessibility and search visibility are part of the build — not a checklist at the end.",
       metaDescription: "Websites and web applications by Oveliqt: fast, accessible, search-ready and easy for your team to keep up to date.",
       capabilityNotes: [
@@ -1332,7 +1330,7 @@ export const oveliqServicesPage = {
       ],
       deliverables: ["Workflow & data model", "Web platform", "APIs & integrations", "Roles & permissions", "Documentation & handover"],
       goodFor: ["Replacing spreadsheets and email chains", "Internal operations platforms", "SaaS products and MVPs"],
-      relatedProjects: ["education-operations", "cira"],
+      relatedProjects: [],
       overviewHeadline: "The software follows the workflow — clear roles, permissions and states, built to be extended.",
       metaDescription: "Custom software by Oveliqt: business platforms, internal systems, SaaS products and APIs shaped around how your organisation works.",
       capabilityNotes: [
@@ -1368,7 +1366,7 @@ export const oveliqServicesPage = {
       ],
       deliverables: ["iOS & Android apps", "Offline-friendly data flows", "Push notifications", "App store release"],
       goodFor: ["Field data collection", "Customer self-service", "Companion apps for an existing platform"],
-      relatedProjects: ["cira"],
+      relatedProjects: [],
       overviewHeadline: "Designed for short sessions, patchy connectivity and one hand on the screen.",
       metaDescription: "Mobile apps by Oveliqt: iOS, Android and cross-platform apps for customers and field teams, connected to your platform.",
       capabilityNotes: [
@@ -1403,7 +1401,7 @@ export const oveliqServicesPage = {
       ],
       deliverables: ["Problem framing & feasibility", "Data preparation", "Model training & evaluation", "AI features in production", "Monitoring"],
       goodFor: ["Computer vision", "Document and text processing", "Prediction and classification", "Assistants on your own data"],
-      relatedProjects: ["crosswalk-intelligence"],
+      relatedProjects: [],
       overviewHeadline: "We check the data can support it, then evaluate on the cases that matter to you.",
       metaDescription: "Applied AI and machine learning by Oveliqt: computer vision, language processing, prediction and assistants, evaluated honestly and shipped in real products.",
       capabilityNotes: [
@@ -1646,17 +1644,6 @@ export const oveliqAboutPage = {
       { number: "02", title: "Progress you can see.", body: "We share designs and working software as the product takes shape. Your feedback steers the work while there’s still room to change it." },
       { number: "03", title: "Something you own.", body: "Clear code, documented decisions and a proper handover give your team a foundation to keep building on." },
     ],
-  },
-  story: {
-    label: "03 / OUR THINKING IN PRACTICE",
-    title: "Built for the day it will actually be used.",
-    projectSlug: "education-operations",
-    decisionLabel: "THE DECISION THAT MATTERED",
-    decision: "Keep daily capture simple. Keep the shared record consistent.",
-    body: "In the education operations system, local staff capture registration, attendance and assessments through focused interfaces. Synchronisation connects those records with role-specific management views, so local work and oversight use the same information. This was a contribution within a partner-led delivery; client details remain private.",
-    takeaway: "The working environment shapes useful software. That's the kind of detail we care about.",
-    mediaCaption: "Education Operations / Anonymous partner contribution",
-    linkLabel: "EXPLORE THE PROJECT",
   },
   cta: {
     label: "YOUR IDEA / OUR NEXT CONVERSATION",

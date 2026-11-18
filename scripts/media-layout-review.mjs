@@ -8,7 +8,7 @@ const output='references/oveliq/media-layout-revision';await mkdir(output,{recur
 try{
  for(const width of [1440,1024,768,375]){
   const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});
-  for(const slug of ['education-operations','crosswalk-intelligence','energex','cira']){
+  for(const slug of ['energex','everis']){
    await page.goto(`${server.resolvedUrls.local[0]}work/${slug}`,{waitUntil:'domcontentloaded'});
    await page.locator('.project-screen img').first().waitFor();
    await page.evaluate(async()=>{document.querySelectorAll('.project-screen img').forEach(img=>img.loading='eager');await document.fonts.ready;await Promise.all([...document.querySelectorAll('.project-screen img')].map(img=>img.decode()))});
@@ -19,12 +19,11 @@ try{
    });
    assert.equal(result.overlap,false);assert.equal(result.overflow,false);
    assert.ok(result.images.every(img=>img.decoded&&img.fit==='contain'&&img.transform==='none'));
-   if(slug==='education-operations')assert.ok(!/CVMP|RCS|government|national programme|district officer/i.test(result.text));
    await page.screenshot({path:`${output}/${width}-${slug}.png`,animations:'disabled'});
-   if(width===1440&&['education-operations','energex'].includes(slug))await page.screenshot({path:`${output}/${width}-${slug}-full.png`,fullPage:true,animations:'disabled'});
+   if(width===1440&&slug==='energex')await page.screenshot({path:`${output}/${width}-${slug}-full.png`,fullPage:true,animations:'disabled'});
    report.push({width,slug,passed:true});
   }
-  await page.close();console.log(`Non-overlapping media and anonymous education copy passed at ${width}px`);
+  await page.close();console.log(`Non-overlapping media passed at ${width}px`);
  }
  await writeFile(`${output}/report.json`,JSON.stringify(report,null,2));
 }finally{await browser.close();await server.close()}

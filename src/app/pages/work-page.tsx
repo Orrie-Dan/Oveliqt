@@ -8,7 +8,8 @@ import "../sections/selected-work.css";
 import "./work-page.css";
 
 export default function WorkPage() {
-  const categories = ["All work", "Websites", "Platforms", "AI & Research"] as const;
+  /* Only categories with published projects get a filter. */
+  const categories = ["All work", ...(["Websites", "Platforms", "AI & Research"] as const).filter(item => oveliqProjectDetails.items.some(project => project.category === item))];
   const [category, setCategory] = useState<string>("All work");
   const projects = oveliqProjectDetails.items.filter(project => category === "All work" || project.category === category);
   return (
@@ -20,7 +21,7 @@ export default function WorkPage() {
               <p className="oveliq-projects__eyebrow">Oveliqt / Portfolio</p>
               <h1 id="page-heading" className="oveliq-projects__title">Work with a purpose.</h1>
             </div>
-            <p className="oveliq-projects__supporting">Client websites, independent platforms and applied AI. Explore the work and the thinking behind it.</p>
+            <p className="oveliq-projects__supporting">Client websites for manufacturing, energy, investment and technology companies. Explore the work and the thinking behind it.</p>
           </Reveal>
           <div className="work-library__filters" role="group" aria-label="Filter projects">
             {categories.map(item => <button key={item} type="button" aria-pressed={category === item} onClick={() => setCategory(item)}>{item}<span>{item === "All work" ? oveliqProjectDetails.items.length : oveliqProjectDetails.items.filter(project => project.category === item).length}</span></button>)}

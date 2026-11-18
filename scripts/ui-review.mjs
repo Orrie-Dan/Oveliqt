@@ -17,7 +17,7 @@ try {
     const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
-    const routes = ['/', '/work', '/services', '/about', '/contact', '/work/education-operations', '/work/cira', '/work/crosswalk-intelligence', '/work/soliaris', '/work/energex', '/work/axeora', '/work/early-childhood-platform', '/work/aifa', '/work/investment-intelligence', '/work/cvmp', '/work/computer-vision', '/work/p2p-escrow', '/work/lending-platform', '/work/ecobe', '/work/everis', '/work/ecosort-ai', '/missing'];
+    const routes = ['/', '/work', '/services', '/about', '/contact', '/work/everis', '/work/soliaris', '/work/energex', '/work/axeora', '/work/early-childhood-platform', '/work/aifa', '/work/investment-intelligence', '/work/cvmp', '/work/computer-vision', '/work/p2p-escrow', '/work/lending-platform', '/work/ecobe', '/work/education-operations', '/work/cira', '/work/crosswalk-intelligence', '/work/ecosort-ai', '/missing'];
     for (const route of routes) {
       console.log(`Review ${width} ${route}`);
       await page.goto(`${base}${route}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -45,21 +45,22 @@ try {
       assert.ok(Object.values(mediaLayout).every(value => !value), `${width} ${route}: media and text must not overlap`);
       report.push({ width, route, ...metrics, errors: [...errors] });
       errors.length = 0;
-      if (route === '/' || route === '/contact' || (width === 1440 && ['/work', '/about', '/services', '/work/soliaris', '/work/education-operations', '/work/aifa', '/work/crosswalk-intelligence'].includes(route))) {
+      if (route === '/' || route === '/contact' || (width === 1440 && ['/work', '/about', '/services', '/work/soliaris', '/work/everis', '/work/aifa'].includes(route))) {
         await page.screenshot({ path: `${output}/${width}-${route === '/' ? 'home' : route.slice(1).replaceAll('/', '-')}.png`, fullPage: true, animations: 'disabled', timeout: 60000 });
       }
     }
     await page.goto(`${base}/work`, { waitUntil: 'networkidle' });
-    assert.equal(await page.locator('.work-library__card').count(), 7);
-    for (const [category, count] of [['Websites', 4], ['Platforms', 2], ['AI & Research', 1], ['All work', 7]]) {
+    assert.equal(await page.locator('.work-library__card').count(), 5);
+    for (const empty of ['Platforms', 'AI & Research']) assert.equal(await page.getByRole('button', { name: new RegExp(`^${empty}`) }).count(), 0);
+    for (const [category, count] of [['Websites', 5], ['All work', 5]]) {
       await page.getByRole('button', { name: new RegExp(`^${category}`) }).click();
       assert.equal(await page.locator('.work-library__card').count(), count);
       assert.equal(await page.getByRole('button', { name: new RegExp(`^${category}`) }).getAttribute('aria-pressed'), 'true');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false);
     }
     const publicLinks = await page.locator('a[href^="/work/"]').evaluateAll(links => links.map(link => link.getAttribute('href')));
-    assert.ok(publicLinks.includes('/work/education-operations'));
-    assert.ok(publicLinks.every(link => !/early-childhood-platform|aifa|investment-intelligence|cvmp|computer-vision|p2p-escrow|lending-platform|everis|ecosort-ai/.test(link)));
+    assert.ok(publicLinks.includes('/work/everis'));
+    assert.ok(publicLinks.every(link => !/early-childhood-platform|aifa|investment-intelligence|cvmp|computer-vision|p2p-escrow|lending-platform|education-operations|crosswalk-intelligence|cira|ecosort-ai/.test(link)));
     await page.goto(`${base}/contact`, { waitUntil: 'networkidle' });
     assert.equal(await page.getByRole('button', { name: 'Continue', exact: true }).isDisabled(), true);
     await page.getByRole('radio', { name: /AI & automation/ }).check();
@@ -89,8 +90,8 @@ try {
     }
     await page.goto(base, { waitUntil: 'networkidle' });
     const projectTabs = page.locator('.oveliq-work-showcase').getByRole('tab');
-    assert.equal(await projectTabs.count(), 6);
-    assert.deepEqual(await projectTabs.locator('.oveliq-work-showcase__tab-copy > span').allTextContents(), ['Education Operations Platform', 'CIRA', 'Crosswalk Intelligence', 'Soliaris Africa', 'Energex', 'Axeora']);
+    assert.equal(await projectTabs.count(), 5);
+    assert.deepEqual(await projectTabs.locator('.oveliq-work-showcase__tab-copy > span').allTextContents(), ['ECOBE', 'Soliaris Africa', 'Energex', 'Axeora', 'Everis']);
     await projectTabs.nth(2).click();
     assert.equal(await projectTabs.nth(2).getAttribute('aria-selected'), 'true');
     await projectTabs.first().click();

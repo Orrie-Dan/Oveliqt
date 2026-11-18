@@ -205,66 +205,6 @@ export const portfolioProjects: readonly OveliqProjectDetail[] = [
     "mediaNote": "Website captured from the current source in an isolated local preview."
   },
   {
-    "slug": "crosswalk-intelligence",
-    "title": "Crosswalk Intelligence",
-    "client": "Independent project",
-    "tagline": "From traffic footage to reviewable crossing events.",
-    "intro": "A computer-vision prototype combining object tracking and event analysis to help a human reviewer inspect pedestrian and vehicle interactions at a crossing.",
-    "industry": "AI · Computer Vision",
-    "role": [
-      "Detection and tracking pipeline",
-      "Event analysis",
-      "Evaluation",
-      "Review interface implementation"
-    ],
-    "deliverables": [
-      "Video-analysis pipeline",
-      "Crossing annotation workflow",
-      "Reviewable event output",
-      "Evaluation write-up"
-    ],
-    "mediaSrc": "/assets/work/crosswalk-intelligence/product-visual.svg",
-    "mediaAlt": "Crossing-analysis visualisation showing crossing zones, pedestrian and vehicle trajectories, and event review",
-    "gallery": [],
-    "challenge": {
-      "label": "The challenge",
-      "headlineLines": [
-        "DETECTIONS ALONE",
-        "DON’T TELL THE STORY"
-      ],
-      "lead": "Turn movement over time into an event a person can inspect.",
-      "paragraphs": [
-        "A box around a person or vehicle does not explain how they interact. Crossing analysis needs tracks, a defined crossing area and a transparent event definition."
-      ]
-    },
-    "solution": {
-      "label": "The approach",
-      "headlineLines": [
-        "TRACK THE MOVEMENT",
-        "REVIEW THE EVENT"
-      ],
-      "lead": "Connect object tracks with crossing geometry and event-level review.",
-      "paragraphs": [
-        "The pipeline combines YOLO detection and ByteTrack tracking with crossing-event analysis. A review interface supports video upload, crossing annotation and inspection of the results.",
-        "The project write-up reports 96% precision and 81% recall on 45 hand-reviewed events from unseen videos at a single Bangkok intersection. Those results describe a narrow project evaluation, not validated performance across locations or a deployed enforcement service."
-      ]
-    },
-    "outcome": {
-      "label": "The delivery",
-      "lead": "From traffic footage to reviewable crossing events.",
-      "points": [
-        "Detection and tracking connected to event analysis",
-        "Crossing annotation and review workflow",
-        "Human inspection of flagged interactions",
-        "Documented evaluation with explicit dataset and sample-size limits"
-      ]
-    },
-    "category": "AI & Research",
-    "status": "Independent prototype",
-    "featured": true,
-    "mediaNote": "Conceptual product visualisation of the analysis process, not recorded footage or measured detection output."
-  },
-  {
     "slug": "axeora",
     "title": "Axeora",
     "client": "Axeora UAE",
@@ -332,130 +272,69 @@ export const portfolioProjects: readonly OveliqProjectDetail[] = [
     "mediaNote": "Website previews captured from a local build. This case study covers the website, not the infrastructure services it describes."
   },
   {
-    "slug": "education-operations",
-    "title": "Education Operations Platform",
-    "client": "Confidential · Partner delivery",
-    "tagline": "Register a learner. Record the day. See what needs attention.",
-    "intro": "A development contribution within a partner-led education platform. Registration, attendance and assessments connect daily staff workflows with management reporting, including synchronisation for interrupted connectivity.",
-    "category": "Platforms",
-    "status": "Partner contribution",
-    "industry": "Education · Operations",
+    "slug": "everis",
+    "title": "Everis",
+    "client": "Everis Holding",
+    "tagline": "From investment mandate to a clear corporate website.",
+    "intro": "A corporate website for an energy developer and investor, explaining its activities, investment approach and the opportunities it considers.",
+    "industry": "Energy · Investment",
     "role": [
-      "Platform development contribution",
-      "Role-specific interfaces",
-      "Data and workflow integration"
+      "Website development",
+      "Content organisation",
+      "Responsive interfaces"
     ],
     "deliverables": [
-      "Registration and record workflows",
-      "Attendance and assessment capture",
-      "Role-specific reporting",
-      "Offline-friendly record synchronisation"
+      "Corporate website",
+      "Activity detail pages",
+      "Project opportunity content",
+      "Enquiry pathways"
     ],
-    "mediaSrc": "/assets/work/education-operations/product-visual.svg",
-    "mediaAlt": "Anonymised education-system visualisation combining attendance capture, learner records and synchronisation",
-    "mediaNote": "Anonymised product visualisation with illustrative records; not a screenshot of the confidential system.",
-    "gallery": [],
-    "challenge": {
-      "label": "The challenge",
-      "headlineLines": [
-        "LOCAL RECORDS",
-        "A SHARED PICTURE"
-      ],
-      "lead": "The same records need to serve two very different working days.",
-      "paragraphs": [
-        "Local staff need to register learners and capture attendance or assessments quickly. Managers need to review completeness, trends and follow-up across those records. The interface has to support both without making daily capture feel like report preparation.",
-        "Interrupted connectivity adds another constraint: records captured locally need a path back into the shared operational picture."
-      ]
-    },
-    "solution": {
-      "label": "How it works",
-      "headlineLines": [
-        "CAPTURE ONCE",
-        "FOLLOW THROUGH"
-      ],
-      "lead": "A shared record follows the learner through day-to-day activity and review.",
-      "paragraphs": [
-        "01 / Register. Establish the learner record and its relevant relationships so later activity stays connected to the same person.",
-        "02 / Capture. Give staff focused views for attendance, screening, assessments and follow-up needs, with offline-friendly capture and synchronisation.",
-        "03 / Review. Bring the records into role-specific management views, with reporting and change history to support oversight.",
-        "Oveliqt contributed platform development, role-specific interfaces, and data and workflow integration within a partner-led delivery. Client identity and programme details remain confidential."
-      ]
-    },
-    "outcome": {
-      "label": "The system",
-      "lead": "Connected records from registration to management review.",
-      "points": [
-        "Registration linked with attendance and assessments",
-        "Role-specific staff and management workspaces",
-        "Synchronisation for interrupted connectivity",
-        "Reporting and traceable record changes"
-      ]
-    },
-    "featured": true
-  },
-  {
-    "slug": "cira",
-    "category": "Platforms",
-    "status": "Independent prototype",
-    "mediaNote": "Prototype interface. No public-service deployment or adoption is claimed.",
-    "title": "CIRA",
-    "client": "Civic Reporting",
-    "tagline": "Citizens report it. Officers resolve it. Everyone sees the status.",
-    "intro": "An independent civic-reporting prototype connecting a citizen reporting experience with officer and administrator workspaces. Built to explore a visible path from a reported issue to resolution.",
-    "industry": "Public Sector · Civic Tech",
-    "role": [
-      "Product design",
-      "API & data model",
-      "Web & mobile apps",
-      "Admin dashboard"
-    ],
-    "deliverables": [
-      "Citizen web app",
-      "iOS & Android app",
-      "Officer & admin dashboard",
-      "Photo uploads & status tracking"
-    ],
-    "mediaSrc": "/assets/work/cira/report-map.jpg",
-    "mediaAlt": "CIRA homepage — report and status actions above an interactive reporting map",
+    "mediaSrc": "/assets/work/everis/preview.jpg",
+    "mediaAlt": "Everis website preview from a local build",
     "gallery": [
       {
-        "src": "/assets/work/cira/how-it-works.jpg",
-        "alt": "CIRA's four reporting steps: locate, describe, submit and track"
+        "src": "/assets/work/everis/detail.jpg",
+        "alt": "Everis website content and navigation",
+        "caption": "Website preview captured from a local build."
       }
     ],
     "challenge": {
-      "label": "Challenge",
+      "label": "The challenge",
       "headlineLines": [
-        "REPORTS THAT",
-        "GO NOWHERE"
+        "A LONG LIFECYCLE",
+        "A SIMPLE INTRODUCTION"
       ],
-      "lead": "Reporting broken infrastructure usually means never knowing whether anyone saw it.",
+      "lead": "Explain where the business participates, from early development to operating assets.",
       "paragraphs": [
-        "Citizens need a quick way to report a problem with evidence. Officers need one queue to triage and resolve reports, not scattered calls and messages."
+        "Potential partners need to understand the company’s activities, how it evaluates opportunities and which information makes an initial project discussion useful."
       ]
     },
     "solution": {
-      "label": "Solution",
+      "label": "The approach",
       "headlineLines": [
-        "ONE REPORT",
-        "TRACKED TO DONE"
+        "A CLEAR MANDATE",
+        "A USEFUL NEXT STEP"
       ],
-      "lead": "One API behind a citizen web app, a mobile app and an officer dashboard.",
+      "lead": "Structure the site around the business and the decisions its visitors need to make.",
       "paragraphs": [
-        "Citizens submit reports with photos from the web or the React Native app. Officers and administrators work through them in a dashboard, and citizens can track the status of their report. Email and SMS delivery remain development mocks; the case study covers the reporting and officer workflows."
+        "About, Activities and Approach pages provide a clear backbone, with separate detail pages for the main activity areas.",
+        "Opportunity content explains the stages and project information relevant to an initial discussion. Enquiry pathways preserve that context as visitors move toward contact."
       ]
     },
     "outcome": {
-      "label": "Outcome",
-      "lead": "A prototype connecting citizen reports with officer workflows.",
+      "label": "The delivery",
+      "lead": "From investment mandate to a clear corporate website.",
       "points": [
-        "Reporting from web and mobile",
-        "Photo evidence on every report",
-        "Officer and administrator workflows",
-        "Report status tracking across citizen and officer views"
+        "Five main company pages with activity detail pages",
+        "Clear project and acquisition opportunity criteria",
+        "Responsive layouts and reusable content components",
+        "Contextual routes into an enquiry"
       ]
     },
-    "externalUrl": "https://cira-ashy.vercel.app",
-    "featured": false
+    "category": "Websites",
+    "status": "Client website",
+    "externalUrl": "https://www.everisholding.com/",
+    "mediaNote": "Website previews captured from a local build; the live site may have changed.",
+    "featured": true
   }
 ];

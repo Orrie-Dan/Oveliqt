@@ -7,9 +7,9 @@ await server.listen();
 const browser=await chromium.launch({channel:'msedge',headless:true});
 try{
  const {portfolioProjects}=await server.ssrLoadModule('/src/app/portfolio.ts');
- assert.equal(portfolioProjects.length,10);
+ assert.equal(portfolioProjects.length,5);
  assert.equal(new Set(portfolioProjects.map(p=>p.slug)).size,portfolioProjects.length);
- assert.equal(portfolioProjects.filter(p=>p.featured).length,6);
+ assert.equal(portfolioProjects.filter(p=>p.featured).length,5);
  const sitemap=await readFile('dist/sitemap.xml','utf8');
  const llms=await readFile('public/llms.txt','utf8');
  for(const project of portfolioProjects){
@@ -17,7 +17,7 @@ try{
   assert.ok(llms.includes(`/work/${project.slug} `));
   for(const media of [project.mediaSrc,...project.gallery.map(x=>x.src)])await access('public'+media);
  }
- for(const slug of ['aifa', 'investment-intelligence', 'cvmp', 'computer-vision', 'p2p-escrow', 'lending-platform', 'everis', 'ecosort-ai']){
+ for(const slug of ['aifa', 'investment-intelligence', 'cvmp', 'computer-vision', 'p2p-escrow', 'lending-platform', 'ecosort-ai', 'education-operations', 'crosswalk-intelligence', 'cira']){
   assert.ok(!sitemap.includes(slug)&&!llms.includes(slug));
   const page=await browser.newPage();
   await page.goto(`${server.resolvedUrls.local[0]}work/${slug}`,{waitUntil:'domcontentloaded',timeout:60000});
@@ -28,13 +28,12 @@ try{
  for(const width of [1440,375]){
   const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});
   await page.goto(`${server.resolvedUrls.local[0]}about`,{waitUntil:'domcontentloaded',timeout:60000});
-  await page.locator('.about-selected').scrollIntoViewIfNeeded();
+  await page.locator('#working-together').scrollIntoViewIfNeeded();
   const content=await page.locator('main').innerText();
-  assert.ok(content.includes('Education Operations Platform'));
   assert.ok(!/Caregivers|Early Childhood|national programme/.test(content));
   await page.screenshot({path:`references/oveliq/ui-refresh/portfolio/${width}-about.png`,fullPage:true,animations:'disabled'});
   await page.close();
  }
- console.log('PASS: ten public records and media, matching SEO discovery, six features, retired routes, and current About story.');
- await writeFile('references/oveliq/ui-refresh/portfolio/catalogue-check.json',JSON.stringify({projects:portfolioProjects.map(p=>p.slug),featured:portfolioProjects.filter(p=>p.featured).map(p=>p.slug),retiredRoutes:'not-found',aboutStory:'education-operations',passed:true},null,2));
+ console.log('PASS: five public records and media, matching SEO discovery, five features, retired routes, and current About story.');
+ await writeFile('references/oveliq/ui-refresh/portfolio/catalogue-check.json',JSON.stringify({projects:portfolioProjects.map(p=>p.slug),featured:portfolioProjects.filter(p=>p.featured).map(p=>p.slug),retiredRoutes:'not-found',passed:true},null,2));
 }finally{await browser.close();await server.close();}

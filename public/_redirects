@@ -1,2 +1,6 @@
 # Netlify / Cloudflare Pages format. Other hosts: configure an equivalent 301.
-/work/early-childhood-platform  /work/education-operations  301
+/work/early-childhood-platform  /work  301
+# Temporarily withdrawn case studies (restore by re-adding them to src/app/portfolio.ts).
+/work/education-operations  /work  302
+/work/crosswalk-intelligence  /work  302
+/work/cira  /work  302
