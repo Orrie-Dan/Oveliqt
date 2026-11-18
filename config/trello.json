@@ -1,0 +1,30 @@
+{
+  "board": {
+    "id": "ari:cloud:trello::board/workspace/6ac634c0c8b1b0ca656b5bdb/6af825ec198322e37d7ce725",
+    "url": "https://trello.com/b/J6Uu0Yps/marketing-content-pipeline"
+  },
+  "lists": {
+    "ideas": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6af825fdfcdde60b6af7289b",
+    "needs_review": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6af825fd14dedc17fdaa1f58",
+    "changes_requested": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6af825fe66e638e57eb6d9cb",
+    "approved": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6af825ff394ce28533ae04c1",
+    "posted": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6af826002cd14b74e213eace",
+    "results_logged": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6af826007092dd3ff148195e",
+    "rejected": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6af826014b4b5cc74ddd5d3b"
+  },
+  "prospect_board": {
+    "id": "ari:cloud:trello::board/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb084faaf29184b98edb8",
+    "url": "https://trello.com/b/9ohtkufz/prospect-pipeline"
+  },
+  "prospect_lists": {
+    "needs_review": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb09724beb18a910d1953",
+    "changes_requested": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb0998261ef1998d2acc6",
+    "approved": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb099a9b7d1ebc75a2a99",
+    "sent": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb09aa1dde88b103e1cd0",
+    "replied": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb09b4b912193406e4d81",
+    "call_booked": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb09be4cee130c20ac272",
+    "won": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb09c0c24061f09cfaa14",
+    "no_reply": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb09d67ab46e5e9c8e6f1",
+    "rejected": "ari:cloud:trello::list/workspace/6ac634c0c8b1b0ca656b5bdb/6afdb09de4ac98f6e32f7ccb"
+  }
+}
