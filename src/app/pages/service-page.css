@@ -242,7 +242,7 @@
     sans-serif;
   font-size: 0.8125rem;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .oveliq-svc-page-caps__title,
@@ -309,7 +309,7 @@
   flex: 0 0 2rem;
   font-size: 0.8125rem;
   line-height: 1.6;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* —— Approach (dark) —— */
@@ -566,7 +566,7 @@
 .oveliq-svc-page-pair__num {
   font-size: 0.8125rem;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .oveliq-svc-page-pair__title {

@@ -8,7 +8,9 @@ import PricingPage from "./app/pages/pricing-page";
 import AboutPage from "./app/pages/about-page";
 import ContactPage from "./app/pages/contact-page";
 import NotFoundPage from "./app/pages/not-found-page";
-import { findProjectDetail, findServicePage } from "./app/content";
+import LegalPage from "./app/pages/legal-page";
+import FrenchPage from "./app/pages/french-page";
+import { findProjectDetail, findServicePage, oveliqPrivacyPage, oveliqTermsPage } from "./app/content";
 import { applyPageMeta, currentPath, normalizePath, resolveRoute } from "./app/router";
 import { allRouteMeta, notFoundMeta } from "./app/seo";
 
@@ -20,6 +22,13 @@ export default function App() {
     (route.name === "project" && !project) || (route.name === "service" && !servicePage) ? "not-found" : route.name;
 
   useEffect(() => {
+    document.documentElement.lang = route.name === "french" ? "fr" : "en";
+    if (route.name === "french") {
+      document.title = "Oveliqt — Studio logiciel & intelligence artificielle";
+      const description = document.querySelector('meta[name="description"]');
+      description?.setAttribute("content", "Oveliqt conçoit des sites web, logiciels, produits numériques et solutions d’intelligence artificielle.");
+      return;
+    }
     // Build output already ships these tags per route; this keeps dev and
     // host-level SPA fallbacks (e.g. legacy redirects) consistent.
     const path =
@@ -33,6 +42,8 @@ export default function App() {
   }, [page, project, servicePage]);
 
   switch (page) {
+    case "french":
+      return <FrenchPage section={route.name === "french" ? route.section : ""} slug={route.name === "french" ? route.slug : undefined} />;
     case "work":
       return <WorkPage />;
     case "project":
@@ -47,6 +58,10 @@ export default function App() {
       return <AboutPage />;
     case "contact":
       return <ContactPage />;
+    case "privacy":
+      return <LegalPage page={oveliqPrivacyPage} />;
+    case "terms":
+      return <LegalPage page={oveliqTermsPage} />;
     case "not-found":
       return <NotFoundPage />;
     default:

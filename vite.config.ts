@@ -14,7 +14,8 @@ function escapeAttr(value: string): string {
 
 /** Rewrite the route-controlled head tags (see `headTags`) in the built index.html. */
 function renderHead(html: string, meta: RouteMeta): string {
-  let out = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeAttr(meta.title)}</title>`);
+  let out = html.replace('<html lang="en">', `<html lang="${meta.path.startsWith("/fr") ? "fr" : "en"}">`)
+    .replace(/<title>[^<]*<\/title>/, `<title>${escapeAttr(meta.title)}</title>`);
   for (const [selector, attribute, value] of headTags(meta)) {
     // selector shape: tag[key="name"] — matches `<tag key="name" attribute="…" />` on one line
     const [, tag, key, name] = /^(\w+)\[(\w+)="([^"]+)"\]$/.exec(selector)!;
@@ -49,6 +50,7 @@ function oveliqSeo(): Plugin {
         renderHead(template, notFoundMeta),
       );
       const urls = routes
+        .filter((meta) => !meta.noindex)
         .map((meta) => `  <url><loc>${absoluteUrl(meta.path)}</loc><changefreq>monthly</changefreq></url>`)
         .join("\n");
       await writeFile(

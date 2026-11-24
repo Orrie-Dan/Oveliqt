@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { oveliqStartProject } from "../content";
 import ArrowUpRight from "../components/arrow-up-right";
-import { Reveal, RevealLines } from "../motion";
+import { Reveal } from "../motion";
 import { heroIntroMode } from "../motion/hero-intro";
 import "./home-hero.css";
 
@@ -29,27 +29,23 @@ export default function HomeHeroSection() {
           <Reveal as="p" className="oveliq-home-hero__eyebrow" trigger={trigger} delayMs={60}>
             <span aria-hidden="true" /> Independent software &amp; AI studio
           </Reveal>
-          <RevealLines
-            as="h1"
-            id="home-hero-title"
-            className="oveliq-home-hero__title"
-            lines={["Websites. Software.", "And applied AI."]}
-            lineClassNames={["", "oveliq-home-hero__title-accent"]}
-            delayMs={140}
-            staggerMs={100}
-            trigger={trigger}
-          />
-          <Reveal as="p" className="oveliq-home-hero__description" trigger={trigger} delayMs={360}>
+          {/* Headline, intro and CTAs paint immediately (no JS-gated reveal): an empty
+              hero on a slow phone reads as broken. Only a brief CSS opacity fade applies. */}
+          <h1 id="home-hero-title" className="oveliq-home-hero__title oveliq-home-hero__fade">
+            <span className="oveliq-home-hero__title-line">Websites. Software.</span>
+            <span className="oveliq-home-hero__title-line oveliq-home-hero__title-accent">And applied AI.</span>
+          </h1>
+          <p className="oveliq-home-hero__description oveliq-home-hero__fade">
             Digital experiences and business tools, designed to make work simpler and move your ideas forward.
-          </Reveal>
-          <Reveal className="oveliq-home-hero__actions" trigger={trigger} delayMs={460}>
+          </p>
+          <div className="oveliq-home-hero__actions oveliq-home-hero__fade">
             <a className="oveliq-home-hero__cta oveliq-home-hero__cta--primary" href={oveliqStartProject.href}>
               {oveliqStartProject.label}<ArrowUpRight />
             </a>
             <a className="oveliq-home-hero__cta oveliq-home-hero__cta--secondary" href="/work">
               Explore our work<ArrowUpRight />
             </a>
-          </Reveal>
+          </div>
         </header>
 
         <Reveal className="oveliq-home-hero__scene" trigger={trigger} delayMs={500}>

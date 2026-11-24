@@ -157,19 +157,61 @@
 }
 
 .oveliq-footer__utility {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-top: 2.5rem;
   border-top: 1px solid rgba(232, 217, 200, 0.12);
 }
 
-@media (min-width: 768px) {
-  .oveliq-footer__utility {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr) minmax(0, 0.9fr);
-    gap: 1.5rem 2rem;
-    align-items: start;
+.oveliq-footer__columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.25rem;
+}
+
+@media (min-width: 640px) {
+  .oveliq-footer__columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 2rem;
   }
+
+  .oveliq-footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .oveliq-footer__columns {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr) minmax(0, 0.6fr);
+    gap: 2rem;
+  }
+
+  .oveliq-footer__brand {
+    grid-column: auto;
+  }
+}
+
+.oveliq-footer__brand,
+.oveliq-footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* Column titles share the wordmark's cap height so every column starts on one line. */
+.oveliq-footer__col-title {
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
+    sans-serif;
+  font-size: 0.75rem;
+  line-height: 1.0625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 217, 200, 0.45);
+  font-variation-settings: "wght" var(--type-wght-caps);
 }
 
 .oveliq-footer__wordmark {
@@ -196,8 +238,8 @@
   margin: 0;
   font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans Variable Placeholder",
     sans-serif;
-  /* "OVELIQT" at display weight renders ≈3.42em wide → fill the container edge to edge. */
-  font-size: 29cqw;
+  /* "OVELIQT" at display weight measures ≈3.88em wide → fill the container edge to edge without clipping the T. */
+  font-size: 25.6cqw;
   font-weight: 400;
   font-variation-settings: "wght" var(--type-wght-display);
   line-height: 0.78;
@@ -217,9 +259,14 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem 1.35rem;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  column-gap: 2.5rem;
+  row-gap: 0;
+}
+
+.oveliq-footer__nav-list--single {
+  grid-template-columns: max-content;
 }
 
 .oveliq-footer__nav-link {
@@ -242,18 +289,14 @@
   outline-offset: 3px;
 }
 
-.oveliq-footer__meta {
+.oveliq-footer__bar {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-@media (min-width: 768px) {
-  .oveliq-footer__meta {
-    align-items: flex-end;
-    text-align: right;
-  }
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(232, 217, 200, 0.08);
 }
 
 .oveliq-footer__copyright {
@@ -266,7 +309,21 @@
   color: rgba(232, 217, 200, 0.45);
 }
 
+.oveliq-footer__legal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  font-family: "Fragment Mono", ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: rgba(232, 217, 200, 0.55);
+}
+
 .oveliq-footer__top {
+  display: inline-flex;
+  align-items: center;
   appearance: none;
   margin: 0;
   padding: 0;

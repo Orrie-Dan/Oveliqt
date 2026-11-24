@@ -593,7 +593,7 @@
 
 /* —— Debug (opt-in: html[data-oveliq-motion-debug]) —— */
 html[data-oveliq-motion-debug] [data-oveliq-motion] {
-  outline: 1px dashed rgba(249, 65, 55, 0.45);
+  outline: 1px dashed rgba(239, 62, 53, 0.45);
 }
 html[data-oveliq-motion-debug] [data-oveliq-motion]::after {
   content: attr(data-oveliq-motion) " p:" attr(data-scroll-progress);
@@ -602,7 +602,7 @@ html[data-oveliq-motion-debug] [data-oveliq-motion]::after {
   left: 0;
   z-index: 9999;
   font: 10px/1.2 monospace;
-  color: #f94137;
+  color: #ef3e35;
   background: rgba(0, 0, 0, 0.65);
   padding: 2px 4px;
   pointer-events: none;

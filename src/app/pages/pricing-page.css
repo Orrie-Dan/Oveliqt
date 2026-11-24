@@ -7,7 +7,7 @@
 .oveliq-service-pricing__draft { margin: 2.5rem 0 1rem; font-size: .8rem; color: var(--muted); }
 .oveliq-service-pricing__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
 .oveliq-service-pricing__card { display: flex; flex-direction: column; min-width: 0; padding: clamp(1.5rem, 2.6vw, 2.75rem); background: var(--background); border-radius: 4px; }
-.oveliq-service-pricing__number { color: var(--accent); font-size: .8rem; }
+.oveliq-service-pricing__number { color: var(--accent-text); font-size: .8rem; }
 .oveliq-service-pricing__card h3 { margin: 2rem 0 .75rem; font-size: clamp(1.5rem, 2.4vw, 2.2rem); line-height: 1.1; font-weight: 400; letter-spacing: -.045em; }
 .oveliq-service-pricing__description { margin: 0; min-height: 5em; color: var(--muted); line-height: 1.5; }
 .oveliq-service-pricing__price { margin: 2rem 0; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule-color); }
@@ -94,7 +94,25 @@
 .oveliq-service-pricing__assurance { display: flex; flex-wrap: wrap; gap: 1rem 3rem; padding-block: 1rem; border-block: 1px solid var(--rule-color); color: #53585a; font-size: .8125rem; }
 .oveliq-service-pricing__grid { align-items: stretch; }
 .oveliq-service-pricing__card { box-shadow: 0 4px 18px rgba(38,42,45,.025); }
-.oveliq-service-pricing__card:hover { transform: none; }
+/* Card hover: lift, deeper shadow, accent-tinted border, art settles in. */
+.oveliq-service-pricing__card { transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease; }
+.oveliq-service-pricing__art > * { transition: transform 320ms ease; }
+@media (hover: hover) {
+  .oveliq-service-pricing__card:hover { border-color: rgba(239,62,53,.35); box-shadow: 0 18px 40px rgba(38,42,45,.09); }
+  .oveliq-service-pricing__card:hover > a { background: var(--accent); color: #fff; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .oveliq-service-pricing__card:hover { transform: translateY(-6px); }
+  .oveliq-service-pricing__card:hover .oveliq-service-pricing__art--0 span:nth-child(1) { transform: rotate(-12deg) translate(-24px, -8px); }
+  .oveliq-service-pricing__card:hover .oveliq-service-pricing__art--0 span:nth-child(2) { transform: rotate(11deg) translate(24px, 9px); }
+  .oveliq-service-pricing__card:hover .oveliq-service-pricing__art--1 span:nth-child(1) { transform: rotate(-25deg) skew(10deg, 10deg) translate(-32px, -32px); }
+  .oveliq-service-pricing__card:hover .oveliq-service-pricing__art--1 span:nth-child(3) { transform: rotate(-25deg) skew(10deg, 10deg) translate(32px, 32px); }
+  .oveliq-service-pricing__card:hover .oveliq-service-pricing__art--2 span:nth-child(1) { transform: translateX(-42px); }
+  .oveliq-service-pricing__card:hover .oveliq-service-pricing__art--2 span:nth-child(3) { transform: translateX(42px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-service-pricing__card, .oveliq-service-pricing__art > * { transition: none; }
+}
 .oveliq-service-pricing__card > * { flex-shrink: 0; min-width: 0; }
 .oveliq-service-pricing__art { height: 110px; margin-block: 1.25rem; }
 .oveliq-service-pricing__outcome { margin: .25rem 0 .75rem; font-size: 1.25rem; line-height: 1.35; letter-spacing: -.035em; color: var(--color-001); }
@@ -104,9 +122,6 @@
 .oveliq-service-pricing__price--scope p { line-height: 1.5; }
 .oveliq-service-pricing__card ul { margin-bottom: 1.75rem; }
 .oveliq-service-pricing__card > a { min-height: 48px; }
-.oveliq-service-pricing__card > a.oveliq-service-pricing__proof { margin: .8rem 0 0; padding: .5rem 0; min-height: 44px; background: transparent; color: #53585a; font-size: .75rem; border-radius: 0; }
-.oveliq-service-pricing__card > a.oveliq-service-pricing__proof:hover { color: var(--accent); text-decoration: underline; }
-.oveliq-service-pricing__proof svg { width: .9rem; height: .9rem; }
 .oveliq-service-pricing__custom, .oveliq-service-pricing__notes { margin-top: 0; }
 @media (max-width: 1050px) {
  .oveliq-service-pricing__grid { grid-template-columns: 1fr; }

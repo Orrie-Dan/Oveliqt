@@ -198,7 +198,7 @@
 }
 
 .oveliq-svc-row--active .oveliq-svc-row__label {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -639,7 +639,7 @@
 }
 
 .oveliq-svc-acc--open .oveliq-svc-acc__title {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .oveliq-svc-acc__icon {

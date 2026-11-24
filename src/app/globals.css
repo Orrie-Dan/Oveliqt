@@ -61,7 +61,9 @@
   --background: rgb(255, 255, 255);
   --foreground: rgb(0, 0, 0);
   --primary: rgb(0, 0, 238);
-  --accent: rgb(249, 65, 55);
+  --accent: rgb(239, 62, 53);
+  /* Small red text on light backgrounds: #EF3E35 is 3.9:1 on white (fails WCAG AA); this is 5.4:1. */
+  --accent-text: #cc2a21;
   --muted-foreground: rgb(97, 97, 97);
   --muted: rgb(122, 122, 122);
   --surface: rgb(249, 249, 249);
@@ -946,7 +948,7 @@ html, body { overflow-x: clip; }
 }
 .oveliq-project-media--dashboard {
   background:
-    radial-gradient(120% 80% at 10% 0%, rgba(249, 65, 55, 0.14), transparent 55%),
+    radial-gradient(120% 80% at 10% 0%, rgba(239, 62, 53, 0.14), transparent 55%),
     linear-gradient(160deg, #10131c 0%, #050609 55%, #12161f 100%);
 }
 .oveliq-project-media--fintech {
@@ -956,7 +958,7 @@ html, body { overflow-x: clip; }
 }
 .oveliq-project-media--vision {
   background:
-    radial-gradient(70% 60% at 50% 40%, rgba(249, 65, 55, 0.1), transparent 60%),
+    radial-gradient(70% 60% at 50% 40%, rgba(239, 62, 53, 0.1), transparent 60%),
     linear-gradient(180deg, #07080c 0%, #11151d 50%, #050609 100%);
 }
 
@@ -1002,7 +1004,7 @@ html, body { overflow-x: clip; }
 .oveliq-frame--b { inset: 0 0 55% 62%; }
 .oveliq-frame--bar {
   border-radius: 2px;
-  background: rgba(249, 65, 55, 0.35);
+  background: rgba(239, 62, 53, 0.35);
   border-color: transparent;
   height: 4px;
 }
@@ -1025,7 +1027,7 @@ html, body { overflow-x: clip; }
 
 .oveliq-frame--card { border-radius: 0.5rem; }
 .oveliq-frame--e { inset: 8% 35% 42% 0; }
-.oveliq-frame--f { inset: 8% 0 55% 70%; background: rgba(249, 65, 55, 0.08); border-color: rgba(249, 65, 55, 0.25); }
+.oveliq-frame--f { inset: 8% 0 55% 70%; background: rgba(239, 62, 53, 0.08); border-color: rgba(239, 62, 53, 0.25); }
 .oveliq-frame--rule {
   top: 62%;
   left: 0;
@@ -1041,7 +1043,7 @@ html, body { overflow-x: clip; }
   background: rgba(232, 217, 200, 0.06);
 }
 .oveliq-frame--h { top: 72%; left: 0; width: 28%; }
-.oveliq-frame--i { top: 72%; left: 32%; width: 18%; border-color: rgba(249, 65, 55, 0.35); }
+.oveliq-frame--i { top: 72%; left: 32%; width: 18%; border-color: rgba(239, 62, 53, 0.35); }
 
 .oveliq-frame--scan {
   inset: 5% 8% 15% 8%;
@@ -1050,8 +1052,8 @@ html, body { overflow-x: clip; }
   background: transparent;
 }
 .oveliq-frame--bbox {
-  border-color: rgba(249, 65, 55, 0.55);
-  background: rgba(249, 65, 55, 0.06);
+  border-color: rgba(239, 62, 53, 0.55);
+  background: rgba(239, 62, 53, 0.06);
   border-radius: 2px;
 }
 .oveliq-frame--j { top: 22%; left: 18%; width: 22%; height: 38%; }

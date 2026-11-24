@@ -9,7 +9,7 @@ import "./about-page.css";
 const numberWords = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
 
 export default function AboutPage() {
-  const { hero, purpose, origin, principles, collaboration, cta } = oveliqAboutPage;
+  const { hero, purpose, origin, people, principles, collaboration, cta } = oveliqAboutPage;
   const founders = oveliqAbout.founders.filter(person => person.name?.trim());
   /* Counts come straight from the portfolio records, so they can't drift from the work shown on /work. */
   const tallies = origin.tallies.flatMap(tally => {
@@ -42,14 +42,15 @@ export default function AboutPage() {
       </div>
     </section>
 
-    {founders.length > 0 && <section className="about-people about-section" aria-labelledby="people-heading"><p className="about-label">THE PEOPLE / BEHIND THE WORK</p><h2 id="people-heading" className="about-heading">Meet your collaborators.</h2><div className="about-people__grid">{founders.map(person => <article key={person.id}>
-      {person.imageSrc && <img src={person.imageSrc} alt={person.imageAlt || person.name || ""} loading="lazy" />}<h3>{person.name}</h3>{person.role && <p className="about-label">{person.role}</p>}{person.bio && <p className="about-body">{person.bio}</p>}{person.links?.map(link => <a className="about-link" key={link.href} href={link.href}>{link.label}<ArrowRight /></a>)}
-    </article>)}</div></section>}
-
     <section id="studio-team" className="about-team about-section" aria-labelledby="team-heading">
-      <div className="about-team__heading"><p className="about-label">03 / TWO BROTHERS, ONE STUDIO</p><div><h2 id="team-heading" className="about-heading">A small team.<br />Close to the work.</h2><p className="about-body">Oveliqt is built by two brothers who share the same curiosity about how things work and how they could work better. We stay involved from the first conversation through design, engineering and handover.</p></div></div>
-      <div className="about-team__principles"><article><span className="about-label about-accent">01 / DIRECT</span><h3>You work with us.</h3><p className="about-body">The people shaping and building your product are the people you speak with.</p></article><article><span className="about-label about-accent">02 / SHARED</span><h3>One joined-up process.</h3><p className="about-body">Product decisions, design and engineering stay connected throughout the work.</p></article><article><span className="about-label about-accent">03 / PRACTICAL</span><h3>Built for real use.</h3><p className="about-body">We focus on what will make a difference in the day-to-day, then make it clear and dependable.</p></article></div>
-      <a className="about-link" href="/work">Explore the work <ArrowRight /></a>
+      <div className="about-team__heading"><p className="about-label">{people.label}</p><div>
+        <Reveal as="h2" className="about-heading"><span id="team-heading">{people.title[0]}</span><br />{people.title[1]}</Reveal>
+        <p className="about-body">{people.body}</p>
+      </div></div>
+      {founders.length > 0 && <div className="about-people__grid">{founders.map(person => <article className="about-person" key={person.id}>
+        {person.imageSrc && <img src={person.imageSrc} alt={person.imageAlt || person.name || ""} loading="lazy" />}
+        <div className="about-person__text"><h3>{person.name}</h3>{person.role && <p className="about-label about-accent">{person.role}</p>}{person.bio && <p className="about-body">{person.bio}</p>}{person.links?.map(link => <a className="about-link" key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowRight /></a>)}</div>
+      </article>)}</div>}
     </section>
 
     <section className="about-principles about-section" aria-labelledby="principles-heading">

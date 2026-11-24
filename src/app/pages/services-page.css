@@ -71,7 +71,7 @@
 .oveliq-services-index__num {
   font-size: 0.75rem;
   letter-spacing: 0.04em;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .oveliq-services-index__link > svg {
@@ -138,7 +138,7 @@
 .oveliq-services-list__num {
   font-size: 0.8125rem;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .oveliq-services-list__title {

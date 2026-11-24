@@ -63,7 +63,7 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(90% 70% at 15% 20%, rgba(249, 65, 55, 0.1), transparent 55%),
+    radial-gradient(90% 70% at 15% 20%, rgba(239, 62, 53, 0.1), transparent 55%),
     radial-gradient(70% 60% at 90% 80%, rgba(232, 217, 200, 0.05), transparent 50%),
     linear-gradient(165deg, #07090e 0%, #050609 45%, #0a0c12 100%);
 }
@@ -100,7 +100,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(249, 65, 55, 0.45),
+    rgba(239, 62, 53, 0.45),
     transparent
   );
 }

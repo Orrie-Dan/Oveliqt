@@ -6,7 +6,13 @@
  * `dist/<route>/index.html` with these tags pre-filled plus `sitemap.xml` and
  * `robots.txt`. Keep this module free of browser-only code and CSS imports.
  */
-import { oveliqPageMeta, oveliqProjectDetails, oveliqServicePages } from "./content";
+import {
+  oveliqPageMeta,
+  oveliqPrivacyPage,
+  oveliqProjectDetails,
+  oveliqServicePages,
+  oveliqTermsPage,
+} from "./content";
 import { SITE_ORIGIN } from "../lib/site";
 
 export type RouteMeta = {
@@ -35,13 +41,48 @@ const staticPages = ["work", "services", "pricing", "about", "contact"] as const
 
 /** Every indexable route (excludes the 404 page). */
 export function allRouteMeta(): RouteMeta[] {
+  const frenchServiceTitles: Record<string, string> = {
+    "web-development": "Développement web",
+    "software-development": "Développement logiciel",
+    "mobile-applications": "Applications mobiles",
+    "ai-machine-learning": "IA et apprentissage automatique",
+    "data-analytics": "Données et analytique",
+    "automation-integrations": "Automatisation et intégrations",
+  };
+  const frenchPages = [
+    ["/fr", "Oveliqt — Studio logiciel & IA", "Sites web, logiciels, produits numériques et intelligence artificielle conçus autour de vos besoins."],
+    ["/fr/projets", "Projets — Oveliqt", "Découvrez les projets numériques réalisés par Oveliqt."],
+    ["/fr/services", "Services — Oveliqt", "Développement web, logiciel, mobile, IA, données et automatisation."],
+    ["/fr/tarifs", "Collaborer — Oveliqt", "Choisissez une approche adaptée à votre projet numérique."],
+    ["/fr/a-propos", "À propos — Oveliqt", "Découvrez le studio indépendant logiciel et IA Oveliqt."],
+    ["/fr/contact", "Contact — Oveliqt", "Parlons de votre projet avec Oveliqt."],
+    ["/fr/confidentialite", "Confidentialité — Oveliqt", "Comment Oveliqt traite les données personnelles sur ce site."],
+    ["/fr/conditions", "Conditions d’utilisation — Oveliqt", "Les conditions applicables à l’utilisation du site Oveliqt."],
+    ...oveliqServicePages.map(({ service }) => {
+      const title = frenchServiceTitles[service.id] ?? service.title;
+      return [`/fr/services/${service.id}`, `${title} — Oveliqt`, `Découvrez notre offre de ${title.toLowerCase()} en français.`] as const;
+    }),
+    ...oveliqProjectDetails.items.map((project) => [`/fr/projets/${project.slug}`, `${project.title} — Oveliqt`, `Découvrez le projet ${project.title} réalisé par Oveliqt.`]),
+  ] as const;
   return [
     homeMeta,
+    ...frenchPages.map(([path, title, description]) => ({
+      path, title, description, image: DEFAULT_OG_IMAGE,
+      noindex: path === "/fr/confidentialite" ? oveliqPrivacyPage.draft : path === "/fr/conditions" ? oveliqTermsPage.draft : false,
+    })),
     ...staticPages.map((name) => ({
       path: `/${name}`,
       title: oveliqPageMeta[name].title,
       description: oveliqPageMeta[name].description,
       image: DEFAULT_OG_IMAGE,
+    })),
+    // Legal pages stay noindex (and out of the sitemap) until their draft copy is reviewed.
+    ...([["privacy", oveliqPrivacyPage], ["terms", oveliqTermsPage]] as const).map(([name, page]) => ({
+      path: `/${name}`,
+      title: oveliqPageMeta[name].title,
+      description: oveliqPageMeta[name].description,
+      image: DEFAULT_OG_IMAGE,
+      noindex: page.draft,
     })),
     ...oveliqServicePages.map(({ service, detail }) => ({
       path: `/services/${service.id}`,

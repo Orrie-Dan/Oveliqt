@@ -7,6 +7,7 @@
 import { headTags, type RouteMeta } from "./seo";
 
 export type OveliqRoute =
+  | { name: "french"; section: string; slug?: string }
   | { name: "home" }
   | { name: "work" }
   | { name: "project"; slug: string }
@@ -15,6 +16,8 @@ export type OveliqRoute =
   | { name: "pricing" }
   | { name: "about" }
   | { name: "contact" }
+  | { name: "privacy" }
+  | { name: "terms" }
   | { name: "not-found" };
 
 const staticRoutes: Record<string, OveliqRoute> = {
@@ -24,6 +27,8 @@ const staticRoutes: Record<string, OveliqRoute> = {
   "/pricing": { name: "pricing" },
   "/about": { name: "about" },
   "/contact": { name: "contact" },
+  "/privacy": { name: "privacy" },
+  "/terms": { name: "terms" },
 };
 
 /** `/about/` and `/about` resolve to the same route. */
@@ -40,6 +45,8 @@ export function currentPath(): string {
 /** Project and service slugs are validated against content in `App.tsx` (unknown → 404). */
 export function resolveRoute(pathname: string): OveliqRoute {
   const path = normalizePath(pathname);
+  const french = /^\/fr(?:\/([a-z-]+)(?:\/([a-z0-9-]+))?)?$/.exec(path);
+  if (french) return { name: "french", section: french[1] ?? "", slug: french[2] };
   const project = /^\/work\/([a-z0-9-]+)$/.exec(path);
   if (project) return { name: "project", slug: project[1] };
   const service = /^\/services\/([a-z0-9-]+)$/.exec(path);

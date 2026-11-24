@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type RefObject } from "react";
 import ArrowRight from "../components/arrow-right";
 import SiteLayout from "../components/site-layout";
 import { oveliqContact, oveliqEnquiry } from "../content";
@@ -47,13 +47,92 @@ function ChannelIcon({ channel }: { channel: Channel }) {
     : <svg viewBox="0 0 24 24" aria-hidden="true" className="enquiry__channel-icon"><rect x="3.2" y="5.5" width="17.6" height="13" rx="2.2" fill="none" stroke="currentColor" strokeWidth="1.5" /><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /></svg>;
 }
 
-export default function ContactPage() {
+/**
+ * Touch devices: while `field` has focus, keep `block` (label + field + counter)
+ * inside the area the on-screen keyboard and the fixed nav leave visible.
+ * The visual viewport shrinks when the keyboard opens; browsers only guarantee
+ * the caret stays on screen, and not at all after a programmatic
+ * focus({ preventScroll }) such as the starter ideas.
+ */
+function useKeepClearOfKeyboard(field: RefObject<HTMLElement | null>, block: RefObject<HTMLElement | null>, active: boolean) {
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    const input = field.current;
+    if (!active || !viewport || !input || !window.matchMedia("(pointer: coarse)").matches) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let timer = 0;
+    const reveal = () => {
+      if (document.activeElement !== input) return;
+      const box = (block.current ?? input).getBoundingClientRect();
+      const nav = document.querySelector(".oveliq-site-nav")?.getBoundingClientRect();
+      const gap = 12;
+      const top = Math.max(viewport.offsetTop, nav && nav.bottom > 0 ? nav.bottom : 0) + gap;
+      const bottom = viewport.offsetTop + viewport.height - gap;
+      let delta = 0;
+      // Too low: lift it, but never past the point where its top would hide.
+      if (box.bottom > bottom) delta = Math.min(box.bottom - bottom, box.top - top);
+      else if (box.top < top) delta = box.top - top;
+      if (Math.abs(delta) > 1) window.scrollBy({ top: delta, behavior: reduced ? "auto" : "smooth" });
+    };
+    // The keyboard animates in over several resize events; act once it settles.
+    const schedule = () => { window.clearTimeout(timer); timer = window.setTimeout(reveal, 120); };
+    input.addEventListener("focus", schedule);
+    viewport.addEventListener("resize", schedule);
+    return () => {
+      window.clearTimeout(timer);
+      input.removeEventListener("focus", schedule);
+      viewport.removeEventListener("resize", schedule);
+    };
+  }, [field, block, active]);
+}
+
+const frenchServiceNames: Record<string, string> = {
+  "A website": "Un site web",
+  "An app or platform": "Une application ou une plateforme",
+  "AI & automation": "IA et automatisation",
+  "Something else": "Autre besoin",
+};
+
+const frenchEnquiryPhrases: Record<string, string> = {
+  "A sharper presence. A better experience.": "Une présence plus forte. Une meilleure expérience.",
+  "Get more enquiries": "Recevoir plus de demandes",
+  "I’d like a website that helps the right people find my business and makes it easier for them to get in touch.": "Je souhaite un site web qui aide les bonnes personnes à découvrir mon activité et à me contacter plus facilement.",
+  "Refresh our website": "Moderniser notre site web",
+  "Our current website no longer reflects what we do. I’d like to make it clearer, more modern and easier to use.": "Notre site actuel ne reflète plus notre activité. Je souhaite le rendre plus clair, plus moderne et plus facile à utiliser.",
+  "Launch something new": "Lancer une nouvelle activité",
+  "I’m launching a new business or offer and need a website that explains it clearly and builds trust.": "Je lance une nouvelle activité ou offre et j’ai besoin d’un site qui la présente clairement et inspire confiance.",
+  "Turn an idea into something people use.": "Transformez une idée en un produit utilisé.",
+  "Bring an idea to life": "Concrétiser une idée",
+  "I have an idea for a digital product and would like help turning it into a first version people can try.": "J’ai une idée de produit numérique et souhaite la transformer en une première version que des utilisateurs pourront essayer.",
+  "Improve an existing product": "Améliorer un produit existant",
+  "We have a product already, but I’d like to make the experience simpler and more useful for our users.": "Nous avons déjà un produit, mais je souhaite rendre l’expérience plus simple et plus utile.",
+  "Connect our operations": "Relier nos opérations",
+  "I’d like a platform that brings our team, information and daily workflows together in one place.": "Je souhaite une plateforme qui rassemble notre équipe, nos informations et nos processus quotidiens.",
+  "Less busywork. More possibilities.": "Moins de tâches répétitives. Plus de possibilités.",
+  "Reduce repetitive work": "Réduire les tâches répétitives",
+  "Our team spends too much time on repetitive tasks. I’d like to automate the routine work so we can focus on what matters.": "Notre équipe consacre trop de temps aux tâches répétitives. Je souhaite automatiser les tâches courantes pour nous concentrer sur l’essentiel.",
+  "Put our data to work": "Tirer parti de nos données",
+  "We have useful information spread across different tools. I’d like to make it easier to find answers and act on them.": "Nos informations utiles sont dispersées dans différents outils. Je souhaite faciliter la recherche de réponses et leur mise en application.",
+  "Explore what’s possible": "Explorer les possibilités",
+  "I’d like help identifying where AI could make a practical difference in our business and choosing a useful place to start.": "Je souhaite identifier où l’IA pourrait concrètement aider notre activité et choisir un point de départ utile.",
+  "Let’s work out the shape of it together.": "Définissons ensemble la meilleure approche.",
+  "Solve a business problem": "Résoudre un problème métier",
+  "There’s a problem in our business that I think technology could help solve. I’d like help finding the right approach.": "Je pense que la technologie pourrait résoudre un problème de notre activité. Je souhaite trouver la bonne approche.",
+  "Find the right direction": "Trouver la bonne direction",
+  "I have a few ideas but I’m not sure what to build first. I’d like help deciding where to focus.": "J’ai plusieurs idées, mais je ne sais pas par quoi commencer. Je souhaite déterminer où concentrer mes efforts.",
+  "Find a technical partner": "Trouver un partenaire technique",
+  "I’m looking for a technical partner to help shape, build and improve a digital project over time.": "Je cherche un partenaire technique pour concevoir, développer et améliorer un projet numérique dans la durée.",
+};
+
+export default function ContactPage({ locale = "en" }: { locale?: "en" | "fr" }) {
   const [step, setStep] = useState(0);
   const [service, setService] = useState(() => initialEnquiryService(window.location.search));
   const [goal, setGoal] = useState("");
   const [status, setStatus] = useState("");
   const heading = useRef<HTMLHeadingElement>(null);
   const goalInput = useRef<HTMLTextAreaElement>(null);
+  const goalBlock = useRef<HTMLDivElement>(null);
+  useKeepClearOfKeyboard(goalInput, goalBlock, step === 1);
   const moved = useRef(false);
   const phone = oveliqContact.whatsappNumber?.replace(/\D/g, "");
   const whatsappReady = Boolean(phone && /^[1-9]\d{6,14}$/.test(phone));
@@ -64,11 +143,13 @@ export default function ContactPage() {
     const saved = readSavedChannel();
     return saved && available.includes(saved) ? saved : available[0] ?? null;
   });
-  const message = `Hi Oveliqt!\n\nI need help with: ${service}\n\nMy goal: ${goal.trim()}`;
+  const message = locale === "fr"
+    ? `Bonjour Oveliqt !\n\nJ’ai besoin d’aide pour : ${frenchServiceNames[service] ?? service}\n\nMon objectif : ${goal.trim()}`
+    : `Hi Oveliqt!\n\nI need help with: ${service}\n\nMy goal: ${goal.trim()}`;
   const href = channel === "whatsapp"
     ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
     : channel === "email"
-      ? `mailto:${email}?subject=${encodeURIComponent(`${oveliqEnquiry.emailSubject}: ${service}`)}&body=${encodeURIComponent(message)}`
+      ? `mailto:${email}?subject=${encodeURIComponent(`${locale === "fr" ? "Demande de projet" : oveliqEnquiry.emailSubject}: ${locale === "fr" ? frenchServiceNames[service] ?? service : service}`)}&body=${encodeURIComponent(message)}`
       : "";
   function choose(next: Channel) {
     setChannel(next);
@@ -82,7 +163,8 @@ export default function ContactPage() {
   const titles = ["What do you need help with?", "What would you like to achieve?", "Let’s start a conversation."];
   const selectedService = oveliqEnquiry.services.find(item => item.title === service);
   function useStarter(text: string) {
-    setGoal(previous => previous.trim() ? `${previous.trimEnd()}\n\n${text}` : text);
+    const localizedText = locale === "fr" ? frenchEnquiryPhrases[text] ?? text : text;
+    setGoal(previous => previous.trim() ? `${previous.trimEnd()}\n\n${localizedText}` : localizedText);
     setStatus("");
     goalInput.current?.focus({ preventScroll: true });
   }
@@ -148,7 +230,7 @@ export default function ContactPage() {
                       </button>;
                     })}</div>
                   </div>
-                  <div className="enquiry__goal">
+                  <div className="enquiry__goal" ref={goalBlock}>
                     <label htmlFor="enquiry-goal">Your goal <span>Your own words are welcome, too.</span></label>
                     <textarea ref={goalInput} id="enquiry-goal" value={goal} onChange={event => { setGoal(event.target.value); setStatus(""); }} maxLength={1500} required rows={5} placeholder="I’d like to… so that…" aria-describedby="goal-help enquiry-status" />
                     <div id="goal-help"><span>Feel free to add who it’s for or what’s getting in the way.</span><span>{goal.length} / 1500</span></div>
@@ -159,7 +241,7 @@ export default function ContactPage() {
                   <button className="enquiry__next" type="submit" disabled={step === 0 && !service}>{step === 0 ? "Continue" : "Review message"}<ArrowRight /></button>
                 </div>
               </form> : <>
-                <div className="enquiry__message"><span className="enquiry__message-label">YOU → OVELIQT</span><p>Hi Oveliqt! 👋</p><p>I need help with <strong>{service.toLowerCase()}</strong>.</p><p className="enquiry__message-goal">{goal.trim()}</p><span className="enquiry__message-check" aria-hidden="true">✓✓</span></div>
+                <div className="enquiry__message"><span className="enquiry__message-label">{locale === "fr" ? "VOUS → OVELIQT" : "YOU → OVELIQT"}</span><p>{locale === "fr" ? "Bonjour Oveliqt ! 👋" : "Hi Oveliqt! 👋"}</p><p>{locale === "fr" ? "J’ai besoin d’aide pour" : "I need help with"} <strong>{locale === "fr" ? frenchServiceNames[service] ?? service : service.toLowerCase()}</strong>.</p><p className="enquiry__message-goal">{goal.trim()}</p><span className="enquiry__message-check" aria-hidden="true">✓✓</span></div>
                 {available.length > 1 && <fieldset className="enquiry__channels"><legend>How would you like to send it?</legend>
                   {available.map(id => <label className="enquiry__channel" key={id}>
                     <input type="radio" name="channel" value={id} checked={channel === id} onChange={() => choose(id)} />
@@ -181,6 +263,7 @@ export default function ContactPage() {
           <p>Start with your goal. We’ll discuss the scope, next steps and a written proposal before work begins.</p>
           {emailReady && <p>Rather write directly? <a href={`mailto:${email}`}>{email}</a></p>}
           {whatsappReady && <p>Prefer to talk first? <a href={`https://wa.me/${phone}`} target="_blank" rel="noopener noreferrer">Message us on WhatsApp ↗</a></p>}
+          <p>Nothing is sent until you choose to send it. <a href="/privacy">How we handle your details</a></p>
         </div>
       </div>
     </section>

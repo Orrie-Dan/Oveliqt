@@ -12,6 +12,11 @@ the runtime after feedback that scrolling took too long to settle. CSS uses
 The mobile menu locks body overflow and restores it on close. Scroll hooks listen to
 native scroll events and never prevent wheel or touch input.
 
+The page scrollbar is hidden (`ui-refinement.css`); `.oveliq-scroll-progress` (rendered by
+`SiteNav`) shows position instead. `SiteNav` sets `data-hidden` to slide away while scrolling
+down past 60% of the viewport and returns on any upward scroll, when focused, or when the
+menu opens. `CustomCursor` (mounted in `SiteLayout`) only activates on fine pointers.
+
 ## Type weight
 
 "Plus Jakarta Sans Variable" is declared at weight 400 only (as Framer ships it). Weight is

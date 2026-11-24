@@ -1,5 +1,5 @@
 import CtaArrow from "../components/cta-arrow";
-import { oveliqContact } from "../content";
+import { oveliqCompany, oveliqContact } from "../content";
 import { Reveal, RevealLines } from "../motion";
 import "./footer.css";
 
@@ -9,7 +9,7 @@ import "./footer.css";
  * No dead form — CTA href is content-driven and replaceable.
  * Motion intensity: LOW.
  */
-export default function FooterSection() {
+export default function FooterSection({ locale = "en" }: { locale?: "en" | "fr" }) {
   const {
     label,
     headlineLines,
@@ -35,7 +35,7 @@ export default function FooterSection() {
         <div className="oveliq-footer__conversion">
           <Reveal className="oveliq-footer__label-row" staggerIndex={0}>
             <p className="oveliq-footer__label" dir="auto">
-              {label}
+              {locale === "fr" ? "VOTRE PROJET / NOTRE PROCHAINE CONVERSATION" : label}
             </p>
             <div className="oveliq-footer__rule" aria-hidden="true" />
           </Reveal>
@@ -43,7 +43,7 @@ export default function FooterSection() {
           <RevealLines
             as="h2"
             id="contact-heading"
-            lines={[...headlineLines]}
+            lines={locale === "fr" ? ["Parlons de", "votre projet."] : [...headlineLines]}
             className="oveliq-footer__headline"
             lineClassNames={[
               "oveliq-footer__headline-line",
@@ -54,7 +54,7 @@ export default function FooterSection() {
 
           <Reveal delayMs={120}>
             <p className="oveliq-footer__supporting" dir="auto">
-              {supporting}
+              {locale === "fr" ? "Une idée à explorer, un processus à simplifier ou un produit à faire évoluer ? Écrivez-nous sur WhatsApp ou par e-mail." : supporting}
             </p>
           </Reveal>
 
@@ -65,7 +65,7 @@ export default function FooterSection() {
                 className="oveliq-footer__cta group"
                 data-oveliq-contact-cta=""
               >
-                <span className="oveliq-footer__cta-text">{ctaLabel}</span>
+                <span className="oveliq-footer__cta-text">{locale === "fr" ? "Démarrer une conversation" : ctaLabel}</span>
                 <CtaArrow className="text-color-002 group-hover:text-accent" />
               </a>
             ) : (
@@ -90,32 +90,53 @@ export default function FooterSection() {
         </div>
 
         <Reveal className="oveliq-footer__utility" delayMs={80} threshold={0.1}>
-          <div className="oveliq-footer__brand">
-            <a href="/" className="oveliq-footer__wordmark" data-oveliq-wordmark="">
-              {wordmark}
-            </a>
+          <div className="oveliq-footer__columns">
+            <div className="oveliq-footer__brand">
+              <a href={locale === "fr" ? "/fr" : "/"} className="oveliq-footer__wordmark" data-oveliq-wordmark="">
+                {wordmark}
+              </a>
+              <p className="oveliq-footer__legal">
+                <span>{oveliqCompany.legalName}</span>
+                <span>{oveliqCompany.city}</span>
+                <span>{locale === "fr" ? "N° d’enregistrement" : "Company code"} {oveliqCompany.companyCode}</span>
+              </p>
+            </div>
+
+            <nav className="oveliq-footer__col" aria-label="Footer">
+              <p className="oveliq-footer__col-title">{locale === "fr" ? "Explorer" : "Explore"}</p>
+              <ul className="oveliq-footer__nav-list">
+                {(locale === "fr" ? [{ label: "Projets", href: "/fr/projets" }, { label: "Services", href: "/fr/services" }, { label: "Collaborer", href: "/fr/tarifs" }, { label: "À propos", href: "/fr/a-propos" }, { label: "Contact", href: "/fr/contact" }] : nav).map((item) => (
+                  <li key={item.href}>
+                    <a href={item.href} className="oveliq-footer__nav-link">
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <nav className="oveliq-footer__col" aria-label="Legal">
+              <p className="oveliq-footer__col-title">{locale === "fr" ? "Informations légales" : "Legal"}</p>
+              <ul className="oveliq-footer__nav-list oveliq-footer__nav-list--single">
+                {oveliqCompany.legalLinks.map((item) => (
+                  <li key={item.href}>
+                    <a href={item.href} className="oveliq-footer__nav-link">
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
-          <nav className="oveliq-footer__nav" aria-label="Footer">
-            <ul className="oveliq-footer__nav-list">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <a href={item.href} className="oveliq-footer__nav-link">
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="oveliq-footer__meta">
+          <div className="oveliq-footer__bar">
             <p className="oveliq-footer__copyright" dir="auto">
               {copyright}
             </p>
             <button
               type="button"
               className="oveliq-footer__top"
-              aria-label="Scroll back to top"
+              aria-label={locale === "fr" ? "Retour en haut de page" : "Scroll back to top"}
               onClick={() => {
                 window.scrollTo({
                   top: 0,
@@ -123,7 +144,7 @@ export default function FooterSection() {
                 });
               }}
             >
-              Back to top
+              {locale === "fr" ? "Retour en haut ↑" : "Back to top ↑"}
             </button>
           </div>
         </Reveal>

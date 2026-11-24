@@ -762,7 +762,18 @@ export const oveliqAbout = {
     "You can explore the work before starting a conversation: each case study explains the brief, the approach and what we delivered.",
   ] as const,
   /** Add verified founder profiles and portraits when available. */
-  founders: [] as readonly OveliqFounder[],
+  founders: [
+    {
+      id: "orrie-dan-nkusi",
+      slot: 1,
+      name: "Nkusi Orrie Dan",
+      role: "Co-founder",
+      /* DRAFT bio written from the Company File (RDB: Managing Director); confirm before launch. */
+      bio: "Leads Oveliqt as Managing Director and is involved in every project, from the first conversation and scoping through design, engineering and handover, with a particular interest in applied AI.",
+      imageSrc: "/assets/team/orrie-dan-nkusi.webp",
+      imageAlt: "Portrait of Nkusi Orrie Dan, co-founder of Oveliqt",
+    },
+  ] as readonly OveliqFounder[],
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -1084,6 +1095,163 @@ export const oveliqContact = {
   copyright: "© Oveliqt",
 } as const;
 
+/**
+ * Registered company details (RDB certificate, printed 22 Oct 2026).
+ * Shown in the footer legal line and on the Privacy / Terms pages.
+ */
+export const oveliqCompany = {
+  legalName: "OVELIQ TECHNOLOGIES LTD",
+  tradingName: "Oveliqt",
+  companyCode: "156912863",
+  city: "Kigali, Rwanda",
+  registeredOffice: "KN 186 Street, Urumuri, Rwezamenyo II, Rwezamenyo, Nyarugenge, Kigali, Rwanda",
+  legalLinks: [
+    { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
+  ],
+} as const;
+
+export type OveliqLegalSection = {
+  heading: string;
+  paragraphs?: readonly string[];
+  bullets?: readonly string[];
+};
+
+export type OveliqLegalPage = {
+  /**
+   * DRAFT legal copy written from how the site actually works (no accounts,
+   * no analytics, no cookies, the enquiry brief is sent by the visitor via
+   * WhatsApp or email). While `draft` is true the page renders and is linked,
+   * but is served `noindex` and left out of the sitemap. Have the copy
+   * reviewed, then set `draft: false`.
+   */
+  draft: boolean;
+  label: string;
+  headlineLines: readonly string[];
+  supporting: string;
+  lastUpdated: string;
+  sections: readonly OveliqLegalSection[];
+};
+
+export const oveliqPrivacyPage: OveliqLegalPage = {
+  draft: true,
+  label: "PRIVACY",
+  headlineLines: ["PRIVACY", "NOTICE."],
+  supporting: "What this website collects, what happens when you contact us, and the choices you have.",
+  lastUpdated: "19 November 2026",
+  sections: [
+    {
+      heading: "Who we are",
+      paragraphs: [
+        `Oveliqt is the trading name of ${oveliqCompany.legalName}, a private company registered in Rwanda (company code ${oveliqCompany.companyCode}), with its registered office at ${oveliqCompany.registeredOffice}. We are responsible for the personal data described in this notice.`,
+        "Questions about your data can go to info@oveliqt.com.",
+      ],
+    },
+    {
+      heading: "What this website collects",
+      paragraphs: [
+        "Browsing this website does not require an account. We do not use analytics, advertising trackers or cookies, and fonts and images are served from our own site.",
+        "Like any website, our hosting provider automatically processes basic technical information (such as your IP address, browser type and the pages requested) to deliver the site and keep it secure. We do not use this information to identify you.",
+      ],
+    },
+    {
+      heading: "When you send us a project brief",
+      paragraphs: [
+        "The project brief on our contact page stays in your browser while you fill it in. Nothing is sent to us until you choose to send it yourself through WhatsApp or your own email app. If you save your brief instead, it is downloaded to your device and not sent anywhere.",
+        "When you contact us, we receive what you choose to share: usually your name, phone number or email address, and details about your project.",
+      ],
+    },
+    {
+      heading: "How we use your information",
+      bullets: [
+        "To reply to your enquiry and discuss your project.",
+        "To prepare proposals and, if we work together, to deliver and support the work.",
+        "To meet our legal, tax and accounting obligations.",
+      ],
+      paragraphs: [
+        "We do not sell your information, and we do not add you to marketing lists without your agreement.",
+      ],
+    },
+    {
+      heading: "Who else processes it",
+      paragraphs: [
+        "Messages you send by WhatsApp or email pass through those services and are handled under their own privacy terms. Our hosting, email and messaging providers may store data on servers outside Rwanda; where they do, we rely on them to protect it to a standard consistent with Rwandan data protection law.",
+      ],
+    },
+    {
+      heading: "How long we keep it",
+      paragraphs: [
+        "We keep enquiries for as long as we need to respond and follow up, and no longer than 24 months if we do not go on to work together. Project and billing records are kept for as long as the law requires.",
+      ],
+    },
+    {
+      heading: "Your rights",
+      paragraphs: [
+        "Under Rwanda's Law N° 058/2021 relating to the protection of personal data and privacy (and the GDPR, where it applies to you), you can ask us to access, correct or delete your personal data, to object to or restrict how we use it, or to receive a copy of it.",
+        "To make a request, email info@oveliqt.com. If you are not satisfied with our response, you can complain to the National Cyber Security Authority (NCSA), Rwanda's data protection supervisory authority.",
+      ],
+    },
+    {
+      heading: "Changes to this notice",
+      paragraphs: [
+        "If we change how we handle personal data, we will update this page and the date above.",
+      ],
+    },
+  ],
+};
+
+export const oveliqTermsPage: OveliqLegalPage = {
+  draft: true,
+  label: "TERMS",
+  headlineLines: ["TERMS OF", "USE."],
+  supporting: "The terms that apply when you use this website.",
+  lastUpdated: "19 November 2026",
+  sections: [
+    {
+      heading: "About these terms",
+      paragraphs: [
+        `This website is operated by ${oveliqCompany.legalName}, trading as Oveliqt (company code ${oveliqCompany.companyCode}), ${oveliqCompany.city}. By using the site you agree to these terms.`,
+      ],
+    },
+    {
+      heading: "Information on this site",
+      paragraphs: [
+        "Content on this site describes our services and work for general information. It is not an offer or a quotation. Any project is agreed in a written proposal or agreement, which sets out the scope, fees and terms for that work.",
+        "We try to keep the site accurate and up to date, but we do not guarantee that it is complete or free of errors.",
+      ],
+    },
+    {
+      heading: "Intellectual property",
+      paragraphs: [
+        "The design, text, graphics and code of this site belong to Oveliqt unless stated otherwise. You may share links to it, but you may not copy or reuse its content for commercial purposes without our permission.",
+        "Client names, logos and project materials shown in our work belong to their respective owners and are shown with their knowledge.",
+      ],
+    },
+    {
+      heading: "Links to other sites",
+      paragraphs: [
+        "This site links to services such as WhatsApp and to our clients' websites. We are not responsible for the content or practices of sites we do not control.",
+      ],
+    },
+    {
+      heading: "Liability",
+      paragraphs: [
+        "To the extent permitted by law, we are not liable for losses arising from your use of this website or reliance on its content. Nothing in these terms limits liability that cannot be limited by law.",
+      ],
+    },
+    {
+      heading: "Governing law",
+      paragraphs: [
+        "These terms are governed by the laws of the Republic of Rwanda, and the courts of Rwanda have jurisdiction over any dispute about them.",
+      ],
+    },
+    {
+      heading: "Contact",
+      paragraphs: ["Questions about these terms can go to info@oveliqt.com."],
+    },
+  ],
+};
+
 /* ------------------------------------------------------------------ */
 /* Inner pages — Work, project detail, Services, About, Contact.        */
 /* Layouts follow Spector's inner pages; copy is Oveliqt-only and does  */
@@ -1115,12 +1283,20 @@ export const oveliqPageMeta = {
   about: {
     title: "About — Oveliqt",
     description:
-      "Oveliqt is an independent software and AI studio founded by two brothers. How we think, who we are and how we work.",
+      "Oveliqt is an independent software and AI studio in Kigali. How we think, who we are and how we work.",
   },
   contact: {
     title: "Contact — Oveliqt",
     description:
       "Two simple questions to shape your next project. Prepare your message and start a conversation with Oveliqt.",
+  },
+  privacy: {
+    title: "Privacy — Oveliqt",
+    description: "How the Oveliqt website handles personal data: no analytics or cookies, and what happens when you send us a project brief.",
+  },
+  terms: {
+    title: "Terms of use — Oveliqt",
+    description: "The terms that apply when you use the Oveliqt website.",
   },
   notFound: {
     title: "Page not found — Oveliqt",
@@ -1592,13 +1768,7 @@ export const oveliqWaysToWork = {
 
 export const oveliqAboutPage = {
   hero: {
-    label: "ABOUT THE STUDIO",
-    lines: ["THOUGHTFUL PEOPLE.", "USEFUL SOFTWARE."],
-    intro: "Oveliqt is an independent software and AI studio started by two brothers. We design and build websites, business platforms and applied AI, and we stay close to the people who will use them.",
-    note: "A clear purpose. A considered approach.",
-    mediaSrc: "/assets/hero/crimson-vortex.webp",
-    mediaAlt: "A person facing an immersive crimson light installation",
-    caption: "Perspective changes what you build.",
+    intro: "Oveliqt is an independent software and AI studio in Kigali. We design and build websites, business platforms and applied AI, and we stay close to the people who will use them.",
   },
   purpose: {
     label: "01 / THE STUDIO",
@@ -1625,6 +1795,12 @@ export const oveliqAboutPage = {
       { status: "Independent prototype", singular: "independent prototype", plural: "independent prototypes" },
     ],
   },
+  /** Founder cards render here from `oveliqAbout.founders`. */
+  people: {
+    label: "03 / THE PEOPLE",
+    title: ["A small team.", "Close to the work."],
+    body: "The people you speak with are the people shaping and building your product. We stay involved from the first conversation through design, engineering and handover.",
+  },
   principles: {
     label: "04 / WHAT WE HOLD OURSELVES TO",
     title: ["Fewer, better", "decisions."],
@@ -1641,8 +1817,8 @@ export const oveliqAboutPage = {
     intro: "A good collaboration makes a complex project feel clearer. Here’s what you can expect from working with us.",
     items: [
       { number: "01", title: "You talk to the people building it.", body: "No account managers in between. We ask questions, explain the trade-offs and make decisions with you, so you know what we’re building and why." },
-      { number: "02", title: "Progress you can see.", body: "We share designs and working software as the product takes shape. Your feedback steers the work while there’s still room to change it." },
-      { number: "03", title: "Something you own.", body: "Clear code, documented decisions and a proper handover give your team a foundation to keep building on." },
+      { number: "02", title: "One joined-up process.", body: "Product decisions, design and engineering stay in the same conversation, so nothing gets lost between stages." },
+      { number: "03", title: "Progress you can see.", body: "We share designs and working software as the product takes shape. Your feedback steers the work while there’s still room to change it." },
     ],
   },
   cta: {

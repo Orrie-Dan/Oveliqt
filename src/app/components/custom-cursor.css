@@ -1,0 +1,56 @@
+/* Brand cursor (see custom-cursor.tsx). Only active when JS adds `has-cursor`
+   on a fine-pointer device, so touch and no-JS keep the native cursor. */
+.oveliq-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: none;
+  will-change: transform;
+}
+.oveliq-cursor > span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 220ms var(--ease-editorial, ease), height 220ms var(--ease-editorial, ease),
+    opacity 200ms ease, background-color 220ms ease, border-color 220ms ease;
+}
+.oveliq-cursor--dot > span {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+}
+.oveliq-cursor--ring > span {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(239, 62, 53, .55);
+}
+
+html.has-cursor .oveliq-cursor { display: block; }
+html.has-cursor .oveliq-cursor > span { opacity: 0; }
+html.has-cursor.cursor-visible .oveliq-cursor > span { opacity: 1; }
+
+/* Hide the native arrow / hand; keep the text caret in fields. */
+html.has-cursor,
+html.has-cursor *:not(input):not(textarea):not([contenteditable="true"]) { cursor: none !important; }
+
+/* Over links and buttons: ring expands into a soft red disc, dot shrinks. */
+html.has-cursor.cursor-hover .oveliq-cursor--ring > span {
+  width: 56px;
+  height: 56px;
+  border-color: transparent;
+  background: rgba(239, 62, 53, .14);
+}
+html.has-cursor.cursor-hover .oveliq-cursor--dot > span { width: 6px; height: 6px; }
+
+html.has-cursor.cursor-down .oveliq-cursor--ring > span { width: 26px; height: 26px; }
+html.has-cursor.cursor-hover.cursor-down .oveliq-cursor--ring > span { width: 44px; height: 44px; }
+
+/* Text fields: native caret only. */
+html.has-cursor.cursor-text .oveliq-cursor > span { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .oveliq-cursor > span { transition: opacity 150ms ease; }
+}

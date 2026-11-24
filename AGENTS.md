@@ -39,6 +39,7 @@ Oveliqt marketing site — standalone project at `d:\Ideas\Oveliq` (originally a
 
 - / — Oveliqt — Software, AI & Digital Products (`src/app/page.tsx`)
 - /work, /work/<slug>, /services, /services/<id>, /about, /contact — inner pages in `src/app/pages/`, laid out after Spector's inner pages with their own Oveliqt copy (they do not reuse homepage sections). Copy lives in `content.ts` under `oveliqProjectDetails` (records in `portfolio.ts`), `oveliqServicesPage` (one `details` entry per service page: overview, capabilities, approach, stack, FAQs, case studies, pairings, starting scope), `oveliqAboutPage`, `oveliqWaysToWork` (/pricing models, process, FAQ), `oveliqEnquiry` + `oveliqContact` (contact flow and WhatsApp/email destinations); shared styles in `src/app/pages/pages.css`
+- /privacy, /terms — `pages/legal-page.tsx`, copy in `content.ts` (`oveliqPrivacyPage`, `oveliqTermsPage`). DRAFT legal copy: while `draft: true` the pages render and are linked (footer, contact page) but are served noindex and left out of the sitemap. Registered company details for the footer legal line live in `oveliqCompany`.
 - Unknown paths render `not-found-page.tsx`
 
 Routing is a minimal pathname switch (`src/app/router.ts` + `src/App.tsx`); links are plain anchors (full page loads).
@@ -50,6 +51,7 @@ Routing is a minimal pathname switch (`src/app/router.ts` + `src/App.tsx`); link
 - Hosting: serve `dist/` as static files with `404.html` for unknown paths (no SPA rewrite needed). Legacy redirects live in `public/_redirects` (Netlify/Cloudflare Pages format).
 - Share image: `public/og-image.jpg`, regenerate with `node scripts/create-og-image.mjs`.
 - Brand: the name is **Oveliqt** (CSS classes and identifiers keep the older `oveliq` prefix). Logo SVGs live in `public/brand/` and the inline nav logo in `src/app/svgs/oveliqt-logo.tsx`; both come from `python scripts/create-brand-logo.py`. Favicon and Apple icon PNGs: `node scripts/create-brand-icons.mjs`.
+- Colour: the brand red is Signal Red `#EF3E35` (`--accent`). Small red text on light backgrounds uses `--accent-text` (`#CC2A21`) to meet WCAG AA contrast; on dark backgrounds use `--accent` or the lighter `#ff7970`.
 - Content blocks flagged `sample: true` (FAQ, CTA bands) do not render; set the flag to false once the copy is confirmed.
 
 ## Do Not Edit Casually

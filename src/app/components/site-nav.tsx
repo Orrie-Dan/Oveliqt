@@ -63,7 +63,7 @@ const navLinkWidths: Record<string, string> = {
 };
 
 /** Shared "Start a project" button. Light nav: charcoal fill; dark nav: white fill. */
-function NavStartProject({ light }: { light: boolean }) {
+function NavStartProject({ light, locale = "en" }: { light: boolean; locale?: "en" | "fr" }) {
   return (
     <a
       className={`group inline-flex items-center gap-2 h-10 px-4 rounded-[2px] [font-family:'Plus_Jakarta_Sans_Variable',_'Plus_Jakarta_Sans_Variable_Placeholder',_sans-serif] text-[0.9375rem] tracking-[-0.02em] [font-variation-settings:'wght'_560] transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
@@ -72,17 +72,35 @@ function NavStartProject({ light }: { light: boolean }) {
           : "bg-white text-[#07090C] hover:bg-[#E8D9C8]"
       }`}
       data-component="link"
-      href={oveliqStartProject.href}
+      href={locale === "fr" ? "/fr/contact" : oveliqStartProject.href}
     >
-      {oveliqStartProject.label}
+      {locale === "fr" ? "Parlons de votre projet" : oveliqStartProject.label}
       <CtaArrow className="w-[0.8em] h-[0.8em] group-hover:text-accent" />
     </a>
   );
 }
 
-export default function SiteNav({ variant = "dark" }: { variant?: "dark" | "light" }) {
+export default function SiteNav({ variant = "dark", locale = "en" }: { variant?: "dark" | "light"; locale?: "en" | "fr" }) {
   const light = variant === "light";
   const ink = light ? "text-[#262A2D]" : "text-background";
+  const navItems = locale === "fr" ? [
+    { label: "Projets", href: "/fr/projets" }, { label: "Services", href: "/fr/services" },
+    { label: "Collaborer", href: "/fr/tarifs" }, { label: "À propos", href: "/fr/a-propos" },
+  ] : oveliqNavigation;
+  const englishToFrench: Record<string, string> = { "/": "/fr", "/work": "/fr/projets", "/services": "/fr/services", "/pricing": "/fr/tarifs", "/about": "/fr/a-propos", "/contact": "/fr/contact", "/privacy": "/fr/confidentialite", "/terms": "/fr/conditions" };
+  const frenchToEnglish: Record<string, string> = { "/fr": "/", "/fr/projets": "/work", "/fr/services": "/services", "/fr/tarifs": "/pricing", "/fr/a-propos": "/about", "/fr/contact": "/contact", "/fr/confidentialite": "/privacy", "/fr/conditions": "/terms" };
+  const path = currentPath();
+  const matchingProject = path.match(/^\/fr\/projets\/([a-z0-9-]+)$/);
+  const matchingService = path.match(/^\/fr\/services\/([a-z0-9-]+)$/);
+  const englishProject = path.match(/^\/work\/([a-z0-9-]+)$/);
+  const englishService = path.match(/^\/services\/([a-z0-9-]+)$/);
+  const langHref = locale === "fr"
+    ? matchingProject ? `/work/${matchingProject[1]}`
+      : matchingService ? `/services/${matchingService[1]}`
+        : (frenchToEnglish[path] ?? "/")
+    : englishProject ? `/fr/projets/${englishProject[1]}`
+      : englishService ? `/fr/services/${englishService[1]}`
+        : (englishToFrench[path] ?? "/fr");
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -91,9 +109,48 @@ export default function SiteNav({ variant = "dark" }: { variant?: "dark" | "ligh
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
   const [skipIntro] = useState(() => heroIntroMode() === "skip");
+  const navRef = useRef<HTMLElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const menuOpenRef = useRef(menuOpen);
+  menuOpenRef.current = menuOpen;
+
+  /*
+   * Scroll journey: the nav steps aside while reading down and returns on any
+   * upward scroll; a hairline shows page progress (the native scrollbar is
+   * hidden). Native scrolling only: passive listener, one DOM write per frame.
+   */
+  useEffect(() => {
+    const nav = navRef.current;
+    const bar = progressRef.current;
+    if (!nav) return;
+    let lastY = window.scrollY;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = Math.max(0, window.scrollY);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar) bar.style.transform = `scaleX(${max > 0 ? Math.min(1, y / max) : 0})`;
+      const delta = y - lastY;
+      if (Math.abs(delta) < 6 && y > 80) return;
+      const hide = !menuOpenRef.current && y > window.innerHeight * 0.6 && delta > 0;
+      nav.dataset.hidden = hide ? "true" : "false";
+      nav.dataset.scrolled = y > 24 ? "true" : "false";
+      lastY = y;
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
+    if (navRef.current) navRef.current.dataset.hidden = "false";
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     closeRef.current?.focus();
@@ -123,12 +180,14 @@ export default function SiteNav({ variant = "dark" }: { variant?: "dark" | "ligh
 
   return (
     <>
+      <div ref={progressRef} className="oveliq-scroll-progress" aria-hidden="true" />
       <nav
+        ref={navRef}
         className={`oveliq-site-nav w-full flex fixed inset-x-0 top-0 z-10 min-w-0 justify-center items-center shrink-0 [backdrop-filter:blur(6px)] ${
           light ? "oveliq-site-nav--light h-15 min-[861px]:h-[4.75rem] bg-[rgba(255,255,255,0.94)]" : "h-15 bg-clr-0"
         }`}
         data-component="nav"
-        aria-label="Primary"
+        aria-label={locale === "fr" ? "Navigation principale" : "Primary"}
       >
         <div className={`oveliq-nav-enter${skipIntro ? " is-settled" : ""} w-full h-full flex relative px-[clamp(1.25rem,3.2vw,3.75rem)] justify-between items-center content-center grow shrink-0 ${
           light ? "max-w-[1600px] after:content-[''] after:absolute after:bottom-0 after:inset-x-[clamp(1.25rem,3.2vw,3.75rem)] after:h-px after:bg-[#E5E5E5]" : "max-w-[100%]"
@@ -136,11 +195,12 @@ export default function SiteNav({ variant = "dark" }: { variant?: "dark" | "ligh
           <a
             className="flex relative justify-start items-center content-center shrink-0 overflow-clip text-primary cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             data-component="link"
-            href="/"
+            href={locale === "fr" ? "/fr" : "/"}
           >
             <OveliqtLogo className={`block w-auto ${light ? "h-[1.125rem] min-[861px]:h-[1.5rem] " : "h-[1.125rem] "}${ink}`} title="Oveliqt home" />
           </a>
           <div className="flex relative justify-end items-center content-center shrink-0 gap-6 max-lg:gap-0">
+            <a className={`${ink} text-sm underline underline-offset-4`} href={langHref} data-locale-switch="" lang={locale === "fr" ? "en" : "fr"} aria-label={locale === "fr" ? "Voir le site en anglais" : "Voir le site en français"}>{locale === "fr" ? "EN" : "FR"}</a>
             <div className="hidden max-lg:flex max-lg:relative max-lg:justify-end max-lg:items-center">
               <button
                 ref={menuButtonRef}
@@ -150,11 +210,11 @@ export default function SiteNav({ variant = "dark" }: { variant?: "dark" | "ligh
                 aria-controls={menuId}
                 onClick={() => setMenuOpen(true)}
               >
-                MENU
+                {locale === "fr" ? "MENU" : "MENU"}
               </button>
             </div>
             <div className={`flex relative justify-end items-center content-center max-lg:hidden ${light ? "gap-9" : "gap-7"}`}>
-              {oveliqNavigation.map((item) => (
+              {navItems.map((item) => (
                 <NavMaskLink
                   key={item.href}
                   item={item}
@@ -164,7 +224,7 @@ export default function SiteNav({ variant = "dark" }: { variant?: "dark" | "ligh
               ))}
             </div>
             <div className={`max-lg:hidden ${light ? "ml-6" : "ml-2"}`}>
-              <NavStartProject light={light} />
+              <NavStartProject light={light} locale={locale} />
             </div>
           </div>
         </div>
@@ -187,11 +247,11 @@ export default function SiteNav({ variant = "dark" }: { variant?: "dark" | "ligh
               className="text-background [font-family:'Plus_Jakarta_Sans_Variable',_'Plus_Jakarta_Sans_Variable_Placeholder',_sans-serif] text-sm font-medium tracking-[0.12em] uppercase cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent px-1 py-2"
               onClick={closeMenu}
             >
-              CLOSE
+              {locale === "fr" ? "FERMER" : "CLOSE"}
             </button>
           </div>
           <nav className="flex flex-1 flex-col justify-center gap-8 px-6 pb-16" aria-label="Mobile primary">
-            {oveliqNavigation.map((item) => (
+            {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
@@ -204,11 +264,11 @@ export default function SiteNav({ variant = "dark" }: { variant?: "dark" | "ligh
               </a>
             ))}
             <a
-              href={oveliqStartProject.href}
+              href={locale === "fr" ? "/fr/contact" : oveliqStartProject.href}
               className="mt-4 text-accent [font-family:'Plus_Jakarta_Sans_Variable',_'Plus_Jakarta_Sans_Variable_Placeholder',_sans-serif] text-[2rem] leading-[2.375rem] tracking-[-1.92px] uppercase [font-variation-settings:'wght'_var(--type-wght-display)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               onClick={closeMenu}
             >
-              {oveliqStartProject.label} ↗
+              {locale === "fr" ? "Parlons de votre projet" : oveliqStartProject.label} ↗
             </a>
           </nav>
         </div>

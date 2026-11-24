@@ -4,8 +4,8 @@ import { enquiryHref, type EnquiryService } from "../enquiry-links";
 
 const enquiryChoices: EnquiryService[] = ["website", "product", "automation"];
 
-const solutionBenefits: { category: string; outcome: string; fit: string; cta: string; proof?: string; proofLabel?: string }[] = [
-  { category: "Establish your presence", outcome: "A website that turns interest into enquiries.", fit: "For a new business, a launch or a website ready for a refresh.", cta: "Enquire about a website", proof: "/work/ecobe", proofLabel: "See a website project" },
+const solutionBenefits: { category: string; outcome: string; fit: string; cta: string }[] = [
+  { category: "Establish your presence", outcome: "A website that turns interest into enquiries.", fit: "For a new business, a launch or a website ready for a refresh.", cta: "Enquire about a website" },
   { category: "Build your product", outcome: "A useful first version, built around your users.", fit: "For founders and teams with a specific problem to solve.", cta: "Enquire about a product" },
   { category: "Simplify your work", outcome: "Less repetitive work. More room to focus.", fit: "For repetitive tasks, disconnected tools and untapped data.", cta: "Enquire about automation" },
 ];
@@ -48,7 +48,6 @@ export default function ServicePricing() {
               <p className="oveliq-ip-eyebrow">A typical first step may include</p>
               <ul>{solution.includes.map(item => <li key={item}>{item}</li>)}</ul>
               <a href={enquiryHref(enquiryChoices[index])}>{solutionBenefits[index].cta} <ArrowRight /></a>
-              {solutionBenefits[index].proof && <a className="oveliq-service-pricing__proof" href={solutionBenefits[index].proof}>{solutionBenefits[index].proofLabel} <ArrowRight /></a>}
             </article>
           ))}
         </div>
