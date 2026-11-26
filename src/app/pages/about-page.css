@@ -191,7 +191,9 @@
   .about-studio-index { gap: .75rem 1.5rem; justify-content: start; }
   .about-invitation__links { flex-direction: column; align-items: start; }
 }
-.about-origin__tallies { grid-template-columns: minmax(0, 1fr) auto; }
+/* One column: the tallies row needs the full width once there are three counts, so the link sits below it. */
+.about-origin__tallies { grid-template-columns: minmax(0, 1fr); }
+.about-origin__tallies > .about-link { justify-self: start; }
 .about-origin__tallies > .about-label { grid-column: 1 / -1; }
 .about-origin__tallies li { white-space: nowrap; }
 @media (max-width: 900px) { .about-origin__tallies { grid-template-columns: 1fr; } }

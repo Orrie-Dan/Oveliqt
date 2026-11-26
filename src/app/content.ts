@@ -350,6 +350,7 @@ export const oveliqBusinessNeeds = [
     scenario: "You know the problem you want to solve, but need help deciding what to build first.",
     build: "We could shape the core user journey, design the experience and build a focused web or mobile product to try with real users.",
     result: "Learn from a working product and decide what comes next.",
+    project: "cira", projectLabel: "Explore CIRA / independent prototype",
   },
 ] as const;
 
@@ -757,23 +758,16 @@ export const oveliqAbout = {
     "A SHARED STANDARD.",
   ] as const,
   paragraphs: [
-    "We design and build websites, business platforms and applied AI. Our published work so far ranges from a workshop catalogue to corporate websites for energy, investment and technology companies.",
+    "We design and build websites, business platforms and applied AI. Our published work so far ranges from a workshop catalogue and corporate websites for energy, investment and technology companies to our own civic-reporting platform and applied AI projects.",
     "Oveliqt started from a shared interest in technology and a habit of asking the same question whenever we saw a problem: could we build something better?",
     "You can explore the work before starting a conversation: each case study explains the brief, the approach and what we delivered.",
   ] as const,
-  /** Add verified founder profiles and portraits when available. */
-  founders: [
-    {
-      id: "orrie-dan-nkusi",
-      slot: 1,
-      name: "Nkusi Orrie Dan",
-      role: "Co-founder",
-      /* DRAFT bio written from the Company File (RDB: Managing Director); confirm before launch. */
-      bio: "Leads Oveliqt as Managing Director and is involved in every project, from the first conversation and scoping through design, engineering and handover, with a particular interest in applied AI.",
-      imageSrc: "/assets/team/orrie-dan-nkusi.webp",
-      imageAlt: "Portrait of Nkusi Orrie Dan, co-founder of Oveliqt",
-    },
-  ] as readonly OveliqFounder[],
+  /**
+   * Founder cards are hidden for launch (2026-11-26). The About page and homepage About
+   * section render nothing while this list is empty. To bring them back, restore the
+   * entry from git (id "orrie-dan-nkusi", portrait /assets/team/orrie-dan-nkusi.webp).
+   */
+  founders: [] as readonly OveliqFounder[],
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -1134,7 +1128,7 @@ export type OveliqLegalPage = {
 };
 
 export const oveliqPrivacyPage: OveliqLegalPage = {
-  draft: true,
+  draft: false,
   label: "PRIVACY",
   headlineLines: ["PRIVACY", "NOTICE."],
   supporting: "What this website collects, what happens when you contact us, and the choices you have.",
@@ -1201,7 +1195,7 @@ export const oveliqPrivacyPage: OveliqLegalPage = {
 };
 
 export const oveliqTermsPage: OveliqLegalPage = {
-  draft: true,
+  draft: false,
   label: "TERMS",
   headlineLines: ["TERMS OF", "USE."],
   supporting: "The terms that apply when you use this website.",
@@ -1269,7 +1263,7 @@ export const oveliqPageMeta = {
   work: {
     title: "Work — Oveliqt",
     description:
-      "Selected Oveliqt client websites across manufacturing, energy, investment and technology.",
+      "Selected Oveliqt work: client websites across manufacturing, energy, investment and technology, plus our own platform and applied AI projects.",
   },
   pricing: {
     title: "Ways to work together - Oveliqt",
@@ -1506,7 +1500,7 @@ export const oveliqServicesPage = {
       ],
       deliverables: ["Workflow & data model", "Web platform", "APIs & integrations", "Roles & permissions", "Documentation & handover"],
       goodFor: ["Replacing spreadsheets and email chains", "Internal operations platforms", "SaaS products and MVPs"],
-      relatedProjects: [],
+      relatedProjects: ["cira"],
       overviewHeadline: "The software follows the workflow — clear roles, permissions and states, built to be extended.",
       metaDescription: "Custom software by Oveliqt: business platforms, internal systems, SaaS products and APIs shaped around how your organisation works.",
       capabilityNotes: [
@@ -1542,7 +1536,7 @@ export const oveliqServicesPage = {
       ],
       deliverables: ["iOS & Android apps", "Offline-friendly data flows", "Push notifications", "App store release"],
       goodFor: ["Field data collection", "Customer self-service", "Companion apps for an existing platform"],
-      relatedProjects: [],
+      relatedProjects: ["cira"],
       overviewHeadline: "Designed for short sessions, patchy connectivity and one hand on the screen.",
       metaDescription: "Mobile apps by Oveliqt: iOS, Android and cross-platform apps for customers and field teams, connected to your platform.",
       capabilityNotes: [
@@ -1577,7 +1571,7 @@ export const oveliqServicesPage = {
       ],
       deliverables: ["Problem framing & feasibility", "Data preparation", "Model training & evaluation", "AI features in production", "Monitoring"],
       goodFor: ["Computer vision", "Document and text processing", "Prediction and classification", "Assistants on your own data"],
-      relatedProjects: [],
+      relatedProjects: ["crosswalk-intelligence", "ecosort-ai"],
       overviewHeadline: "We check the data can support it, then evaluate on the cases that matter to you.",
       metaDescription: "Applied AI and machine learning by Oveliqt: computer vision, language processing, prediction and assistants, evaluated honestly and shipped in real products.",
       capabilityNotes: [
@@ -1793,6 +1787,7 @@ export const oveliqAboutPage = {
       { status: "Client website", singular: "client website", plural: "client websites" },
       { status: "Partner contribution", singular: "partner platform", plural: "partner platforms" },
       { status: "Independent prototype", singular: "independent prototype", plural: "independent prototypes" },
+      { status: "ML engineering project", singular: "ML engineering project", plural: "ML engineering projects" },
     ],
   },
   /** Founder cards render here from `oveliqAbout.founders`. */

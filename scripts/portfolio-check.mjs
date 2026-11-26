@@ -7,9 +7,9 @@ await server.listen();
 const browser=await chromium.launch({channel:'msedge',headless:true});
 try{
  const {portfolioProjects}=await server.ssrLoadModule('/src/app/portfolio.ts');
- assert.equal(portfolioProjects.length,5);
+ assert.equal(portfolioProjects.length,8);
  assert.equal(new Set(portfolioProjects.map(p=>p.slug)).size,portfolioProjects.length);
- assert.equal(portfolioProjects.filter(p=>p.featured).length,5);
+ assert.equal(portfolioProjects.filter(p=>p.featured).length,6);
  const sitemap=await readFile('dist/sitemap.xml','utf8');
  const llms=await readFile('public/llms.txt','utf8');
  for(const project of portfolioProjects){
@@ -17,8 +17,8 @@ try{
   assert.ok(llms.includes(`/work/${project.slug} `));
   for(const media of [project.mediaSrc,...project.gallery.map(x=>x.src)])await access('public'+media);
  }
- for(const slug of ['aifa', 'investment-intelligence', 'cvmp', 'computer-vision', 'p2p-escrow', 'lending-platform', 'ecosort-ai', 'education-operations', 'crosswalk-intelligence', 'cira']){
-  assert.ok(!sitemap.includes(slug)&&!llms.includes(slug));
+ for(const slug of ['aifa', 'investment-intelligence', 'cvmp', 'computer-vision', 'p2p-escrow', 'lending-platform', 'education-operations']){
+  assert.ok(!sitemap.includes(`/${slug}<`)&&!llms.includes(`/${slug} `));
   const page=await browser.newPage();
   await page.goto(`${server.resolvedUrls.local[0]}work/${slug}`,{waitUntil:'domcontentloaded',timeout:60000});
   await page.waitForFunction(()=>document.title.startsWith('Page not found'));
@@ -34,6 +34,6 @@ try{
   await page.screenshot({path:`references/oveliq/ui-refresh/portfolio/${width}-about.png`,fullPage:true,animations:'disabled'});
   await page.close();
  }
- console.log('PASS: five public records and media, matching SEO discovery, five features, retired routes, and current About story.');
+ console.log('PASS: eight public records and media, matching SEO discovery, six features, retired routes, and current About story.');
  await writeFile('references/oveliq/ui-refresh/portfolio/catalogue-check.json',JSON.stringify({projects:portfolioProjects.map(p=>p.slug),featured:portfolioProjects.filter(p=>p.featured).map(p=>p.slug),retiredRoutes:'not-found',passed:true},null,2));
 }finally{await browser.close();await server.close();}

@@ -7,7 +7,7 @@ Site: https://oveliqt.com · Contact: info@oveliqt.com
 ## Routes
 
 - / — Six featured projects
-- /work — All five client website projects
+- /work — All projects: five client websites, two independent prototypes and one ML engineering project
 - /services — Overview of the six services
 - /services/web-development, /services/software-development, /services/mobile-applications, /services/ai-machine-learning, /services/data-analytics, /services/automation-integrations — One page per service: capabilities, delivery approach, case studies and FAQs
 - /pricing — Ways to work together: discovery sprint, fixed-scope projects and ongoing partnership; starting scopes, process and pricing FAQ
@@ -19,5 +19,10 @@ Site: https://oveliqt.com · Contact: info@oveliqt.com
 - /work/ecobe — ECOBE: Client website. From a printed catalogue to a browsable collection.
 - /work/soliaris — Soliaris Africa: Client website. A regional energy story, brought online.
 - /work/energex — Energex: Client website. A complex energy offer, made easier to explore.
+- /work/crosswalk-intelligence — Crosswalk Intelligence: Independent prototype. From traffic footage to reviewable crossing events.
 - /work/axeora — Axeora: Client website. A clear digital presence for a complex technology business.
 - /work/everis — Everis: Client website. From investment mandate to a clear corporate website.
+- /work/cira — CIRA: Independent prototype. Citizens report it. Officers resolve it. Everyone sees the status.
+- /work/ecosort-ai — EcoSort AI: ML engineering project. Photograph the waste. Get the right bin.
+
+The Crosswalk cover is a conceptual product visualisation, not recorded footage. Prototype and evaluation limits are stated in each case study.

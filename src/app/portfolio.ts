@@ -205,6 +205,66 @@ export const portfolioProjects: readonly OveliqProjectDetail[] = [
     "mediaNote": "Website captured from the current source in an isolated local preview."
   },
   {
+    "slug": "crosswalk-intelligence",
+    "title": "Crosswalk Intelligence",
+    "client": "Independent project",
+    "tagline": "From traffic footage to reviewable crossing events.",
+    "intro": "A computer-vision prototype combining object tracking and event analysis to help a human reviewer inspect pedestrian and vehicle interactions at a crossing.",
+    "industry": "AI · Computer Vision",
+    "role": [
+      "Detection and tracking pipeline",
+      "Event analysis",
+      "Evaluation",
+      "Review interface implementation"
+    ],
+    "deliverables": [
+      "Video-analysis pipeline",
+      "Crossing annotation workflow",
+      "Reviewable event output",
+      "Evaluation write-up"
+    ],
+    "mediaSrc": "/assets/work/crosswalk-intelligence/product-visual.svg",
+    "mediaAlt": "Crossing-analysis visualisation showing crossing zones, pedestrian and vehicle trajectories, and event review",
+    "gallery": [],
+    "challenge": {
+      "label": "The challenge",
+      "headlineLines": [
+        "DETECTIONS ALONE",
+        "DON’T TELL THE STORY"
+      ],
+      "lead": "Turn movement over time into an event a person can inspect.",
+      "paragraphs": [
+        "A box around a person or vehicle does not explain how they interact. Crossing analysis needs tracks, a defined crossing area and a transparent event definition."
+      ]
+    },
+    "solution": {
+      "label": "The approach",
+      "headlineLines": [
+        "TRACK THE MOVEMENT",
+        "REVIEW THE EVENT"
+      ],
+      "lead": "Connect object tracks with crossing geometry and event-level review.",
+      "paragraphs": [
+        "The pipeline combines YOLO detection and ByteTrack tracking with crossing-event analysis. A review interface supports video upload, crossing annotation and inspection of the results.",
+        "The project write-up reports 96% precision and 81% recall on 45 hand-reviewed events from unseen videos at a single Bangkok intersection. Those results describe a narrow project evaluation, not validated performance across locations or a deployed enforcement service."
+      ]
+    },
+    "outcome": {
+      "label": "The delivery",
+      "lead": "From traffic footage to reviewable crossing events.",
+      "points": [
+        "Detection and tracking connected to event analysis",
+        "Crossing annotation and review workflow",
+        "Human inspection of flagged interactions",
+        "Documented evaluation with explicit dataset and sample-size limits"
+      ]
+    },
+    "category": "AI & Research",
+    "status": "Independent prototype",
+    "featured": true,
+    "mediaNote": "Conceptual product visualisation of the analysis process, not recorded footage or measured detection output."
+  },
+  {
     "slug": "axeora",
     "title": "Axeora",
     "client": "Axeora UAE",
@@ -336,5 +396,136 @@ export const portfolioProjects: readonly OveliqProjectDetail[] = [
     "externalUrl": "https://www.everisholding.com/",
     "mediaNote": "Website previews captured from a local build; the live site may have changed.",
     "featured": true
+  },
+  {
+    "slug": "cira",
+    "category": "Platforms",
+    "status": "Independent prototype",
+    "mediaNote": "Prototype interface. No public-service deployment or adoption is claimed.",
+    "title": "CIRA",
+    "client": "Civic Reporting",
+    "tagline": "Citizens report it. Officers resolve it. Everyone sees the status.",
+    "intro": "An independent civic-reporting prototype connecting a citizen reporting experience with officer and administrator workspaces. Built to explore a visible path from a reported issue to resolution.",
+    "industry": "Public Sector · Civic Tech",
+    "role": [
+      "Product design",
+      "API & data model",
+      "Web & mobile apps",
+      "Admin dashboard"
+    ],
+    "deliverables": [
+      "Citizen web app",
+      "iOS & Android app",
+      "Officer & admin dashboard",
+      "Photo uploads & status tracking"
+    ],
+    "mediaSrc": "/assets/work/cira/report-map.jpg",
+    "mediaAlt": "CIRA homepage — report and status actions above an interactive reporting map",
+    "gallery": [
+      {
+        "src": "/assets/work/cira/how-it-works.jpg",
+        "alt": "CIRA's four reporting steps: locate, describe, submit and track"
+      }
+    ],
+    "challenge": {
+      "label": "Challenge",
+      "headlineLines": [
+        "REPORTS THAT",
+        "GO NOWHERE"
+      ],
+      "lead": "Reporting broken infrastructure usually means never knowing whether anyone saw it.",
+      "paragraphs": [
+        "Citizens need a quick way to report a problem with evidence. Officers need one queue to triage and resolve reports, not scattered calls and messages."
+      ]
+    },
+    "solution": {
+      "label": "Solution",
+      "headlineLines": [
+        "ONE REPORT",
+        "TRACKED TO DONE"
+      ],
+      "lead": "One API behind a citizen web app, a mobile app and an officer dashboard.",
+      "paragraphs": [
+        "Citizens submit reports with photos from the web or the React Native app. Officers and administrators work through them in a dashboard, and citizens can track the status of their report. Email and SMS delivery remain development mocks; the case study covers the reporting and officer workflows."
+      ]
+    },
+    "outcome": {
+      "label": "Outcome",
+      "lead": "A prototype connecting citizen reports with officer workflows.",
+      "points": [
+        "Reporting from web and mobile",
+        "Photo evidence on every report",
+        "Officer and administrator workflows",
+        "Report status tracking across citizen and officer views"
+      ]
+    },
+    "featured": false
+  },
+  {
+    "slug": "ecosort-ai",
+    "category": "AI & Research",
+    "status": "ML engineering project",
+    "mediaNote": "Development interface. Evaluation results describe the versioned project dataset, not field performance.",
+    "title": "EcoSort AI",
+    "client": "Waste Classification",
+    "tagline": "Photograph the waste. Get the right bin.",
+    "intro": "An end-to-end machine learning system that classifies waste from a photo — with a prediction API, a web app, a retraining pipeline and load testing behind it.",
+    "industry": "AI · Sustainability",
+    "role": [
+      "Data preparation",
+      "Model training & evaluation",
+      "ML API & deployment",
+      "Retraining pipeline",
+      "Load testing"
+    ],
+    "deliverables": [
+      "EfficientNetB0 classifier",
+      "FastAPI prediction service",
+      "React web app",
+      "Retraining & model versioning",
+      "Docker & load-test reports"
+    ],
+    "mediaSrc": "/assets/work/ecosort-ai/dashboard.jpg",
+    "mediaAlt": "EcoSort AI operations dashboard showing the production model's status, accuracy and F1 score",
+    "gallery": [
+      {
+        "src": "/assets/work/ecosort-ai/metrics.jpg",
+        "alt": "EcoSort AI evaluation metrics chart for accuracy, precision, recall and F1"
+      }
+    ],
+    "challenge": {
+      "label": "Challenge",
+      "headlineLines": [
+        "A MODEL IS",
+        "NOT A PRODUCT"
+      ],
+      "lead": "Most people aren't sure which bin a piece of waste belongs in — and one wrong guess can spoil a load of recycling.",
+      "paragraphs": [
+        "A model that scores well in a notebook doesn't help anyone on its own. It has to answer quickly, keep working under load and improve as new labelled images arrive."
+      ]
+    },
+    "solution": {
+      "label": "Solution",
+      "headlineLines": [
+        "FROM NOTEBOOK",
+        "TO SERVICE"
+      ],
+      "lead": "A transfer-learning classifier, wrapped in everything it needs to run as a product.",
+      "paragraphs": [
+        "An EfficientNetB0 model sorts images into six classes — cardboard, glass, metal, paper, plastic and general trash. A FastAPI service returns the class and confidence, and a React app lets anyone upload a photo.",
+        "New labelled images feed a retraining pipeline that versions and promotes each model. The service is packaged with Docker and load-tested with Locust: zero failed predictions in the recorded runs with 10 concurrent users. Additional containers on the same resource-limited laptop increased latency rather than improving throughput."
+      ]
+    },
+    "outcome": {
+      "label": "Outcome",
+      "lead": "A working waste classifier, with the plumbing to keep improving it.",
+      "points": [
+        "Model v1.3: 85.5% accuracy and macro F1 0.83 on a 380-image evaluation",
+        "Prediction API with confidence scores",
+        "Retraining with versioned model promotion",
+        "Recorded Locust runs with 10 concurrent users and zero failed predictions"
+      ]
+    },
+    "featured": false
   }
 ];

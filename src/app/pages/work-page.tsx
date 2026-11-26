@@ -21,7 +21,7 @@ export default function WorkPage() {
               <p className="oveliq-projects__eyebrow">Oveliqt / Portfolio</p>
               <h1 id="page-heading" className="oveliq-projects__title">Work with a purpose.</h1>
             </div>
-            <p className="oveliq-projects__supporting">Client websites for manufacturing, energy, investment and technology companies. Explore the work and the thinking behind it.</p>
+            <p className="oveliq-projects__supporting">Client websites for manufacturing, energy, investment and technology companies, alongside our own platform and applied AI projects. Explore the work and the thinking behind it.</p>
           </Reveal>
           <div className="work-library__filters" role="group" aria-label="Filter projects">
             {categories.map(item => <button key={item} type="button" aria-pressed={category === item} onClick={() => setCategory(item)}>{item}<span>{item === "All work" ? oveliqProjectDetails.items.length : oveliqProjectDetails.items.filter(project => project.category === item).length}</span></button>)}
