@@ -18,7 +18,7 @@
 .oveliq-work-showcase__panel--p2p-escrow { --work-paper: #e8e0f0; --work-ink: #51426e; }
 .oveliq-work-showcase__panel--computer-vision { --work-paper: #cdd9eb; --work-ink: #2b415c; }
 .oveliq-work-showcase__panel--ecobe { --work-paper: #e7ddce; --work-ink: #514638; }
-.oveliq-work-showcase__panel--ecosort-ai { --work-paper: #d1e6db; --work-ink: #245b44; }
+.oveliq-work-showcase__panel--ecosort-ai { --work-paper: #d8dcdf; --work-ink: #2a3036; }
 .oveliq-work-showcase__preview { position: relative; display: flex; flex-direction: column; padding: 0; overflow: hidden; background: var(--work-paper); color: var(--work-ink); text-decoration: none; }
 .oveliq-work-showcase__preview-meta, .oveliq-work-showcase__preview-footer { display: flex; align-items: center; justify-content: space-between; gap: .75rem; font-size: .625rem; line-height: 1.5; text-transform: uppercase; letter-spacing: .08em; }
 .oveliq-work-showcase__browser { margin-block: clamp(1.5rem, 3vw, 3rem); border-radius: 5px; overflow: hidden; background: #fff; box-shadow: 0 14px 28px #16221d22; }

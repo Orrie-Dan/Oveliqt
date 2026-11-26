@@ -486,11 +486,11 @@ export const portfolioProjects: readonly OveliqProjectDetail[] = [
       "Docker & load-test reports"
     ],
     "mediaSrc": "/assets/work/ecosort-ai/dashboard.jpg",
-    "mediaAlt": "EcoSort AI operations dashboard showing the production model's status, accuracy and F1 score",
+    "mediaAlt": "EcoSort AI dashboard showing the production model's status, prediction metrics and evaluation scores for accuracy, precision, recall and F1",
     "gallery": [
       {
-        "src": "/assets/work/ecosort-ai/metrics.jpg",
-        "alt": "EcoSort AI evaluation metrics chart for accuracy, precision, recall and F1"
+        "src": "/assets/work/ecosort-ai/classify.jpg",
+        "alt": "EcoSort AI classify screen: a photographed plastic bottle sorted into the blue recycling bin, with confidence and scores for each material"
       }
     ],
     "challenge": {
